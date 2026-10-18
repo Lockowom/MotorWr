@@ -8,13 +8,10 @@ GitHub Actions ejecuta pruebas estáticas y publica en **el proyecto Cloudflare 
 
 - GitHub → Settings → Secrets and variables → Actions → **Secrets**:
   - `CLOUDFLARE_API_TOKEN`: token de Cloudflare restringido al permiso *Account → Cloudflare Pages → Edit*.
-  - `CLOUDFLARE_ACCOUNT_ID`: identificador de la cuenta de Cloudflare.
-- GitHub → Settings → Secrets and variables → Actions → **Variables**:
-  - `CLOUDFLARE_PAGES_PROJECT`: nombre exacto del proyecto Cloudflare Pages ya existente.
-
+  
 No añada credenciales a este repositorio ni las comparta en el chat.
 
-El despliegue apunta a la rama `main` y no crea un proyecto Cloudflare nuevo. Las pull requests solo comprueban cambios. El workflow fallará sin credenciales, **sin tocar el sitio en producción**.
+El despliegue apunta al proyecto existente `buldwr` de Cloudflare Pages (cuenta ya configurada) y a la rama `main`; no crea un proyecto nuevo. Solo hay que guardar `CLOUDFLARE_API_TOKEN` como secreto del repositorio. Las pull requests solo comprueban cambios. El workflow fallará sin credenciales, **sin tocar el sitio en producción**.
 
 ## Operación
 
