@@ -1,0 +1,61 @@
+name: MotorWr — tests and Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: motorwr-pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  tests:
+    name: Validate PWA
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate source
+        run: npm test
+      - name: Build static site
+        run: npm run build
+
+  deploy:
+    name: Deploy existing Cloudflare Pages project
+    needs: tests
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify Cloudflare setup before deploying
+        env:
+          ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
+        run: |
+          if [ -z "$ACCOUNT" ]; then echo "::error::Missing secret CLOUDFLARE_ACCOUNT_ID"; exit 1; fi
+          if [ -z "$TOKEN" ]; then echo "::error::Missing secret CLOUDFLARE_API_TOKEN"; exit 1; fi
+          if [ -z "$PROJECT" ]; then echo "::error::Missing variable CLOUDFLARE_PAGES_PROJECT"; exit 1; fi
+      - name: Build release
+        run: npm run build
+      - name: Publish to the existing Pages project
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ vars.CLOUDFLARE_PAGES_PROJECT }} --branch=main
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
