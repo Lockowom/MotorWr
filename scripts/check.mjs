@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const manifest=JSON.parse(fs.readFileSync(new URL('../manifest.webmanifest',import.meta.url),'utf8'));
+const sw=fs.readFileSync(new URL('../sw.js',import.meta.url),'utf8');
+const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(m=>m[1]).filter(x=>x.trim());
+assert(html.length>50000,'App bundle too small');
+assert(scripts.length>=1,'Missing client script');
+scripts.forEach((s,i)=>new vm.Script(s,{filename:'inline-'+i+'.js'}));
+assert(html.includes('application-version'),'Version not visible');
+assert(html.includes('manifest.webmanifest'),'PWA manifest not linked');
+assert(html.includes('navigator.serviceWorker.register'),'SW not registered');
+assert(html.includes('Gwen')&&html.includes('Viego'),'Draft dataset incomplete');
+assert(html.includes('Trinidad')&&html.includes('Rompecascos'),'Item catalog incomplete');
+assert(manifest.start_url==='./'&&manifest.display==='standalone','Manifest invalid');
+assert(sw.includes('APP_SHELL'),'Service worker offline cache missing');
+console.log('PASS: HTML bundle, syntax, champion/items, PWA manifest and SW');
