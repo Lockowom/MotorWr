@@ -53,6 +53,7 @@ import {ROLES, ROLE_LABELS, createDraft, analyzeComposition, championRecommendat
 import {tacticalProfile} from "./src/data/tacticalProfiles.js";
 import {ROSTER_SOURCE} from "./src/data/officialRoster.js";
 import {resolveBuildReference,validateAutoMeta,patchDisplayStatus} from "./src/core/metaPolicy.js";
+import {BUILD_REFERENCES} from "./src/data/buildReferences.js";
 import {PATCH_CHANGES,patchChangeForChampion,patchChangesForItems,patchChangesForRunes} from "./src/data/patchNotes.js";
 const $=s=>document.querySelector(s);
 const escapeHTML=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -157,7 +158,16 @@ function renderAnalysis(scroll=true){
     ]):'<p class="note">La extracción de temas del nuevo parche requiere revisión.</p>')+
   '<p class="note"><a href="'+escapeHTML(autoMeta.patchUrl)+'" target="_blank" rel="noopener noreferrer">Ver notas oficiales del parche '+escapeHTML(autoMeta.patch)+'</a></p>';
   const htmlList=(xs)=>'<ol class="ref-list">'+xs.map(x=>'<li>'+escapeHTML(x)+'</li>').join('')+'</ol>';
-  let refHtml='<div class="notice">'+escapeHTML(base.message)+' No se mostrará una build sin fuente para este rol y parche.</div>';
+  const verifiedRoles=[...new Set([
+    ...BUILD_REFERENCES.filter(b=>b.champion===draft.champion&&b.patch===autoMeta.patch).map(b=>b.role),
+    ...autoMeta.guides.filter(b=>b.champion===draft.champion&&b.patch===autoMeta.patch).map(b=>b.role)
+  ])];
+  const missingExplanation=base.status==="missing"
+    ?"Todavía no existe una guía contrastada para "+draft.champion+" en "+ROLE_LABELS[draft.role]+". "+
+      (verifiedRoles.length?"Esta selección sí tiene guías para: "+verifiedRoles.map(r=>ROLE_LABELS[r]).join(", ")+". ":"No hay guía local cargada para este campeón. ")+
+      "MotorWr permite seleccionar los 142 campeones, pero solo muestra builds de fuentes contrastadas."
+    :base.message+" No se mostrará una build de un parche anterior como si fuera vigente.";
+  let refHtml='<div class="notice">'+escapeHTML(missingExplanation)+'</div>';
   if(base.status==="referenced"){
     const b=base.reference;
     const changedItems=patchChangesForItems(b.finalItems);
