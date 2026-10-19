@@ -2,7 +2,7 @@
 // Sources are public, checked conservatively, and never written to production.
 import fs from 'node:fs';
 import {fileURLToPath} from 'node:url';
-import {OFFICIAL_PATCH_INDEX,parseOfficialPatchIndex,parseEditorialGuide,comparePatch,stableGuideFingerprint} from '../src/core/metaSync.js';
+import {OFFICIAL_PATCH_INDEX,parseOfficialPatchIndex,parseOfficialPatchSubjects,parseEditorialGuide,comparePatch,stableGuideFingerprint} from '../src/core/metaSync.js';
 import {validateAutoMeta} from '../src/core/metaPolicy.js';
 import {BUILD_REFERENCES} from '../src/data/buildReferences.js';
 import {OFFICIAL_ROSTER} from '../src/data/officialRoster.js';
@@ -29,7 +29,8 @@ async function request(url,maxBytes=2_000_000){
 const official=await request(OFFICIAL_PATCH_INDEX);
 const latest=parseOfficialPatchIndex(official);
 if(comparePatch(latest.patch,old.patch)<0)throw Error('Official source went backwards; keep last known-good metadata.');
-if(comparePatch(latest.patch,old.patch)>0){
+let patchSubjects=old.patchSubjects||null;
+if(comparePatch(latest.patch,old.patch)>0||!patchSubjects){
  const current=old.patch.split('.').map(x=>parseInt(x,10));
  const next=latest.patch.split('.').map(x=>parseInt(x,10));
  if(next[0]-current[0]>1||next[0]<current[0]||(next[0]===current[0]&&next[1]-current[1]>1)){
@@ -38,6 +39,7 @@ if(comparePatch(latest.patch,old.patch)>0){
  // Never promote an unconfirmed slug/404 as a valid official article.
  const noteBody=await request(latest.url,3_000_000);
  if(!noteBody.toLowerCase().includes(latest.patch))throw Error('Official article does not contain the detected patch');
+ patchSubjects=parseOfficialPatchSubjects(noteBody,OFFICIAL_ROSTER.map(x=>x.name));
 }
 const patch=comparePatch(latest.patch,old.patch)>0?latest.patch:old.patch;
 const source=new Map(BUILD_REFERENCES.map(r=>[r.champion,r.source.url]));
@@ -91,6 +93,7 @@ const candidate={
  updatedAt:old.updatedAt,
  officialSource:OFFICIAL_PATCH_INDEX,
  guides:[...guideMap.values()].sort((a,b)=>(a.champion+'|'+a.role).localeCompare(b.champion+'|'+b.role)),
+ patchSubjects,
  warning:errors.length?'Algunas fuentes editoriales necesitan revisión; se conservaron los últimos datos válidos.':null
 };
 const before=JSON.stringify({...old,updatedAt:'x'});
