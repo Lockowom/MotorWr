@@ -619,8 +619,22 @@ wireBase();render();
 </script>
 <script>
 if ('serviceWorker' in navigator && location.protocol === 'https:') {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch((err) => console.warn('Service worker unavailable',err));
+  window.addEventListener('load', async () => {
+    let refreshed = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!refreshed) {
+        refreshed = true;
+        // Draft selections live in localStorage, so refresh is safe after activation.
+        window.location.reload();
+      }
+    });
+    try {
+      const registration = await navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' });
+      // Browsers can defer scheduled SW checks; explicitly check on app opening.
+      await registration.update();
+    } catch (err) {
+      console.warn('Service worker update unavailable', err);
+    }
   });
 }
 </script>
