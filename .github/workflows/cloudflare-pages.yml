@@ -2,7 +2,7 @@ name: MotorWr — tests and Cloudflare Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, feature/motorwr-2-multichampion]
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -59,4 +59,28 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 4e5250a7fe2c9281b03e6a2d184897e8
           command: pages deploy dist --project-name=buldwr --branch=main
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+  beta-preview:
+    name: Preview MotorWr 2.0 (no production)
+    needs: tests
+    if: github.ref == 'refs/heads/feature/motorwr-2-multichampion' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: CLOUDFLARE_API_TOKEN
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build standalone beta
+        run: npm run build:v2
+      - name: Deploy ONLY to Cloudflare preview branch
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 4e5250a7fe2c9281b03e6a2d184897e8
+          command: pages deploy dist-v2 --project-name=buldwr --branch=motorwr-v2-preview
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
