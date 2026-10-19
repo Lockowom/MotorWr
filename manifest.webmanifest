@@ -1,7 +1,7 @@
 {
-  "name": "Camille FAST — MotorWr",
+  "name": "MotorWr 2.2 — Wild Rift",
   "short_name": "MotorWr",
-  "description": "Guía estratégica de Camille para Wild Rift",
+  "description": "Motor personal de análisis de campeones, composiciones y actualizaciones de Wild Rift.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
