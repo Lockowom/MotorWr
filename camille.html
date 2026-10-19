@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#081016" /><meta name="application-version" content="1.1.0" />
+  <meta name="description" content="Guía táctica offline de Camille: builds, runas y macro según los cinco rivales de Wild Rift." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  
+  
+  
+  <style>:root{color-scheme:dark;--bg:#081016;--card:#0f1b23;--card2:#13232c;--stroke:#263840;--stroke2:#31474c;--txt:#e8f1f0;--muted:#849da6;--faint:#54717b;--mint:#71e0ca;--cyan:#51bad3;--gold:#d6b47a;--red:#e88b87;--shadow:0 22px 55px rgba(0,0,0,.25);font-family:Inter,"Segoe UI",Roboto,system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--txt);font-size:14px;line-height:1.5;min-height:100vh;overflow-x:hidden}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--mint);outline-offset:3px}a{color:#8be9d4}svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.ambient{position:fixed;pointer-events:none;filter:blur(95px);z-index:-1;opacity:.28}.ambient-a{width:330px;height:300px;background:#217f8b;top:-180px;left:-100px}.ambient-b{width:320px;height:300px;background:#89603e;top:300px;right:-220px;opacity:.13}.app-shell{width:min(100%,510px);min-height:100vh;margin:auto;padding:15px 16px calc(32px + env(safe-area-inset-bottom))}.topbar{display:flex;align-items:center;justify-content:space-between;padding:8px 0 20px;gap:10px}.brand{display:flex;gap:11px;align-items:center}.brandmark{width:44px;height:44px;display:grid;place-content:center;grid-template-columns:auto auto;gap:1px;color:var(--mint);font-weight:900;border:1px solid #4b8e8c;border-radius:12px;background:linear-gradient(155deg,#244048,#0b1a20);box-shadow:0 0 23px #47a79a23;font-size:20px;transform:skew(-5deg)}.brandmark span:nth-child(2){transform:translateY(5px);color:var(--gold)}.brandtitle{font-size:16px;letter-spacing:1.5px;font-weight:900;line-height:1.1}.brandtitle span{color:var(--mint);margin-left:4px}.branddesc{font-size:9px;font-weight:800;letter-spacing:1.45px;margin-top:6px;color:var(--muted)}.tiny-dot{display:inline-block;width:3px;height:3px;border-radius:50%;background:var(--gold);vertical-align:middle;margin:0 3px}.top-actions{display:flex;align-items:center;gap:14px}.online-dot{display:block;width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px #71e0ca18}.online-dot.off{background:var(--gold);box-shadow:0 0 0 4px #d6b47a20}.icon-btn,.close-btn{border:1px solid var(--stroke);background:#13242b;color:var(--txt);border-radius:12px;display:grid;place-items:center;width:40px;height:40px}.tabs{display:flex;gap:5px;padding:5px;background:#0d191f;border-radius:13px;border:1px solid #1a2d35;margin-bottom:22px}.tab{border:0;background:transparent;color:var(--muted);flex:1;border-radius:9px;padding:11px 4px;font-weight:850;letter-spacing:.65px;font-size:11px;transition:.18s}.tab.active{background:#1d343a;color:var(--mint);box-shadow:inset 0 0 0 1px #305458}.tab-index{color:var(--faint);font-size:9px;padding-right:4px}.tab.active .tab-index{color:#75b2ae}.eyebrow{font-size:10px;letter-spacing:1.8px;font-weight:900;color:var(--mint);text-transform:uppercase}.hero{position:relative;overflow:hidden;padding:18px 17px 16px;background:linear-gradient(145deg,#16272e,#101d23 58%,#172c30);border:1px solid #37515a;border-radius:17px;box-shadow:var(--shadow);margin-bottom:15px}.hero:after{content:"";position:absolute;width:175px;height:175px;border:1px solid #71e0ca13;border-radius:50%;right:-65px;top:-75px;box-shadow:0 0 0 30px #71e0ca07,0 0 0 60px #71e0ca04}.hero h1{font-size:25px;line-height:1.15;letter-spacing:-.65px;margin:8px 0 10px;font-weight:900;position:relative;z-index:1}.hero h1 em{font-style:normal;color:var(--mint)}.hero p{font-size:12px;color:#aac0c2;margin:0;max-width:310px;position:relative;z-index:1}.hero-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.tag{display:inline-flex;align-items:center;gap:4px;line-height:1.1;border:1px solid #30515a;color:#aacbc9;background:#163039;padding:7px 9px;font-size:10px;font-weight:750;border-radius:100px}.tag.gold{border-color:#6c573a;color:#edc996;background:#33291e}.tag.red{border-color:#744641;color:#ffc0ba;background:#3d2928}.sec-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:19px 0 11px}.sec-head h2{font-size:14px;font-weight:850;letter-spacing:.25px;margin:0}.sec-head .sec-note{font-size:10px;color:var(--muted)}.champ-slots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.champ-slots .champ-slot:last-child{grid-column:span 2}.champ-slot{display:flex;align-items:center;gap:10px;text-align:left;background:#112027;border:1px solid var(--stroke);border-radius:13px;min-height:75px;padding:12px 10px;color:var(--txt);transition:.2s;min-width:0}.champ-slot:hover{border-color:#559b95;background:#182e34}.champ-slot:active{transform:scale(.985)}.portrait{height:43px;width:43px;min-width:43px;display:grid;place-items:center;border-radius:11px;font-size:13px;font-weight:900;color:#b9e8df;background:linear-gradient(145deg,#294b52,#14272e);border:1px solid #476970;letter-spacing:-.7px}.portrait.ap{background:linear-gradient(140deg,#382a57,#1b1831);border-color:#665381;color:#d4bdfc}.portrait.ad{background:linear-gradient(140deg,#49382c,#2e201d);border-color:#836347;color:#ffdfac}.portrait.mix{background:linear-gradient(140deg,#20475b,#1e2c45);border-color:#44758a;color:#b1e7f9}.champ-info{min-width:0;flex:1}.slot-label{display:block;font-size:9px;color:var(--muted);font-weight:800;letter-spacing:1px}.slot-name{display:block;font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}.slot-arrow{font-size:17px;color:var(--mint);opacity:.75}.toolbar{display:flex;gap:9px;align-items:center;margin:14px 0}.quickbutton{background:#172a30;border:1px solid #315057;color:#b9d4d3;border-radius:9px;font-size:11px;padding:9px 12px;font-weight:750}.quickbutton.muted{color:#8ea3a9;border-color:var(--stroke);background:#132026}.quickbutton:active{transform:scale(.97)}.settings{display:grid;grid-template-columns:1fr 1fr;gap:9px}.field{min-width:0}.field label{display:block;font-size:10px;color:var(--muted);font-weight:800;margin-bottom:6px;letter-spacing:.3px}.field select,.field input{border:1px solid var(--stroke2);background:#14232a;color:var(--txt);border-radius:10px;padding:11px 8px;display:block;width:100%;min-width:0;font-size:12px}.primary{border:1px solid #89dcc8;background:linear-gradient(115deg,#61d5c1,#42bba8);color:#09202a;border-radius:12px;font-size:12px;font-weight:950;letter-spacing:.7px;padding:14px 15px;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 8px 25px #37bda225}.primary svg{width:16px;height:16px}.wide{width:100%;margin-top:15px}.results{animation:up .2s ease both}.result-head{display:flex;align-items:center;justify-content:space-between;margin-top:20px;margin-bottom:10px}.result-head h2{font-size:18px;margin:0}.result-head .subtext{font-size:11px;color:var(--muted)}.analysis-card{padding:15px;border:1px solid #38605b;background:linear-gradient(135deg,#15333a,#102229);border-radius:14px}.analysis-title{display:flex;justify-content:space-between;align-items:center;gap:10px}.analysis-title strong{font-size:13px}.danger-pill{font-size:10px;letter-spacing:.5px;font-weight:850;background:#52322e;color:#ffbdaf;padding:6px 9px;border-radius:7px}.danger-pill.low{background:#26453c;color:#91e8c6}.analysis-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:14px}.mini-stat{background:#09181e99;border:1px solid #2d4147;border-radius:9px;padding:11px 7px;text-align:center}.mini-stat strong{display:block;font-size:17px;white-space:nowrap}.mini-stat span{color:var(--muted);font-size:10px;display:block}.flag-list{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}.flag{font-size:10px;font-weight:720;border:1px solid #375058;border-radius:6px;padding:6px 8px;color:#bfd7d6}.flag.warn{color:#f2c398;border-color:#735643}.build-list{display:grid;gap:7px}.item-line{display:flex;align-items:center;gap:10px;background:#101f26;border:1px solid var(--stroke);border-radius:11px;padding:10px}.item-num{width:27px;min-width:27px;font-size:12px;font-weight:950;color:var(--gold);text-align:center}.item-graphic{width:42px;height:42px;border:1px solid #526a6c;border-radius:10px;display:grid;place-items:center;color:var(--mint);background:linear-gradient(145deg,#25424a,#102028)}.item-graphic svg{width:22px;height:22px}.item-line h3{font-size:12px;font-weight:850;margin:0 0 3px}.item-line p{font-size:10.5px;color:var(--muted);line-height:1.4;margin:0}.boot-line{border-color:#57756c;background:#14282b}.boot-line .item-num{color:#8edcd0}.runebox{border:1px solid var(--stroke);border-radius:12px;background:#112026;padding:13px}.rune-grid{display:grid;grid-template-columns:1fr;gap:4px}.rune{display:flex;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px solid #24343b}.rune:last-child{border:0}.rune-badge{color:#e0c38f;font-size:10px;font-weight:900;letter-spacing:.5px;width:60px;flex-shrink:0}.rune-name{font-size:12px;font-weight:750}.callout{background:#1d2927;border-left:3px solid var(--gold);border-radius:7px;padding:12px 13px;font-size:11px;color:#d8d4c5}.callout strong{display:block;color:#f4ddb3;margin-bottom:5px}.callout p{margin:0}.plans{display:grid;gap:9px}.plan-card{border:1px solid var(--stroke);border-radius:12px;padding:13px;background:#102027}.plan-card h3{margin:0 0 4px;font-size:12px;color:var(--mint)}.plan-card p{margin:0;font-size:11px;color:#afc2c5}.alerts{display:grid;gap:7px}.alert{display:flex;gap:9px;padding:11px 12px;background:#251f20;border:1px solid #55413d;border-radius:11px}.alert-mark{color:#e5b585;font-weight:850}.alert strong{display:block;font-size:11px;color:#efd6bb}.alert p{margin:4px 0 0;font-size:10.5px;color:#bbaead}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0}.action-btn{display:flex;gap:7px;align-items:center;justify-content:center;border:1px solid #3b6665;background:#1b3034;color:#bfe6df;border-radius:12px;padding:12px 6px;font-weight:850;font-size:11px}.action-btn svg{width:16px;height:16px}.match-hero{border:1px solid #3f635e;border-radius:15px;background:linear-gradient(130deg,#1c3538,#112127);padding:19px}.match-hero h1{margin:7px 0 5px;font-size:25px}.match-hero p{font-size:12px;color:#b5ccca;margin:0}.match-detail{border:1px solid var(--stroke);background:#112027;border-radius:12px;margin-top:11px;padding:13px}.match-detail h3{margin:0 0 5px;font-size:12px;color:var(--gold)}.match-detail p{margin:0;color:#b6c8c9;font-size:12px}.leaderboard{background:#111e25;border:1px solid var(--stroke);border-radius:14px;padding:16px;margin:14px 0}.progress-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.progress-head strong{font-size:22px}.progress-head span{font-size:12px;color:var(--muted)}.progress-track{height:9px;border-radius:10px;background:#263a41;overflow:hidden;margin:12px 0}.progress-fill{height:100%;background:linear-gradient(90deg,#4dbda7,#dfb37e);border-radius:10px}.progress-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px}.note{font-size:10.5px;color:var(--muted);margin:8px 0}.history-list{display:grid;gap:9px}.history-entry{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--stroke);background:#112027;color:var(--txt);border-radius:12px;padding:13px;text-align:left}.history-entry strong{font-size:12px}.history-entry span{font-size:10px;color:var(--muted);display:block;margin-top:4px}.empty{border:1px dashed #375057;border-radius:13px;text-align:center;padding:30px 18px;color:var(--muted)}.sources{padding:12px;border-radius:11px;border:1px solid #2c3f42;background:#0e1b21;margin-top:12px}.sources summary{font-size:11px;color:#aec1c4;font-weight:780;cursor:pointer}.sources p,.sources li{font-size:10px;color:var(--muted)}.sources ul{padding-left:18px}.sources a{color:#a5e7d7;word-break:break-word}.foot{display:flex;justify-content:space-between;color:#57717b;font-size:9px;letter-spacing:1px;font-weight:800;margin:35px 0 5px}.champion-modal{width:min(100% - 18px,470px);max-height:min(84dvh,780px);padding:0;color:var(--txt);background:#0b171e;border:1px solid #45646b;border-radius:18px;box-shadow:0 40px 100px #000b;overflow:hidden}.champion-modal::backdrop{background:#010a0dd9;backdrop-filter:blur(4px)}.modal-head{display:flex;justify-content:space-between;align-items:center;padding:18px 18px 10px}.modal-head h2{font-size:19px;margin:2px 0}.search-wrap{display:flex;align-items:center;gap:10px;border:1px solid #35545a;background:#14262d;margin:0 16px 14px;border-radius:11px;padding:0 12px}.search-wrap svg{width:18px;height:18px;color:var(--mint)}.search-wrap input{width:100%;border:0;color:var(--txt);background:none;padding:13px 0;outline:none}.champion-list{height:calc(min(84dvh,780px) - 176px);min-height:210px;overflow-y:auto;padding:0 11px 6px;overscroll-behavior:contain}.champ-choice{width:100%;display:flex;gap:12px;align-items:center;text-align:left;border:1px solid transparent;background:transparent;border-radius:9px;color:var(--txt);padding:8px}.champ-choice:hover,.champ-choice:focus-visible{background:#1b3338;border-color:#3c6265}.champ-choice.selected{background:#1b3235}.champ-choice:disabled{opacity:.34;cursor:not-allowed}.choice-text{flex:1;font-weight:800;font-size:12px}.choice-sub{color:var(--muted);font-size:10px;font-weight:600}.dmg{font-size:10px;font-weight:850;padding:5px 7px;border-radius:6px;background:#292d36;color:#b9c0cf}.dmg.AP{background:#36294e;color:#dfc4ff}.dmg.AD{background:#403325;color:#f0cea0}.dmg.MIX{background:#263b4b;color:#a7daf8}.modal-bottom{display:flex;justify-content:space-between;padding:11px 17px 13px;border-top:1px solid var(--stroke);color:var(--muted);font-size:10px}.toast{position:fixed;z-index:20;bottom:calc(21px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,15px);width:max-content;max-width:calc(100vw - 35px);background:#315f59;color:#f0fffb;border:1px solid #79c9b9;padding:11px 15px;border-radius:10px;font-size:12px;font-weight:800;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}.hidden{display:none!important}@keyframes up{from{opacity:.5;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}@media(min-width:650px){body{background:#071015}.app-shell{border-left:1px solid #203039;border-right:1px solid #203039;background:linear-gradient(#09161b,#091116)}}@media(max-width:355px){.app-shell{padding-left:10px;padding-right:10px}.champ-slot{gap:7px;padding:9px 7px}.portrait{height:36px;width:36px;min-width:36px}.slot-name{font-size:12px}.tab{font-size:10px}.brandtitle{font-size:14px}.branddesc{font-size:8px}}
+
+/* Camille FAST 1.1 — rapid-view prioritization and authentic asset fallback */
+.hero-compact{padding:12px 14px;margin-bottom:12px}.hero-compact h1{font-size:16px;margin:4px 0}.hero-compact p,.hero-compact .hero-meta{display:none}
+.portrait{position:relative;overflow:hidden}.portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#10222a}
+.asset-box{position:relative;display:grid;place-items:center;overflow:hidden;flex-shrink:0;width:43px;height:43px;border:1px solid #47666f;border-radius:10px;background:linear-gradient(135deg,#213d45,#102127);color:var(--mint)}
+.asset-box.rune{border-radius:50%;border-color:#65593f;background:#20241f;color:#e6c585}
+.asset-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#142026}
+.asset-box.rune img{background:#20241f}
+.asset-box .asset-fallback svg{width:23px;height:23px}
+.danger-field{margin:12px 0}.danger-field label{color:var(--gold)}
+.quick-summary{border:1px solid #39756c;background:linear-gradient(145deg,#173639,#112b31 65%,#14292f);border-radius:16px;padding:13px;box-shadow:0 12px 35px #0004}
+.quick-topline{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.quick-match{display:flex;align-items:center;gap:6px;font-weight:900;font-size:15px}
+.small-camille .portrait,.small-enemy .portrait{width:29px;height:29px;min-width:29px;border-radius:8px;font-size:9px}
+.muted-vs{color:#93a9aa;font-weight:500;font-size:12px;margin:0 1px}
+.quick-sub{font-size:10px;color:#adc3c4;margin-top:4px}.risk-chip{font-size:9px;font-weight:850;padding:7px 9px;border-radius:20px;background:#5a3531;color:#ffc4bb;white-space:nowrap}.risk-chip.risk-medio{background:#423927;color:#f0cb8c}.risk-chip.risk-bajo{background:#214b3a;color:#a3e5c1}
+.quick-damage{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.quick-damage span{background:#0b2129;border:1px solid #31535b;border-radius:8px;padding:4px 8px;font-size:10px;color:#c6ddde;font-weight:700}.quick-damage .quick-control{color:#f2cc95}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 15px}.risk-grid div{background:#0a1f26;padding:8px 10px;border-radius:10px;display:flex;flex-direction:column;gap:2px}.risk-grid span{font-size:9px;letter-spacing:.7px;color:#91aab0}.risk-grid strong{font-size:15px;color:#f2d09c}
+.quick-label{display:flex;align-items:center;justify-content:space-between;font-size:10px;font-weight:850;letter-spacing:1.1px;color:var(--mint);margin:11px 0 9px}.quick-label span{font-size:9px;color:var(--muted);font-weight:400;letter-spacing:0}
+.build-strip{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}.strip-item{display:flex;align-items:center;flex-direction:column;min-width:0;gap:4px;position:relative}
+.strip-item .asset-box{width:100%;aspect-ratio:1/1;max-width:52px;height:auto;border-radius:8px}
+.strip-n{position:absolute;z-index:3;top:-5px;left:0;font-size:9px;border-radius:50%;width:16px;height:16px;display:grid;place-items:center;background:#d6b47a;color:#142024;font-weight:900}
+.strip-name{font-size:8.5px;line-height:1.15;text-align:center;max-height:2.3em;overflow:hidden;color:#dce8e7}
+.rune-strip{display:flex;gap:7px;flex-wrap:wrap}.tiny-rune{display:flex;align-items:center;gap:4px;border:1px solid #314947;border-radius:8px;padding:3px 5px;color:#e1e4dc;max-width:calc(50% - 4px);font-size:9px}.tiny-rune .asset-box{width:22px;height:22px}.tiny-rune .asset-fallback svg{width:14px;height:14px}.tiny-rune span:last-child{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.quick-verdict{border-top:1px solid #346064;margin-top:13px;padding-top:12px;font-size:11px;line-height:1.55;color:#cae0de}.quick-verdict strong{color:#e8d29d}
+.quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}.quick-actions .action-btn{padding:10px 6px;font-size:10px;min-height:40px}
+.full-analysis{margin-top:11px;border-radius:13px;border:1px solid #2b4d55;padding:4px 11px 12px;background:#0f1e25}.full-analysis>summary{display:flex;align-items:center;gap:8px;min-height:46px;cursor:pointer;color:#d9e9e5;letter-spacing:.3px;font-size:11px;font-weight:900;list-style:none}.full-analysis>summary::-webkit-details-marker{display:none}.full-analysis>summary::after{content:'⌄';margin-left:auto;color:var(--mint);font-size:20px}.full-analysis[open]>summary::after{transform:rotate(180deg)}.full-analysis>summary svg{color:var(--mint)}
+.full-analysis .sec-head{margin-top:18px}.full-analysis .item-line>.asset-box{margin-right:5px}.full-analysis .rune{display:flex;align-items:center;gap:12px}.full-analysis .rune .rune-badge{min-width:73px}.full-analysis .rune .asset-box{height:33px;width:33px}.full-analysis .rune .asset-fallback svg{height:17px;width:17px}
+.source-compare{display:grid;gap:8px;margin:15px 0}.source-line{border:1px solid #2a4a50;border-radius:10px;background:#15272c;padding:12px}.source-line strong{color:#d6b47a}.source-line p{font-size:11px;color:#c9d8d8;margin:5px 0}.source-line a{font-size:11px}.source-line .inferred{font-size:10px;color:#e7aa85}
+@media(max-width:385px){.brandtitle{font-size:14px}.quick-match{font-size:13px}.strip-name{font-size:7.5px}.quick-summary{padding:10px}.risk-chip{font-size:8px;padding:5px 6px}}
+.beta-entry{font-size:10px;font-weight:850;text-decoration:none;white-space:nowrap;border:1px solid #38746e;padding:9px 7px;border-radius:10px;background:#1a3638;color:#aee4d8}.beta-entry strong{color:#e7cb9c}@media(max-width:390px){.beta-entry{font-size:9px;padding:7px 5px}.top-actions{gap:7px}}
+</style>
+  <title>Camille FAST — Wild Rift</title>
+  <link rel="manifest" href="./manifest-camille.webmanifest" />
+</head>
+<body>
+  <div class="ambient ambient-a" aria-hidden="true"></div>
+  <div class="ambient ambient-b" aria-hidden="true"></div>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brandmark"><span>C</span><span>F</span></div>
+        <div><div class="brandtitle">CAMILLE<span>FAST</span></div><div class="branddesc">TACTICAL DRAFT ENGINE <span class="tiny-dot"></span> 7.3b</div></div>
+      </div>
+      <div class="top-actions">
+        <a class="beta-entry" href="./multi.html" aria-label="Probar MotorWr 2.0 multichampion">MotorWr <strong>2.0 BETA</strong> ↗</a>
+        <span id="offlineState" class="online-dot" aria-label="Estado de conexión" title="Sin conexión"></span>
+        <button id="installBtn" class="icon-btn" type="button" aria-label="Instalar aplicación" title="Instalar"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg></button>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Secciones">
+      <button data-tab="draft" class="tab active" type="button"><span class="tab-index">01</span> DRAFT</button>
+      <button data-tab="matchup" class="tab" type="button"><span class="tab-index">02</span> MATCHUP</button>
+      <button data-tab="history" class="tab" type="button"><span class="tab-index">03</span> HISTORIAL</button>
+    </nav>
+
+    <main id="content" tabindex="-1"></main>
+    <footer class="foot"><span>CAM fast v1.1.0</span><span>DATOS LOCALES · SIN CUENTA</span></footer>
+  </div>
+
+  <dialog id="championModal" class="champion-modal" aria-label="Seleccionar campeón">
+    <div class="modal-head">
+      <div><div class="eyebrow" id="modalRole">ENEMIGO · BARÓN</div><h2>Elegir campeón</h2></div>
+      <button id="closeModal" type="button" class="close-btn" aria-label="Cerrar">×</button>
+    </div>
+    <div class="search-wrap"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 5 5"/></svg><input id="championSearch" type="search" autocomplete="off" placeholder="Buscar por nombre…" aria-label="Buscar campeón" /></div>
+    <div id="championList" class="champion-list"></div>
+    <div class="modal-bottom"><span id="championCount"></span><span>AP · AD · MIXTO</span></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module">
+// Bundled from champions.js
+/* Camille FAST — Offline threat catalogue. Tags are tactical heuristics, NOT Riot numerical stats.
+   AP: primarily magical; AD: primarily physical; MIX: mixed damage. */
+const RAW = `
+Aatrox|AD|heal,bruiser,cc|1
+Ahri|AP|burst,mobile,cc|1
+Akali|AP|burst,mobile,assassin,stealth|0
+Akshan|AD|ranged,mobile,auto,shield|0
+Alistar|AP|tank,cc,engage|3
+Ambessa|AD|bruiser,mobile,shield|1
+Amumu|AP|tank,cc,engage|3
+Annie|AP|burst,cc|2
+Ashe|AD|ranged,auto,cc,poke|2
+Aurelion Sol|AP|mage,poke,cc|1
+Aurora|AP|mage,mobile,burst,cc|1
+Bard|AP|support,cc,poke|2
+Blitzcrank|AP|tank,cc,engage|2
+Brand|AP|mage,poke,dot,burst,cc|1
+Braum|AP|tank,cc,shield|2
+Caitlyn|AD|ranged,auto,poke,cc|1
+Camille|MIX|bruiser,mobile,cc,true|1
+Cho'Gath|AP|tank,cc,true,heal|2
+Corki|MIX|ranged,poke,burst,mobile|0
+Darius|AD|bruiser,heal,cc,execute|1
+Diana|AP|assassin,burst,shield,engage,cc|1
+Dr. Mundo|AP|tank,heal|0
+Draven|AD|ranged,auto,burst|0
+Ekko|AP|assassin,burst,mobile,cc,heal|1
+Elise|AP|assassin,burst,cc|1
+Evelynn|AP|assassin,burst,stealth,heal|0
+Ezreal|MIX|ranged,poke,mobile|0
+Fiddlesticks|AP|mage,burst,cc,heal,engage|2
+Fiora|AD|bruiser,true,heal,mobile|0
+Fizz|AP|assassin,burst,mobile,cc|1
+Galio|AP|tank,cc,shield,engage|3
+Garen|AD|bruiser,heal,execute|1
+Gnar|AD|bruiser,ranged,cc|2
+Gragas|AP|tank,heal,burst,cc|2
+Graves|AD|ranged,auto,burst,shield|0
+Gwen|AP|bruiser,heal,true,mobile|0
+Hecarim|AD|bruiser,heal,engage,cc,mobile|1
+Heimerdinger|AP|mage,poke,cc|1
+Hwei|AP|mage,poke,burst,cc|2
+Irelia|AD|bruiser,heal,auto,mobile,cc|1
+Janna|AP|support,shield,heal,cc|2
+Jarvan IV|AD|bruiser,cc,engage|1
+Jax|MIX|bruiser,auto,cc,mobile|1
+Jayce|AD|ranged,poke,burst,mobile|1
+Jhin|AD|ranged,poke,burst,cc|1
+Jinx|AD|ranged,auto,execute|0
+Kai'Sa|MIX|ranged,auto,burst,mobile,shield|0
+Kalista|AD|ranged,auto,mobile|1
+Karma|AP|mage,poke,shield,cc|1
+Kassadin|AP|assassin,burst,mobile|1
+Katarina|AP|assassin,burst,mobile,execute|0
+Kayle|MIX|ranged,auto,heal,shield|0
+Kayn|AD|assassin,heal,mobile,burst|0
+Kennen|AP|mage,burst,cc,engage,ranged|2
+Kha'Zix|AD|assassin,burst,stealth,mobile|0
+Kindred|AD|ranged,auto,mobile,heal|0
+Kog'Maw|MIX|ranged,auto,poke|0
+LeBlanc|AP|assassin,burst,mobile,cc|1
+Lee Sin|AD|bruiser,burst,cc,mobile,engage|1
+Leona|AP|tank,cc,engage|3
+Lillia|AP|mage,dot,mobile,cc,heal|2
+Lissandra|AP|mage,cc,burst,engage|3
+Lucian|AD|ranged,auto,burst,mobile|0
+Lulu|AP|support,shield,cc|2
+Lux|AP|mage,burst,poke,cc,shield|2
+Malphite|AP|tank,cc,engage,burst|2
+Malzahar|AP|mage,dot,cc|2
+Master Yi|AD|auto,mobile,heal,execute|0
+Maokai|AP|tank,cc,heal,engage|3
+Milio|AP|support,heal,shield,cc|1
+Miss Fortune|AD|ranged,burst,poke|0
+Mordekaiser|AP|bruiser,heal,shield,cc|1
+Morgana|AP|mage,cc,dot,shield|2
+Nami|AP|support,cc,heal|2
+Nasus|AD|bruiser,tank,heal,cc|1
+Nautilus|AP|tank,cc,engage,shield|3
+Neeko|AP|mage,burst,cc,engage|2
+Nilah|AD|auto,mobile,heal,shield,cc|1
+Nocturne|AD|assassin,burst,engage,shield|1
+Nunu y Willump|AP|tank,heal,cc,engage|2
+Olaf|AD|bruiser,heal,auto|0
+Orianna|AP|mage,poke,burst,shield,cc|1
+Ornn|AP|tank,cc,engage|3
+Pantheon|AD|bruiser,burst,cc,engage|1
+Poppy|AD|tank,cc,engage|2
+Pyke|AD|assassin,cc,execute,stealth|2
+Qiyana|AD|assassin,burst,mobile,cc|1
+Rakan|AP|support,cc,shield,heal,engage|2
+Rammus|AP|tank,cc,engage|2
+Renekton|AD|bruiser,heal,cc,burst|1
+Rengar|AD|assassin,burst,stealth,heal|1
+Riven|AD|bruiser,mobile,burst,shield,cc|1
+Rumble|AP|mage,dot,poke,shield|1
+Ryze|AP|mage,burst,cc,shield|1
+Samira|AD|ranged,burst,mobile|0
+Senna|AD|ranged,poke,heal,shield,cc|1
+Seraphine|AP|mage,poke,shield,heal,cc|2
+Sett|AD|bruiser,true,shield,cc|2
+Shen|MIX|tank,cc,shield,engage|1
+Shyvana|MIX|bruiser,auto,engage|1
+Singed|AP|tank,dot,cc,mobile|1
+Sion|AD|tank,cc,engage|2
+Sivir|AD|ranged,auto,shield|0
+Sona|AP|support,heal,shield,cc|1
+Soraka|AP|support,heal,cc|1
+Swain|AP|mage,heal,dot,cc|2
+Syndra|AP|mage,burst,cc,poke|2
+Talon|AD|assassin,burst,mobile,stealth|0
+Teemo|AP|ranged,poke,dot,stealth,blind|0
+Thresh|MIX|tank,cc,engage,shield|3
+Tristana|AD|ranged,auto,mobile,burst|1
+Tryndamere|AD|bruiser,auto,heal,execute|0
+Twisted Fate|MIX|mage,cc,poke|1
+Twitch|AD|ranged,auto,stealth,dot|0
+Urgot|AD|bruiser,ranged,execute,cc|1
+Varus|MIX|ranged,poke,cc,auto|1
+Vayne|AD|ranged,auto,true,mobile,stealth|1
+Veigar|AP|mage,burst,cc|2
+Vex|AP|mage,burst,cc|2
+Vi|AD|bruiser,cc,engage,shield|2
+Viego|AD|bruiser,mobile,heal,execute,stealth|1
+Viktor|AP|mage,poke,burst,cc,shield|1
+Vladimir|AP|mage,heal,burst|0
+Volibear|MIX|bruiser,heal,shield,cc|1
+Warwick|MIX|bruiser,heal,cc,engage|2
+Wukong|AD|bruiser,cc,engage,stealth|2
+Xayah|AD|ranged,auto,cc|1
+Xin Zhao|AD|bruiser,heal,cc,engage|1
+Yasuo|AD|bruiser,auto,cc,shield,mobile|1
+Yone|MIX|bruiser,auto,burst,mobile,cc|2
+Yuumi|AP|support,heal,shield,cc|1
+Yunara|AD|ranged,auto,poke|0
+Zed|AD|assassin,burst,stealth,mobile|0
+Zeri|MIX|ranged,auto,mobile,shield|0
+Ziggs|AP|mage,poke,burst,cc|1
+Zilean|AP|mage,poke,cc|2
+Zoe|AP|mage,burst,poke,cc|1
+Zyra|AP|mage,poke,dot,cc|1
+`;
+
+const champions = RAW.trim().split('\n').map(line=>{
+  const [name,damage,tags,cc]=line.split('|');
+  return {name,damage,tags:tags.split(','),cc:Number(cc)};
+}).sort((a,b)=>a.name.localeCompare(b.name,'es'));
+const byName=new Map(champions.map(c=>[c.name,c]));
+
+// Human-authored matchup rules (situational guidance, not asserted win rates).
+const PAIRS = {
+  'Gwen':['Difícil · técnica','Evita el centro de su Q y no fuerces peleas largas. Si usa la W, cambia el ángulo o espera; entra tras su Q cuando dispongas de salida.','Espera enfriamientos de W/Q antes de comprometer tu E.','Cambia duelos largos por intercambios Q2 y oleadas controladas.'],
+  'Teemo':['Hostigamiento a distancia','Protege tu vida y controla la oleada cerca de tu torre. Su ceguera puede anular Q2.','Entra con E después de su ceguera; cambia a lente para limpiar setas.','Prioriza Pies Veloces y Segundo Aliento.'],
+  'Jax':['Desfavorable','Su E neutraliza tus ataques potenciados. Evita un intercambio largo mientras la conserve.','Provoca la E de Jax; castígalo cuando termine.','No consumas Q2 bajo Contraataque.'],
+  'Fiora':['Duelista técnico','Puede responder a tu entrada con Réplica. Mantén tu E imprevisible.','Amaga la entrada para hacer gastar Réplica.','No fuerces E directa con su W disponible.'],
+  'Darius':['Peligroso prolongado','No permitas cinco acumulaciones de sangrado. Intercambia brevemente y sal de su rango.','Castiga cuando falle su E o su Q exterior.','Conserva movilidad para salir; usa Prender si hay oportunidad real.'],
+  'Renekton':['Desfavorable temprano','Su aturdimiento y daño explosivo castigan los primeros niveles.','Farmear seguro y buscar intercambio con pasiva propia activa.','No gastes E gratuitamente antes de que use su W.'],
+  'Garen':['Controlable con disciplina','Cuida la gestión de oleadas y evita intercambiar toda su E.','Castiga cuando no tenga disponible Q/E y juega por la Q2.','No le regales ejecución con su definitiva cuando estés bajo de vida.'],
+  'Malphite':['Defensivo / tanque','Su armadura y hostigamiento complican los intercambios. Juega por oro, Q2 y torres.','Prioriza sostener oleadas; no le regales peleas cerca de su jungla.','Ajusta contra mucha vida, no dependas solo de daño físico.'],
+  'Sett':['Intercambios calculados','Evita recibir el centro de su W y no le des tiempo a acumular mucha Determinación.','Sal lateralmente del centro de W y vuelve con Q2.','Los duelos largos sin E de salida son arriesgados.'],
+  'Aatrox':['Evita su zona dulce','Esquiva bordes de Q. No pelees inmóvil dentro de su cadena.','Usa la movilidad para colocarte fuera de los bordes de Q.','Heridas graves cuando su curación realmente domine el duelo.'],
+  'Nasus':['Control temprano','Impide que acumule súbditos gratis; tu prioridad es administrar la oleada.','Congela de forma segura y castiga cuando vaya a farmear.','No le permitas escalar sin presión.'],
+  'Vayne':['Rango / daño verdadero','Evita ser aturdido contra paredes y no persigas sin visión.','Deja acercar la oleada y busca E tras su voltereta.','Comprar solo armadura no detiene su daño verdadero.'],
+  'Jayce':['Hostigamiento','Evita recibir daño gratuito antes del nivel 5.','Congela cerca de tu torre; entra cuando falle su desplazamiento.','La economía sin muertes es una victoria temprana.'],
+  'Kennen':['Magia / control','Su definitiva puede convertir una entrada frontal en una muerte.','Presión lateral y Mercurio; espera que gaste su R antes de entrar.','No luches agrupado si su R está disponible.'],
+  'Rumble':['Magia / zona','El lanzallamas y su definitiva castigan las peleas largas.','Ataca desde un ángulo seguro cuando gaste su escudo/ralentización.','Evita combatir dentro de su R.'],
+  'Mordekaiser':['Duelo aislado','Su definitiva fuerza un 1v1. Evita entrar bajo de vida.','Juega alrededor de su E y de tu segundo golpe Q.','No comprometas un objetivo sin controlar su R.'],
+  'Ornn':['Tanque resistente','No regales intercambios mientras la oleada esté mal situada.','Juega por Q2 y presión lateral tras completar el núcleo.','Su CC prepara emboscadas del jungla.'],
+  'Pantheon':['Burst temprano','Su escudo frontal bloquea el daño desde su dirección.','Farmear defensivamente y castigar tras su aturdimiento.','No malgastes Q2 contra el escudo.'],
+  'Irelia':['Control de súbditos','Con oleadas de poca vida acumula movilidad y marcas.','Evita la línea de su aturdimiento y castiga su E fallida.','La posición de la oleada define el duelo.'],
+  'Riven':['Alta movilidad','Sus saltos y escudo convierten intercambios largos en desventaja.','Guarda E para reposicionar tras su cadena de habilidades.','Evita comprometer Q2 cuando aún dispone de escudo.'],
+  'Volibear':['Resistencia / curación','No permitas una segunda activación gratis de sus marcas.','Intercambios cortos con enfriamientos vigilados.','Heridas graves si su curación es decisiva.'],
+  'Gragas':['Sostenimiento y control','Puede interrumpir tu entrada y desplazar tu posición.','Ataca cuando no tenga E y no apiles la oleada sin visión.','Conserva E para escapar tras su control.'],
+  'Shen':['Tanque / global','Su R puede cambiar peleas sin que salga de tu línea.','Cuando use R, presiona oleada y torre y evalúa Teleportar.','No persigas bajo torre tras su provocación.'],
+  'Kayle':['Escala con tiempo','Los primeros niveles son tu oportunidad económica.','Controla oleada y castiga farmeo temprano.','No fuerces peleas dentro de su inmunidad.'],
+  'Yone':['Daño mixto','Su retorno de espíritu hace malas las persecuciones largas.','Desgasta y prepara Q2 cuando termine su E.','Evita agrupaciones en su definitiva.'],
+  'Yasuo':['Movilidad en oleadas','Usa el control de súbditos: los minions son sus rutas de desplazamiento.','Intercambia cuando gaste su muro/escudo y sin oleada favorable para él.','No lo persigas entre muchos súbditos.'],
+  'Vladimir':['Sostenimiento mágico','Su charco evita tu definitiva y tus intentos de remate.','Controla oleadas y castiga cuando su W esté en enfriamiento.','Evita una pelea larga con su R disponible.'],
+  'Heimerdinger':['Hostigamiento y torretas','No engages a ciegas dentro de varias torretas.','Despeja oleadas y fuerza que se exponga lejos de su zona.','No sacrifiques vida por súbditos durante los primeros niveles.'],
+  'Gnar':['Rango / transformación','Pequeño puede hostigar, grande amenaza con CC contra pared.','Gana prioridad cuando se reduzca su barra de furia.','No te acerques a paredes cuando esté transformado.'],
+  'Cho\'Gath':['Tanque / ejecución','Respeta su silencio y su daño de ejecución cuando estés a poca vida.','Usa Q2 y castígalo tras fallar su Q.','Compra anti-tanque si su vida crece demasiado.'],
+};
+const matchups=PAIRS;
+function getMatchup(name){return PAIRS[name] || null;}
+
+
+// Bundled from source-data.js
+/* Reference snapshots and editorial boundaries. These are NOT live provider data.
+   CN meta snapshot observed via Wildriftcore 2026-10-08 for patch 7.3.
+   An unrelated WildRiftFire editorial guide was consulted for 7.3b. */
+const SOURCES={
+ cn:{label:'Referencia servidor chino · captura 08-10-2026',patch:'7.3',date:'2026-10-08',url:'https://wildriftcore.com/pt-br/champions/camille/builds/',
+   build:['Fuerza de la Trinidad','Calibrador de Sterak','Baile de la Muerte','Rompecascos','Ángel Guardián'],
+   note:'Instantánea CN de una build estándar. No equivale a una consulta en tiempo real ni a una build contra una composición específica.'},
+ editorial:{label:'Guía WildRiftFire · parche 7.3b',patch:'7.3b',date:'2026-10-18 (consulta)',url:'https://www.wildriftfire.com/guide/camille',
+  core:['Fuerza de la Trinidad','Rompecascos','Eclipse'],note:'Referencia editorial independiente, no datos del servidor chino.'}
+};
+
+
+// Bundled from visuals.js
+/* Riot Data Dragon assets for shared LoL champion, item and rune artwork.
+   Artwork may differ from the Wild Rift in-game 7.3b icons. Online download required initially;
+   when unavailable, semantic inline icon/initial fallbacks remain readable. */
+const ASSET_META={provider:'Riot Games Data Dragon (LoL)',version:'16.18.1',url:'https://developer.riotgames.com/docs/lol'};
+const CDN='https://ddragon.leagueoflegends.com/cdn/16.18.1/img/';
+const special={"Aurelion Sol":"AurelionSol","Cho'Gath":"Chogath","Dr. Mundo":"DrMundo","Jarvan IV":"JarvanIV","Kai'Sa":"Kaisa","Kha'Zix":"Khazix","Kog'Maw":"KogMaw","LeBlanc":"Leblanc","Lee Sin":"LeeSin","Master Yi":"MasterYi","Miss Fortune":"MissFortune","Nunu y Willump":"Nunu","Rek'Sai":"RekSai","Renata Glasc":"Renata","Tahm Kench":"TahmKench","Twisted Fate":"TwistedFate","Vel'Koz":"Velkoz","Wukong":"MonkeyKing","Xin Zhao":"XinZhao","Bel'Veth":"Belveth"};
+function champArt(name){if(!name)return '';const id=special[name]||name.replace(/[^a-zA-Z0-9]/g,'');return `${CDN}champion/${id}.png`}
+const ITEMS={
+ 'Fuerza de la Trinidad':'3078', 'Rompecascos':'3181','Eclipse':'6692',
+ 'Fauces de Malmortius':'3156','Fuerza de la Naturaleza':'4401',
+ 'Rookern Kaénico':'6664','Baile de la Muerte':'6333','Calibrador de Sterak':'3053',
+ 'Hoja del Rey Arruinado':'3153','Espada Quimiopunk':'6609',
+ 'Colmillo de Serpiente':'6695','Lanza de Shojin':'3161','Ángel Guardián':'3026',
+ 'Botas de Mercurio':'3111','Punteras de Acero':'3047',
+ 'Cercenador Divino':null
+};
+function itemArt(name){return ITEMS[name]?`${CDN}item/${ITEMS[name]}.png`:''}
+const RUNES={
+ 'Agarre del Perpetuo':'Styles/Resolve/GraspOfTheUndying/GraspOfTheUndying.png',
+ 'Pies Veloces':'Styles/Precision/FleetFootwork/FleetFootwork.png',
+ 'Demoler':'Styles/Resolve/Demolish/Demolish.png',
+ 'Segundo Aliento':'Styles/Resolve/SecondWind/SecondWind.png',
+ 'Revestimiento de Huesos':'Styles/Resolve/BonePlating/BonePlating.png',
+ 'Sobrecrecimiento':'Styles/Resolve/Overgrowth/Overgrowth.png',
+ 'Inquebrantable':'Styles/Resolve/Unflinching/Unflinching.png',
+ 'Perseverancia':null,'Quemadura':'Styles/Sorcery/Scorch/Scorch.png'
+};
+function runeArt(name){return RUNES[name]?`https://ddragon.leagueoflegends.com/cdn/img/perk-images/${RUNES[name]}`:''}
+
+
+// Bundled from engine.js
+
+
+const VERSION='1.1.0';
+const PATCH='7.3b';
+const ROLES=[{id:'top',label:'BARÓN',abbr:'TOP'},{id:'jg',label:'JUNGLA',abbr:'JG'},{id:'mid',label:'CENTRAL',abbr:'MID'},{id:'adc',label:'DRAGÓN',abbr:'ADC'},{id:'sup',label:'SOPORTE',abbr:'SUP'}];
+const DEFAULT_DRAFT={top:'Gwen',jg:'Viego',mid:'Brand',adc:'Lucian',sup:'Lux'};
+const has=(c,t)=>c.tags.includes(t);
+const desc={
+ 'Fuerza de la Trinidad':'Núcleo para Q2, movilidad y presión sobre torres.',
+ 'Cercenador Divino':'Alternativa a Trinidad contra muchos objetivos con vida elevada. No combinar Espada Encantada.',
+ 'Rompecascos':'Duelo y presión lateral. Empuja cuando conozcas las posiciones rivales.',
+ 'Eclipse':'Daño y escudo en intercambios cortos.',
+ 'Fauces de Malmortius':'Resistencia mágica y escudo anti-burst. No combinar con Sterak por Salvavidas.',
+ 'Fuerza de la Naturaleza':'Para daño mágico repetido y varias fuentes AP.',
+ 'Rookern Kaénico':'Escudo frente a explosión mágica antes de entrar en pelea.',
+ 'Baile de la Muerte':'Armadura y supervivencia frente a AD; no otorga resistencia mágica.',
+ 'Calibrador de Sterak':'Supervivencia en peleas; no combinar con Fauces.',
+ 'Hoja del Rey Arruinado':'Daño y duelo contra campeones de mucha vida.',
+ 'Espada Quimiopunk':'Heridas Graves situacionales si curación rival domina.',
+ 'Colmillo de Serpiente':'Situacional cuando múltiples escudos impiden eliminar objetivos.',
+ 'Lanza de Shojin':'Más actividad de habilidades para presión y escaramuzas.',
+ 'Ángel Guardián':'Seguridad en peleas que deciden el objetivo o la partida.'
+};
+const magicItems=['Fauces de Malmortius','Fuerza de la Naturaleza','Rookern Kaénico'];
+const fmt=n=>Number(n).toLocaleString('es-CL');
+function analyzeDraft(draft,settings={}){
+ const focus=['split','duel','team'].includes(settings.focus)?settings.focus:'split';
+ const state=['even','apfed','adfed'].includes(settings.state)?settings.state:'even';
+ const team=ROLES.map(r=>({...byName.get(draft[r.id]),role:r.id,roleName:r.label,name:draft[r.id]}));
+ if(team.some(c=>!c.name||!c.tags))throw new Error('Selecciona cinco campeones del catálogo para generar la guía.');
+ if(new Set(team.map(c=>c.name)).size!==5)throw new Error('Cada campeón puede aparecer una sola vez en el equipo enemigo.');
+ const top=team[0];
+ const count=tag=>team.filter(c=>has(c,tag)).length;
+ const ap=team.filter(c=>c.damage==='AP').length,ad=team.filter(c=>c.damage==='AD').length,mixed=team.filter(c=>c.damage==='MIX').length;
+ const pressureCC=team.reduce((n,c)=>n+c.cc,0), healing=count('heal'),shields=count('shield'),tanks=count('tank');
+ const magicScore=ap+mixed*.5, heavyMagic=magicScore>=2.5;
+ const magicBurst=team.filter(c=>c.damage==='AP'&&has(c,'burst')).length;
+ const repeatedMagic=team.filter(c=>c.damage==='AP'&&(has(c,'dot')||has(c,'poke'))).length;
+ const physicalBurst=team.filter(c=>c.damage==='AD'&&has(c,'burst')).length;
+ const rangedTop=has(top,'ranged'),apTop=top.damage==='AP';
+ const hardLane=(has(top,'true')?1:0)+(has(top,'heal')?1:0)+(rangedTop?2:0)+(has(top,'burst')?1:0)+(top.cc>=2?1:0);
+ const laneScore=hardLane+(apTop?1:0)+(has(top,'blind')?2:0);
+ const laneRisk=laneScore>=5?'ALTO':laneScore>=2?'MEDIO':'BAJO';
+ // Measures teamfight risk separately: hard CC synergy, double burst and overlapping magic threats.
+ const ccSources=team.filter(c=>c.cc>=1).length;
+ const rangedBurst=team.filter(c=>has(c,'ranged')&&has(c,'burst')).length;
+ const groupedSpike=(magicBurst>=2?2:0)+(magicBurst>=1&&physicalBurst>=1?1:0);
+ const teamFightScore=(pressureCC>=4?2:pressureCC>=2?1:0)+(ccSources>=3?1:0)+groupedSpike+(heavyMagic?1:0)+(count('engage')>=1?1:0)+(rangedBurst>=2?1:0);
+ const fightRisk=teamFightScore>=5?'ALTO':teamFightScore>=3?'MEDIO':'BAJO';
+ const ccRisk=pressureCC>=4&&ccSources>=3?'ALTO':pressureCC>=3?'MEDIO':'BAJO';
+ const givenThreat=team.find(c=>c.name===settings.danger);
+ const threat=givenThreat||null;
+ const dangerousAP=threat?threat.damage==='AP':state==='apfed';
+ const dangerousAD=threat?threat.damage==='AD':state==='adfed';
+ const dangerKind=threat?threat.name:(state==='apfed'?'Mago adelantado':state==='adfed'?'Amenaza AD adelantada':'Sin amenaza destacada');
+ const burstOfThreat=threat?has(threat,'burst') : magicBurst>=2;
+ const magicDef=(burstOfThreat && repeatedMagic<2)?'Fauces de Malmortius':(magicBurst>=2 && repeatedMagic<2?'Fauces de Malmortius':'Fuerza de la Naturaleza');
+ const boot=apTop || (heavyMagic&&ccRisk==='ALTO') || (threat&&dangerousAP&&teamFightScore>=4) || (state==='apfed'&&magicScore>=1.5) ? 'Botas de Mercurio':'Punteras de Acero';
+ const main=tanks>=3?'Cercenador Divino':'Fuerza de la Trinidad';
+ const pool=[];const reasons={};const insert=(name,why)=>{if(!pool.includes(name)){pool.push(name);reasons[name]=why||desc[name]}};
+ insert(main);
+ if(dangerousAP)insert(magicDef,`${dangerKind} representa la mayor amenaza. Adelanta defensa mágica antes de maximizar presión lateral.`);
+ if(dangerousAD)insert('Baile de la Muerte',`${dangerKind} va adelantado: evita construir solo daño antes de protegerte.`);
+ insert('Rompecascos');
+ if((heavyMagic||apTop)&&!pool.some(x=>magicItems.includes(x)))insert(magicDef);
+ if(focus==='duel'&&tanks>=2)insert('Hoja del Rey Arruinado');
+ if(healing>=3)insert('Espada Quimiopunk');
+ if(shields>=3)insert('Colmillo de Serpiente');
+ if(focus==='team'&&magicBurst>=2&&!pool.some(x=>magicItems.includes(x)))insert('Rookern Kaénico');
+ insert('Eclipse');
+ if(ad>=2)insert('Baile de la Muerte');
+ if(!pool.includes('Fauces de Malmortius')&&magicScore<2.5)insert('Calibrador de Sterak');
+ insert('Lanza de Shojin');insert('Ángel Guardián');
+ const selected=[];
+ for(const item of pool){if(selected.length===5)break;
+  if(item==='Calibrador de Sterak'&&selected.includes('Fauces de Malmortius'))continue;
+  if(item==='Fauces de Malmortius'&&selected.includes('Calibrador de Sterak'))continue;
+  selected.push(item);
+ }
+ const runes={
+ key:rangedTop?'Pies Veloces':'Agarre del Perpetuo',demolition:'Demoler',
+ sustain:rangedTop||apTop||has(top,'poke')||has(top,'dot')?'Segundo Aliento':has(top,'burst')?'Revestimiento de Huesos':'Segundo Aliento',
+ control:ccRisk==='ALTO'||ccRisk==='MEDIO'?'Inquebrantable':'Sobrecrecimiento',flex:'Quemadura',spells:['Destello','Prender']
+ };
+ const matchup=getMatchup(top.name)||[
+ rangedTop?'Hostigamiento en línea':apTop?'Daño mágico en línea':has(top,'tank')?'Tanque de primera línea':'Duelo de luchadores',
+ rangedTop?'Congela cuando puedas, no pierdas vida por cada súbdito; entra tras sus enfriamientos.': 'Gestiona la oleada y busca intercambios cortos con escudo pasivo.',
+ 'Conecta Q2 cuando el rival no pueda devolverte todo su combo.', 'Mantén E de salida cuando no veas al jungla.'
+ ];
+ const alerts=[];
+ if(heavyMagic)alerts.push({type:'magic',title:'Presión mágica',detail:`${ap} AP + ${mixed} mixtos. ${magicDef} es una opción defensiva.`});
+ if(fightRisk==='ALTO')alerts.push({type:'fight',title:'Pelea grupal peligrosa',detail:'La combinación de burst y control dificulta la entrada frontal. Entra por flancos tras enfriamientos.'});
+ if(ccRisk==='ALTO')alerts.push({type:'cc',title:'Control combinado alto',detail:'No basta con ganar el 1v1: considera rutas de flanco y tenacidad.'});
+ if(healing>=3)alerts.push({type:'heal',title:'Curaciones múltiples',detail:'Evalúa Heridas Graves sin sacrificar automáticamente el núcleo.'});
+ if(shields>=3)alerts.push({type:'shield',title:'Escudos acumulados',detail:'Anti-escudos si impiden rematar al carry.'});
+ if(count('true'))alerts.push({type:'true',title:'Daño verdadero presente',detail:'No se reduce acumulando únicamente armadura o resistencia mágica.'});
+ if(has(top,'blind'))alerts.push({type:'blind',title:'Ceguera rival',detail:'No consumas Q2 mientras Teemo tenga activa su ceguera.'});
+ if(threat)alerts.push({type:'fed',title:`Prioridad: ${threat.name}`,detail:'La compra se reordena por la amenaza que has identificado manualmente.'});
+ if(!alerts.length)alerts.push({type:'neutral',title:'Composición equilibrada',detail:'Juega el matchup y adapta los últimos objetos según la partida.'});
+ const possibleTargets=team.filter(c=>c.role==='mid'||c.role==='adc').sort((a,b)=>(has(b,'burst')?2:0)-(has(a,'burst')?2:0));
+ const priority=possibleTargets[0]?.name||team[3].name;
+ const avoid=team.filter(c=>c.cc>=1).sort((a,b)=>b.cc-a.cc)[0]?.name||top.name;
+ const objective=focus==='split'?'Presiona una lateral con visión. Si mandan dos rivales, retrocede y permite que el equipo juegue el otro lado.':focus==='duel'?'Aísla un 1v1 favorable; si ves llegar refuerzos, desconecta con E.':'Prepara la oleada antes de llegar a objetivos desde un flanco; evita iniciar de frente.';
+ const statusNote=threat?`${threat.name} es la amenaza prioritaria; el orden de compra se ha adaptado.`:state==='apfed'?'Mago adelantado: adelanta MR.':state==='adfed'?'AD adelantado: adelanta protección física.':'Sin carry muy adelantado: prioriza el plan lateral.';
+ return {team,ap,ad,mixed,pressureCC,ccSources,ccRisk,laneRisk,fightRisk,teamFightScore,healing,shields,tanks,risk:laneRisk,
+  damageText:`${ap} AP / ${ad} AD / ${mixed} MIX`,
+  boots:{name:boot,why:boot==='Botas de Mercurio'?'Daño mágico y/o control relevantes; protege la fase de línea si es AP.':'Buena resistencia contra luchadores y tiradores; reevalúa frente a varios magos.'},
+  start:'Cristal de Rubí',enchant:(magicBurst>=2||dangerousAP)?'Estasis (si está disponible)':'Encantamiento defensivo situacional',
+  items:selected.map((name,i)=>({name,n:i+1,why:reasons[name]||desc[name],source:'adaptación'})),
+  runes,matchup:{title:matchup[0],lane:matchup[1],window:matchup[2],warning:matchup[3],specific:!!getMatchup(top.name)},
+  alerts,phases:[{title:'0–5 min · Fase de línea',text:matchup[1]},{title:'5–12 min · Convertir oro en mapa',text:`Tras ${main}, prepara oleada antes de rotar. Prioriza placas y estructuras.`},{title:'12+ min · Presión lateral',text:objective}],
+  target:priority,avoid,statusNote,danger:threat?.name||'',focus,summary:`Línea ${laneRisk} · equipo ${fightRisk} · ${ap} AP / ${ad} AD · ${boot}`,
+  sources:SOURCES,cnBuild:SOURCES.cn.build,core:SOURCES.editorial.core,dated:true,formatted:{ap:fmt(ap),ad:fmt(ad)}
+ };
+}
+function planToText(draft,p){return [
+ `CAMILLE FAST ${VERSION} · Wild Rift ${PATCH} · Guía por reglas`,
+ ...ROLES.map(r=>`${r.label}: ${draft[r.id]}`),
+ `Riesgo línea: ${p.laneRisk} · pelea: ${p.fightRisk} · CC: ${p.ccRisk}`,
+ `Equipo: ${p.damageText}. Amenaza destacada: ${p.danger||'ninguna'}`,
+ `Inicio: ${p.start}. Botas: ${p.boots.name}. Encantamiento: ${p.enchant}`,
+ ...p.items.map(x=>`${x.n}. ${x.name}: ${x.why}`),
+ `Runas: ${[p.runes.key,p.runes.demolition,p.runes.sustain,p.runes.control,p.runes.flex].join(' / ')}`,
+ `Hechizos: ${p.runes.spells.join(' + ')}`,
+ `MATCHUP: ${p.matchup.lane} Ventana: ${p.matchup.window} Evita: ${p.matchup.warning}`,
+ `Pelea: flanquea ${p.target}; evita entrar frontal sobre ${p.avoid}`,
+ `FUENTE CN: ${SOURCES.cn.url} (datos ${SOURCES.cn.date}, parche ${SOURCES.cn.patch})`,
+ `CN estándar: ${SOURCES.cn.build.join(' > ')}`,
+ `REFERENCIA 7.3b: ${SOURCES.editorial.url}`,
+ 'La build sugerida es una adaptación táctica; NO es copia exacta de un TOP chino ni datos en directo.'
+].join('\n')}
+
+
+// Bundled from app.js
+
+
+
+
+const $=s=>document.querySelector(s);
+const key='camille_fast_v1';
+const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ic=(name)=>{
+ const paths={
+ bolt:'<path d="m13 2-9 12h7l-1 8 10-12h-7z"/>',
+ shield:'<path d="M12 22c6-3 8-8 8-13V5l-8-3-8 3v4c0 5 2 10 8 13z"/>',
+ sword:'<path d="m14 5 5 5M4 20l4-4m0 0 8-8 4-4-1 5-8 8m-3-1-2-2-3 3 3 3 3-3-1-1"/>',
+ boots:'<path d="M5 3v7c0 2 3 4 6 4h3l3 3v3H4v-4l-2-3V3h3zm10 2v5c0 2 2 4 5 4v6h-5"/>',
+ castle:'<path d="M4 21V4h4v3h3V4h4v3h3V4h2v17zM9 21v-6h6v6"/>',
+ check:'<path d="m5 12 4 4L19 6"/>',
+ copy:'<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>',
+ history:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',
+ share:'<path d="M12 16V3m0 0-4 4m4-4 4 4M5 13v7h14v-7"/>',
+ target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 1v4m0 14v4M1 12h4m14 0h4"/>',
+ warning:'<path d="m12 3 10 18H2zM12 9v5m0 4h.01"/>'
+ };return `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name]||paths.info}</svg>`};
+const initial = name => name.replace(/[^\p{L}\p{N} ]/gu,'').trim().split(/\s+/).slice(0,2).map(s=>s[0]?.toUpperCase()).join('')||'?';
+const avatar=(name,cls)=>{const url=champArt(name);return `<span class="portrait ${safe((cls||byName.get(name)?.damage||'MIX').toLowerCase())}">${safe(initial(name))}${url?`<img src="${safe(url)}" alt="" loading="lazy" onerror="this.remove()">`:''}</span>`};
+const asset=(name,kind='item')=>{const url=kind==='rune'?runeArt(name):itemArt(name);return `<span class="asset-box ${kind}"><span class="asset-fallback">${kind==='rune'?ic('shield'):ic(/Botas|Punteras/.test(name)?'boots':/Rompecascos/.test(name)?'castle':/Fauces|Fuerza de la Naturaleza|Rookern|Sterak|Guardián/.test(name)?'shield':'sword')}</span>${url?`<img src="${safe(url)}" alt="" loading="lazy" onerror="this.remove()">`:''}</span>`};
+const comma=n=>Number(n).toLocaleString('es-CL');
+const saved=(()=>{try{return JSON.parse(localStorage.getItem(key)||'{}')}catch{return {}}})();
+const state={
+ tab:'draft',draft:{...DEFAULT_DRAFT,...saved.draft},settings:{state:'even',focus:'split',danger:'',...saved.settings},
+ latest:saved.latest??627, cutoff:saved.cutoff??6386, history:Array.isArray(saved.history)?saved.history:[],
+ plan:null,selectedRole:null,installPrompt:null
+};
+const store=()=>{try{localStorage.setItem(key,JSON.stringify({draft:state.draft,settings:state.settings,latest:state.latest,cutoff:state.cutoff,history:state.history}))}catch{}};
+const slot=(r)=>{
+ const c=byName.get(state.draft[r.id]);
+ return `<button class="champ-slot" type="button" data-role="${r.id}" aria-label="Elegir enemigo de ${r.label}: ${safe(c?.name||'Sin seleccionar')}">
+ ${avatar(c?.name||'?',c?.damage)}<span class="champ-info"><span class="slot-label">${r.label}</span><span class="slot-name">${safe(c?.name||'Seleccionar')}</span></span><span class="slot-arrow">›</span></button>`;
+};
+function buildDraft(){
+ return `<section class="hero ${state.plan?'hero-compact':''}"><div class="eyebrow">TU ANALISTA DE COMPOSICIONES</div><h1>Lee el draft.<br><em>Controla la partida.</em></h1><p>Cinco enemigos, una respuesta táctica. Camille Barón orientada al control económico y split push.</p>
+ <div class="hero-meta"><span class="tag gold">NÚCLEO CN</span><span class="tag">SIN CONEXIÓN</span><span class="tag">PARCHE ${PATCH}</span></div></section>
+ <div class="sec-head"><h2>01 · Equipo enemigo</h2><span class="sec-note">Toca para cambiar</span></div>
+ <div class="champ-slots">${ROLES.map(slot).join('')}</div>
+ <div class="toolbar"><button class="quickbutton" id="exampleBtn" type="button">Cargar ejemplo Gwen</button><button class="quickbutton muted" id="resetBtn" type="button">Limpiar composición</button></div>
+ <div class="sec-head"><h2>02 · Configuración táctica</h2><span class="sec-note">Personaliza en partida</span></div>
+ <div class="settings">
+ <div class="field"><label for="focusSel">ESTILO</label><select id="focusSel"><option value="split" ${state.settings.focus==='split'?'selected':''}>Presión lateral</option><option value="duel" ${state.settings.focus==='duel'?'selected':''}>Duelos / 1v1</option><option value="team" ${state.settings.focus==='team'?'selected':''}>Peleas de equipo</option></select></div>
+ <div class="field"><label for="stateSel">AMENAZA ACTUAL</label><select id="stateSel"><option value="even" ${state.settings.state==='even'?'selected':''}>Partida igualada</option><option value="apfed" ${state.settings.state==='apfed'?'selected':''}>Mago va adelantado</option><option value="adfed" ${state.settings.state==='adfed'?'selected':''}>AD va adelantado</option></select></div></div>
+ <div class="field danger-field"><label for="dangerSel">¿QUÉ ENEMIGO VA MÁS FUERTE?</label><select id="dangerSel"><option value="" ${!state.settings.danger?'selected':''}>Ninguno · todos igualados</option>${ROLES.filter(r=>state.draft[r.id]).map(r=>`<option value="${safe(state.draft[r.id])}" ${state.settings.danger===state.draft[r.id]?'selected':''}>${r.abbr} · ${safe(state.draft[r.id])}</option>`).join('')}</select></div>
+ <button class="primary wide" id="analyzeBtn" type="button">${ic('bolt')} GENERAR GUÍA FAST</button>
+ <section id="analysisOutput" aria-label="Análisis táctico"></section>
+ <details class="sources"><summary>Datos chinos, fechas y límites</summary><p><strong>CN confirmado en fuente secundaria:</strong> instantánea del ${safe(SOURCES.cn.date)}, parche ${safe(SOURCES.cn.patch)}. ${safe(SOURCES.cn.note)}</p><p><strong>Referencia editorial 7.3b:</strong> ${safe(SOURCES.editorial.note)}</p><p><strong>Build generada:</strong> reglas internas de Camille FAST ${VERSION}, no registro verificable de un jugador TOP contra estos cinco enemigos. No hay actualización automática del meta.</p><p><strong>Iconos:</strong> imágenes de Riot Data Dragon para League of Legends (${safe(ASSET_META.version)}). Pueden diferir de sus versiones de Wild Rift; se descargan al abrirlas con internet y aparecen símbolos alternativos sin conexión.</p><ul><li><a href="${safe(SOURCES.cn.url)}" target="_blank" rel="noopener noreferrer">Consulta CN · ${safe(SOURCES.cn.date)}</a></li><li><a href="${safe(SOURCES.editorial.url)}" target="_blank" rel="noopener noreferrer">WildRiftFire · parche 7.3b</a></li><li><a href="${safe(ASSET_META.url)}" target="_blank" rel="noopener noreferrer">Riot Data Dragon · iconos</a></li></ul></details>`;
+}
+function planMarkup(p){
+ const quickIcons=[p.boots.name,...p.items.map(x=>x.name)];
+ const threatText=p.danger?`Prioridad: ${safe(p.danger)}`:'Ningún campeón señalado como adelantado';
+ return `<div class="results" id="guideResult">
+ <div class="result-head"><div><div class="eyebrow">LECTURA EN SEGUNDOS</div><h2>Tu respuesta al draft</h2></div><span class="tag gold">${PATCH}</span></div>
+ <section class="quick-summary" aria-label="Resumen de Camille FAST">
+  <div class="quick-topline"><div><div class="quick-match"><span class="small-camille">${avatar('Camille','MIX')}</span><span>Camille <span class="muted-vs">vs</span> ${safe(state.draft.top)}</span><span class="small-enemy">${avatar(state.draft.top)}</span></div><div class="quick-sub">${safe(threatText)}</div></div><span class="risk-chip risk-${p.fightRisk.toLowerCase()}">PELEA ${p.fightRisk}</span></div>
+  <div class="quick-damage"><span>${p.ap} AP</span><span>${p.ad} AD</span><span>${p.mixed} mixtos</span><span class="quick-control">CC ${p.ccRisk.toLowerCase()}</span></div>
+  <div class="risk-grid"><div><span>RIESGO EN LÍNEA</span><strong>${p.laneRisk}</strong></div><div><span>RIESGO EN EQUIPO</span><strong>${p.fightRisk}</strong></div></div>
+  <div class="quick-label">BOTAS + CINCO OBJETOS <span>Orden condicionado por amenazas</span></div>
+  <div class="build-strip">${quickIcons.map((n,i)=>`<div class="strip-item" title="${safe(n)}"><span class="strip-n">${i===0?'B':i}</span>${asset(n)}<span class="strip-name">${safe(n)}</span></div>`).join('')}</div>
+  <div class="quick-label">RUNAS</div>
+  <div class="rune-strip">${[p.runes.key,p.runes.demolition,p.runes.sustain,p.runes.control,p.runes.flex].map(n=>`<span class="tiny-rune">${asset(n,'rune')}<span>${safe(n)}</span></span>`).join('')}</div>
+  <div class="quick-verdict"><strong>PLAN:</strong> ${safe(p.matchup.window)} <strong>EN EQUIPO:</strong> flanquea a ${safe(p.target)}; respeta el control de ${safe(p.avoid)}.</div>
+  <div class="quick-actions"><button class="action-btn" id="copyBuild" type="button">${ic('copy')} COPIAR BUILD</button><button class="action-btn" id="savePlan" type="button">${ic('history')} GUARDAR</button></div>
+ </section>
+ <details class="full-analysis" id="fullAnalysis"><summary>${ic('info')} VER ANÁLISIS COMPLETO: OBJETOS, RUNAS Y FASES</summary>
+ <div class="analysis-card"><div class="analysis-title"><strong>Camille vs ${safe(state.draft.top)}</strong><span class="danger-pill ${p.laneRisk==='BAJO'?'low':''}">LÍNEA ${safe(p.laneRisk)}</span></div><div class="analysis-stats"><div class="mini-stat"><strong>${p.ap}</strong><span>AP</span></div><div class="mini-stat"><strong>${p.ad}</strong><span>AD</span></div><div class="mini-stat"><strong>${p.mixed}</strong><span>Mixtos</span></div></div><div class="flag-list"><span class="flag">Control: ${p.ccRisk}</span><span class="flag">${p.healing} fuentes con curación</span>${p.tanks?`<span class="flag">${p.tanks} tanques</span>`:''}</div></div>
+ <div class="sec-head"><h2>Orden de compra</h2><span class="sec-note">Botas + 5 objetos</span></div>
+ <div class="build-list"><div class="item-line boot-line"><span class="item-num">B</span>${asset(p.boots.name)}<div><h3>${safe(p.boots.name)}</h3><p>${safe(p.boots.why)}</p></div></div>
+ ${p.items.map(x=>`<div class="item-line"><span class="item-num">${x.n}</span>${asset(x.name)}<div><h3>${safe(x.name)}</h3><p>${safe(x.why)}</p></div></div>`).join('')}</div><p class="note">Inicio: ${safe(p.start)} · Encantamiento: ${safe(p.enchant)}.</p>
+ <div class="sec-head"><h2>Runas y hechizos</h2></div><div class="runebox"><div class="rune-grid">${[['CLAVE',p.runes.key],['TORRES',p.runes.demolition],['LÍNEA',p.runes.sustain],['DEFENSA',p.runes.control],['FLEX',p.runes.flex]].map(([a,b])=>`<div class="rune">${asset(b,'rune')}<span class="rune-badge">${a}</span><span class="rune-name">${safe(b)}</span></div>`).join('')}</div><p class="note">${safe(p.runes.spells.join(' + '))} · Considera Teleportar si el plan de equipo justifica la presión lateral.</p></div>
+ <div class="sec-head"><h2>Alertas críticas</h2></div><div class="alerts">${p.alerts.map(a=>`<div class="alert"><span class="alert-mark">!</span><div><strong>${safe(a.title)}</strong><p>${safe(a.detail)}</p></div></div>`).join('')}</div>
+ <div class="sec-head"><h2>Plan por fases</h2></div><div class="plans">${p.phases.map(a=>`<div class="plan-card"><h3>${safe(a.title)}</h3><p>${safe(a.text)}</p></div>`).join('')}</div>
+ <div class="callout"><strong>Objetivos de pelea</strong><p>Busca a ${safe(p.target)} desde un flanco si ha gastado sus controles. Evita iniciar sobre ${safe(p.avoid)} de frente.</p></div>
+ <div class="source-compare"><div class="source-line"><strong>CN · ${safe(SOURCES.cn.date)} · parche ${SOURCES.cn.patch}</strong><p>${SOURCES.cn.build.map(safe).join(' → ')}</p><a href="${SOURCES.cn.url}" target="_blank" rel="noopener noreferrer">Ver instantánea CN</a></div><div class="source-line"><strong>Referencia editorial · 7.3b</strong><p>${SOURCES.editorial.core.map(safe).join(' → ')}</p><a href="${SOURCES.editorial.url}" target="_blank" rel="noopener noreferrer">Ver guía editorial</a></div><div class="source-line"><strong>Tu resultado · motor FAST ${VERSION}</strong><p>${p.items.map(x=>safe(x.name)).join(' → ')}</p><span class="inferred">Inferencia: composición + rival en línea + amenaza actual</span></div></div>
+ <div class="actions"><button id="copyPlan" class="action-btn" type="button">${ic('copy')} COPIAR ANÁLISIS</button><button id="downloadPlan" class="action-btn" type="button">${ic('share')} EXPORTAR TXT</button></div>
+ <div class="actions"><button id="detailsBtn" class="action-btn" type="button">${ic('target')} VER MATCHUP</button></div>
+ <p class="note">El motor utiliza reglas heurísticas locales. No estima tasas de victoria ni garantiza compras óptimas en tiempo real. No atribuir la build resultante a un TOP chino.</p>
+ </details></div>`;
+}
+function matchupPage(){
+ let p;try{p=analyzeDraft(state.draft,state.settings)}catch{}
+ if(!p)return `<div class="empty">Selecciona cinco campeones válidos desde DRAFT.</div>`;
+ return `<div class="eyebrow">ANÁLISIS DE LÍNEA</div>
+ <div class="match-hero"><div class="eyebrow">BARÓN / SOLO</div><h1>Camille <span style="color:var(--muted)">vs</span> ${safe(state.draft.top)}</h1><p>${safe(p.matchup.title)}</p><div class="hero-meta"><span class="tag gold">${p.matchup.specific?'NOTAS ESPECÍFICAS':'REGLA GENERAL'}</span><span class="tag">${safe(p.boots.name)}</span></div></div>
+ <div class="match-detail"><h3>Cómo gestionar la línea</h3><p>${safe(p.matchup.lane)}</p></div>
+ <div class="match-detail"><h3>Cuándo atacar</h3><p>${safe(p.matchup.window)}</p></div>
+ <div class="match-detail"><h3>Qué evitar</h3><p>${safe(p.matchup.warning)}</p></div>
+ <div class="match-detail"><h3>Plan contra los otros cuatro</h3><p>${safe(p.statusNote)} ${safe(p.phases[2].text)}</p></div>
+ <div class="callout" style="margin-top:13px"><strong>Recordatorio de Camille</strong><p>Q1 para preparar Q2; no entres con E sin salida ni información del jungla. Prepara oleada antes de disputar objetivos.</p></div>
+ <button class="primary wide" id="backDraft" type="button">${ic('bolt')} VER BUILD COMPLETA</button>`;
+}
+function historyPage(){
+ const percent=Math.max(0,Math.min(100,Math.round((state.latest / Math.max(1,state.cutoff))*1000)/10));
+ return `<div class="eyebrow">TU CAMINO COMPETITIVO</div><div class="sec-head"><h2>Maestro + TOP 200 Camille</h2></div>
+ <div class="leaderboard"><div class="progress-head"><strong>${state.latest.toLocaleString('es-CL')}</strong><span>vs ${state.cutoff.toLocaleString('es-CL')} pts corte</span></div><div class="progress-track"><div class="progress-fill" style="width:${percent}%"></div></div><p class="note">${percent}% del corte registrado. Para superar ese valor fijo, faltarían ${Math.max(0,state.cutoff-state.latest+1).toLocaleString('es-CL')} puntos. El corte del ranking cambia.</p>
+ <div class="progress-inputs"><div class="field"><label for="pointsInput">TUS PUNTOS</label><input id="pointsInput" type="number" min="0" max="100000" inputmode="numeric" value="${state.latest}"></div><div class="field"><label for="cutoffInput">CORTE TOP 200</label><input id="cutoffInput" type="number" min="1" max="100000" inputmode="numeric" value="${state.cutoff}"></div></div><button class="quickbutton" style="margin-top:10px;width:100%" id="savePoints" type="button">ACTUALIZAR PROGRESO</button></div>
+ <div class="sec-head"><h2>Composiciones guardadas</h2><span class="sec-note">${state.history.length} registros locales</span></div>
+ <div class="history-list">${state.history.length ? state.history.map((h,i)=>`<button class="history-entry" type="button" data-open-history="${i}"><span><strong>${safe(h.draft.top)} / ${safe(h.draft.jg)} / ${safe(h.draft.mid)}</strong><span>${safe(h.draft.adc)} · ${safe(h.draft.sup)} · ${safe(h.date)}</span></span><span style="color:var(--mint);font-size:19px">›</span></button>`).join(''):'<div class="empty">Todavía no guardas composiciones.<br>Genera una guía y pulsa GUARDAR DRAFT.</div>'}</div>
+ ${state.history.length?'<button id="clearHistory" type="button" class="quickbutton muted" style="margin-top:14px">BORRAR HISTORIAL LOCAL</button>':''}
+ <div class="callout" style="margin-top:20px"><strong>Datos exclusivamente locales</strong><p>No se envían tus selecciones ni historial a un servidor. La información se guarda en este navegador mientras no borres sus datos.</p></div>`;
+}
+function render(){
+ document.querySelectorAll('[data-tab]').forEach(b=>{b.classList.toggle('active',b.dataset.tab===state.tab);b.setAttribute('aria-current',b.dataset.tab===state.tab?'page':'false')});
+ $('#content').innerHTML=state.tab==='draft'?buildDraft():state.tab==='matchup'?matchupPage():historyPage();
+ bindView();
+ if(state.tab==='draft'&&state.plan){try{state.plan=analyzeDraft(state.draft,state.settings);$('#analysisOutput').innerHTML=planMarkup(state.plan);bindPlanButtons();}catch{state.plan=null;}}
+}
+function bindView(){
+ document.querySelectorAll('.champ-slot').forEach(btn=>btn.addEventListener('click',()=>openPicker(btn.dataset.role)));
+ $('#exampleBtn')?.addEventListener('click',()=>{state.draft={...DEFAULT_DRAFT};state.settings.danger='';state.plan=null;store();render();toast('Ejemplo Gwen cargado')});
+ $('#resetBtn')?.addEventListener('click',()=>{state.draft={top:'',jg:'',mid:'',adc:'',sup:''};state.plan=null;state.settings.danger='';store();render();toast('Selecciona cinco campeones')});
+ $('#focusSel')?.addEventListener('change',e=>{state.settings.focus=e.target.value;store();if(state.plan){state.plan=analyzeDraft(state.draft,state.settings);$('#analysisOutput').innerHTML=planMarkup(state.plan);bindPlanButtons()}});
+ $('#stateSel')?.addEventListener('change',e=>{state.settings.state=e.target.value;state.settings.danger='';if($('#dangerSel'))$('#dangerSel').value='';store();if(state.plan){state.plan=analyzeDraft(state.draft,state.settings);$('#analysisOutput').innerHTML=planMarkup(state.plan);bindPlanButtons()}});
+ $('#dangerSel')?.addEventListener('change',e=>{state.settings.danger=e.target.value;state.settings.state='even';if($('#stateSel'))$('#stateSel').value='even';store();if(state.plan){state.plan=analyzeDraft(state.draft,state.settings);$('#analysisOutput').innerHTML=planMarkup(state.plan);bindPlanButtons()}});
+ $('#analyzeBtn')?.addEventListener('click',()=>{try{state.plan=analyzeDraft(state.draft,state.settings);$('#analysisOutput').innerHTML=planMarkup(state.plan);bindPlanButtons();$('#analysisOutput').scrollIntoView({behavior:'smooth',block:'start'});}catch(e){toast(e.message)}});
+ $('#backDraft')?.addEventListener('click',()=>{state.tab='draft';state.plan=analyzeDraft(state.draft,state.settings);render();window.scrollTo({top:0,behavior:'smooth'})});
+ $('#savePoints')?.addEventListener('click',()=>{const x=Number($('#pointsInput').value),y=Number($('#cutoffInput').value);if(!Number.isInteger(x)||x<0||!Number.isInteger(y)||y<1||x>100000||y>100000){toast('Comprueba los puntos');return}state.latest=x;state.cutoff=y;store();render();toast('Puntuación actualizada')});
+ $('#clearHistory')?.addEventListener('click',()=>{if(window.confirm('¿Borrar los drafts guardados en este dispositivo?')){state.history=[];store();render();toast('Historial borrado')}});
+ document.querySelectorAll('[data-open-history]').forEach(b=>b.addEventListener('click',()=>{let h=state.history[Number(b.dataset.openHistory)];if(!h)return;state.draft={...h.draft};state.settings={...h.settings};state.tab='draft';state.plan=analyzeDraft(state.draft,state.settings);store();render();toast('Draft recuperado')}));
+}
+function bindPlanButtons(){
+ $('#copyBuild')?.addEventListener('click',async()=>{const p=state.plan;const b=[p.boots.name,...p.items.map(x=>x.name)];const s=`CAMILLE FAST ${PATCH}\n${p.team.map(c=>`${c.role.toUpperCase()}: ${c.name}`).join(' · ')}\n${b.join(' → ')}\nRunas: ${Object.values(p.runes).filter(x=>typeof x==='string').join(' / ')}\nBuild adaptada por reglas (no copia TOP CN).`;try{await navigator.clipboard.writeText(s);toast('Build copiada')}catch{const t=document.createElement('textarea');t.value=s;document.body.append(t);t.select();document.execCommand('copy');t.remove();toast('Build copiada')}});
+
+ $('#copyPlan')?.addEventListener('click',async()=>{const t=planToText(state.draft,state.plan);try{await navigator.clipboard.writeText(t);toast('Guía copiada')}catch{const box=document.createElement('textarea');box.value=t;document.body.append(box);box.select();document.execCommand('copy');box.remove();toast('Guía copiada')}});
+ $('#savePlan')?.addEventListener('click',()=>{state.history.unshift({draft:{...state.draft},settings:{...state.settings},date:new Date().toLocaleString('es-CL')});state.history=state.history.slice(0,25);store();toast('Composición guardada')});
+ $('#downloadPlan')?.addEventListener('click',()=>{const t=planToText(state.draft,state.plan);const url=URL.createObjectURL(new Blob([t],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=`CamilleFAST_${state.draft.top.replace(/\s/g,'_')}_${PATCH}.txt`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000);toast('TXT preparado')});
+ $('#detailsBtn')?.addEventListener('click',()=>{state.tab='matchup';render();window.scrollTo({top:0,behavior:'smooth'})});
+}
+function openPicker(role){
+ state.selectedRole=role;const r=ROLES.find(x=>x.id===role);$('#modalRole').textContent=`ENEMIGO · ${r.label}`;$('#championSearch').value='';renderPicker();$('#championModal').showModal();setTimeout(()=>$('#championSearch').focus(),80);
+}
+function renderPicker(){
+ const input=$('#championSearch').value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+ const list=champions.filter(c=>c.name.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().includes(input));
+ $('#championCount').textContent=`${list.length} campeones`;
+ $('#championList').innerHTML=list.length?list.map(c=>{
+  const selected=state.draft[state.selectedRole]===c.name;
+  const isUsed=Object.entries(state.draft).some(([k,n])=>k!==state.selectedRole&&n===c.name);
+  return `<button type="button" class="champ-choice ${selected?'selected':''}" data-champ="${safe(c.name)}" ${isUsed?'disabled title="Ya elegido en otra posición"':''}>${avatar(c.name,c.damage)}<span class="choice-text">${safe(c.name)}<span class="choice-sub" style="display:block">${c.tags.includes('tank')?'Tanque · ':c.tags.includes('mage')?'Mago · ':c.tags.includes('assassin')?'Asesino · ':c.tags.includes('bruiser')?'Luchador · ':'Campeón · '}${c.cc>=2?'Control alto':'Amenaza situacional'}</span></span><span class="dmg ${safe(c.damage)}">${c.damage}</span></button>`
+ }).join(''):'<div class="empty">No hay coincidencias en este catálogo.</div>';
+ document.querySelectorAll('[data-champ]').forEach(b=>b.addEventListener('click',()=>{
+  state.draft[state.selectedRole]=b.dataset.champ;state.settings.danger='';state.plan=null;store();$('#championModal').close();render();
+ }));
+}
+let toastTimeout;
+function toast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>el.classList.remove('show'),2500)}
+function wireBase(){
+ document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{state.tab=b.dataset.tab;render();window.scrollTo({top:0,behavior:'smooth'})}));
+ $('#championSearch').addEventListener('input',renderPicker);
+ $('#closeModal').addEventListener('click',()=>$('#championModal').close());
+ $('#championModal').addEventListener('click',e=>{if(e.target===$('#championModal'))$('#championModal').close()});
+ const updateOnline=()=>{const status=$('#offlineState');status.classList.toggle('off',!navigator.onLine);status.title=navigator.onLine?'Conectado':'Sin conexión'};
+ window.addEventListener('online',updateOnline);window.addEventListener('offline',updateOnline);updateOnline();
+ window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();state.installPrompt=e;$('#installBtn').title='Instalar Camille FAST'});
+ $('#installBtn').addEventListener('click',async()=>{
+  if(state.installPrompt){state.installPrompt.prompt();try{const r=await state.installPrompt.userChoice;if(r.outcome==='accepted')toast('Instalación solicitada')}catch{}state.installPrompt=null;}
+  else toast('En Chrome: menú ⋮ → Añadir a pantalla de inicio / Instalar aplicación');
+ });
+ /* standalone HTML: worker intentionally omitted */
+}
+wireBase();render();
+</script>
+<script>
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch((err) => console.warn('Service worker unavailable',err));
+  });
+}
+</script>
+</body>
+</html>

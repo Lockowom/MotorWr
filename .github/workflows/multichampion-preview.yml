@@ -1,0 +1,35 @@
+name: MotorWr 2.0 — beta preview
+on:
+  push:
+    branches:
+      - feature/multi-champion-v2
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: motorwr-multichampion-preview
+  cancel-in-progress: false
+jobs:
+  preview:
+    name: Validate and deploy preview (not production)
+    runs-on: ubuntu-latest
+    environment: CLOUDFLARE_API_TOKEN
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate source and test beta
+        run: npm test
+      - name: Build preview files
+        run: npm run build
+      - name: Publish to non-production Cloudflare Pages branch
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 4e5250a7fe2c9281b03e6a2d184897e8
+          command: pages deploy dist --project-name=buldwr --branch=multi-champion-v2
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

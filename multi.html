@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#081016">
+<meta name="description" content="MotorWr 2.0 Beta: análisis táctico de composiciones para todos los roles de Wild Rift.">
+<title>MotorWr 2.2 Beta — Wild Rift Draft Intelligence</title>
+<link rel="manifest" href="./manifest-multi.webmanifest">
+<style>
+:root{color-scheme:dark;--bg:#081016;--card:#13242b;--card2:#192e34;--stroke:#305058;--mint:#71e0ca;--text:#ecf4f2;--muted:#9cb3b7;--gold:#e4bf83;font-family:Inter,Roboto,system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 30% -10%,#184149 0%,transparent 36%),var(--bg);color:var(--text);line-height:1.45;font-size:14px}
+button,select,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--mint);outline-offset:3px}a{color:var(--mint)}
+.shell{max-width:740px;margin:auto;padding:20px 15px 36px}.topbar,.brand,.toplinks,.section-head,.person,.bottomrow{display:flex;align-items:center;gap:12px}.topbar{justify-content:space-between;flex-wrap:wrap;margin-bottom:22px}.brand{font-weight:900;letter-spacing:1.1px;font-size:19px}.logo{display:grid;place-items:center;background:#18373a;border:1px solid #6abbb1;width:44px;height:44px;border-radius:13px;color:var(--mint)}.sub{font-size:10px;letter-spacing:1.7px;color:var(--muted)}.toplinks a{font-size:12px;text-decoration:none;padding:9px;border:1px solid var(--stroke);border-radius:8px}
+.hero{background:linear-gradient(135deg,#1a3439,#13272e 65%,#233637);border:1px solid #4e7c76;border-radius:20px;padding:21px;margin-bottom:18px}.eyebrow{letter-spacing:1.5px;font-size:11px;font-weight:900;color:var(--mint)}h1{font-size:clamp(27px,7vw,40px);line-height:1.12;margin:12px 0}h1 em{color:var(--mint);font-style:normal}.hero p{max-width:540px;color:#b7c9c8;margin-bottom:0}.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:15px}.tag{border-radius:30px;border:1px solid #4a6a65;padding:5px 9px;color:#bde9df;font-size:10px;font-weight:800}.tag.warn{border-color:#8c7149;color:#f1c995}
+.card{background:rgba(17,33,41,.96);border:1px solid var(--stroke);border-radius:17px;padding:16px;margin-bottom:13px}.section-head{justify-content:space-between;align-items:baseline;flex-wrap:wrap;margin-bottom:14px}.section-head h2{font-size:17px;margin:0}.section-head small{color:var(--muted)}.field label{font-size:10px;font-weight:800;color:var(--muted);letter-spacing:.6px;display:block;margin-bottom:7px}.field select{background:#12242b;border:1px solid #4a676d;color:var(--text);border-radius:10px;padding:13px;width:100%}
+.own-grid{display:grid;grid-template-columns:minmax(0,1fr) 160px;gap:10px;align-items:end}.slot-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.slot-grid.five>.pick:last-child{grid-column:span 2}
+.pick{width:100%;min-width:0;border-radius:12px;border:1px solid #36575c;background:#172b32;color:var(--text);text-align:left;display:flex;align-items:center;gap:10px;min-height:73px;padding:10px}.pick:active{transform:scale(.985)}.pick:hover{border-color:#63b6ab}.pick .person{min-width:0;flex:1}.pick .who{font-weight:800;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pick .type{display:block;letter-spacing:.8px;color:var(--muted);font-size:9px;font-weight:800}.chevron{color:var(--mint);font-size:22px}.portrait{width:44px;height:44px;min-width:44px;border:1px solid #477a7a;border-radius:10px;background:linear-gradient(130deg,#2f5056,#13282e);display:grid;place-items:center;overflow:hidden;position:relative;font-weight:900;color:var(--mint)}.portrait img{position:absolute;width:100%;height:100%;object-fit:cover}.pick.own{min-height:76px;border-color:#65a89c;background:#21403e}.pick.own .portrait{width:51px;height:51px;min-width:51px}
+.button-row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}.primary{background:linear-gradient(110deg,#78e6cf,#45baa8);border:1px solid #8ee2d1;color:#092722;border-radius:12px;font-weight:900;letter-spacing:.5px;padding:15px 18px;min-height:47px}.primary.fill{width:100%}.secondary{background:#1a3338;color:#c9e7e2;border:1px solid #4b7775;border-radius:11px;padding:10px 15px;font-weight:800}.note{color:var(--muted);font-size:11px}.result{border-color:#4c9d8c;background:linear-gradient(145deg,#15333b,#0f2129)}.result h3{margin:16px 0 8px;font-size:14px;color:var(--mint)}.result h2{margin:6px 0 8px;font-size:21px}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.fact{padding:13px 6px;text-align:center;border-radius:9px;background:#0a2028;border:1px solid #33525a}.fact strong{display:block;font-size:19px}.fact small{display:block;color:var(--muted);font-size:10px}.bulletline{background:#122931;border:1px solid #31525a;padding:10px 12px;border-radius:9px;margin:7px 0;font-size:12px;color:#d7e5e4}.bulletline.warning{border-color:#7e6145;color:#ebc9a1;background:#29251f}.notice{border-left:3px solid var(--gold);background:#28251e;border-radius:8px;padding:12px;color:#dfd4bd;font-size:12px;margin:10px 0}
+dialog{background:#0d1b23;color:var(--text);width:min(95vw,530px);border:1px solid #5c8989;border-radius:18px;max-height:85dvh;padding:0;box-shadow:0 20px 80px #000a}dialog::backdrop{background:#010809d9}.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:15px 16px}.modal-head h2{margin:4px 0;font-size:19px}.modal-head button{border:1px solid var(--stroke);background:#1d343a;color:white;border-radius:9px;padding:5px 13px;font-size:19px}
+.search{padding:0 14px 12px}.search input{width:100%;background:#162c33;border:1px solid #496d72;color:var(--text);padding:13px;border-radius:10px}.choice-list{height:min(56dvh,500px);overflow:auto;padding:0 9px}.choice{width:100%;text-align:left;display:flex;align-items:center;gap:12px;background:transparent;color:var(--text);border:1px solid transparent;padding:7px;border-radius:9px}.choice:focus-visible,.choice:hover{background:#224046;border-color:#4f8c86}.choice:disabled{opacity:.28;cursor:not-allowed}.choice span.info{flex:1;font-weight:800}.choice small{font-size:10px;color:var(--muted);display:block;font-weight:500}.modal-foot{padding:10px 16px;border-top:1px solid var(--stroke);font-size:11px;color:var(--muted)}
+.footer{color:var(--muted);font-size:11px;text-align:center;margin-top:24px}.hidden{display:none!important}
+@media(max-width:480px){.own-grid{grid-template-columns:1fr}.shell{padding:14px 12px 30px}.card{padding:13px}.hero{padding:17px}.toplinks a{font-size:11px}.slot-grid{gap:7px}.pick{padding:8px;gap:7px;min-height:69px}.pick .portrait{width:39px;height:39px;min-width:39px}.pick .who{font-size:12px}.facts .fact strong{font-size:16px}}
+.ref-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding-left:23px}.ref-list li{border:1px solid #355e5b;border-radius:7px;padding:7px 9px 7px 3px;font-size:11px;color:#d8e9e3}.ref-panel{border:1px solid #44756e;background:#0e272e;border-radius:11px;padding:13px}.ref-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--mint)}@media(max-width:355px){.ref-list{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="topbar">
+ <div class="brand"><span class="logo">MW</span><span>MOTOR<span style="color:var(--mint)">WR</span><span class="sub" style="display:block">DRAFT INTELLIGENCE · 2.2 BETA</span></span></div>
+ <nav class="toplinks" aria-label="Navegación"><a href="./camille.html">Camille FAST</a></nav>
+</header>
+<main>
+<section class="hero"><span class="eyebrow">HERRAMIENTA PERSONAL DE WILD RIFT</span><h1>Tu campeón.<br><em>Prepara tu estrategia.</em></h1><p>Antes de jugar, estudia la composición de ambos equipos, fortalezas del rol y referencias de builds por campeón y parche. Sin acceso al estado de partidas ni ayuda automatizada en tiempo real.</p><div class="tags"><span class="tag">5 POSICIONES</span><span class="tag">142 CAMPEONES OFICIALES</span><span class="tag warn">PARCHE <span id="currentPatchTag">7.3b</span></span></div></section>
+<p id="syncStatus" class="note" role="status" aria-live="polite">Comprobando actualizaciones del meta...</p>
+<section class="card" aria-label="Tu campeón">
+ <div class="section-head"><h2>01 · Tu selección</h2><small>Campeón y rol propios</small></div>
+ <div class="own-grid"><div><button id="ownPick" class="pick own" type="button" data-pick="own"></button></div><div class="field"><label for="ownRole">TU POSICIÓN</label><select id="ownRole"><option value="baron">Barón</option><option value="jungle">Jungla</option><option value="mid">Central</option><option value="dragon">Dragón / ADC</option><option value="support">Soporte</option></select></div></div>
+</section>
+<section class="card" aria-label="Equipo aliado"><div class="section-head"><h2>02 · Aliados</h2><small>Opcional · hasta cuatro</small></div><div id="allySlots" class="slot-grid"></div></section>
+<section class="card" aria-label="Equipo enemigo"><div class="section-head"><h2>03 · Rivales</h2><small>Hasta cinco campeones</small></div><div id="enemySlots" class="slot-grid five"></div><div class="button-row"><button class="secondary" type="button" id="example">Ejemplo Gwen</button><button class="secondary" type="button" id="clear">Limpiar rivales</button></div></section>
+<section class="card" aria-label="Generar análisis"><div class="section-head"><h2>04 · Motor táctico</h2><small>Heurísticas por composición</small></div><button class="primary fill" type="button" id="generate">ANALIZAR DRAFT</button><p class="note">Herramienta para preparación y revisión, no asistente de juego en directo. El motor usa etiquetas editoriales; las builds referenciadas son ejemplos de terceros para el parche indicado, no compras adaptadas a tu composición ni estadísticas de victoria.</p></section>
+<section id="output" aria-label="Resultado táctico" aria-live="polite"></section>
+<section class="card"><details><summary style="cursor:pointer;font-weight:800">Fuentes, limitaciones y privacidad</summary><p class="note">El roster de 142 campeones se contrastó con el listado oficial de Wild Rift el 19-10-2026; no implica roles oficialmente homologados. Las etiquetas de daño, control y habilidades son editoriales y se señalan cuando faltan. Las builds referenciadas proceden de WildRiftFire, no de una API de Riot ni del servidor chino, y se muestran únicamente en las combinaciones de campeón y rol contrastadas para 7.3b. No hay recomendaciones automatizadas sobre partidas en curso. Tus selecciones se guardan solo en este navegador.</p><p class="note">Los retratos se solicitan a Riot Data Dragon para League of Legends y podrían diferir o faltar en Wild Rift. MotorWr es una herramienta de estudio para uso personal; no está afiliada ni respaldada por Riot Games.</p><p class="note"><a href="https://wildrift.leagueoflegends.com/es-es/champions/" target="_blank" rel="noopener noreferrer">Consultar campeones oficiales de Wild Rift</a></p></details></section>
+</main>
+<footer class="footer">MotorWr 2.2 Beta · Uso personal · Sin cuenta ni telemetría · <a href="https://www.riotgames.com/en/legal" target="_blank" rel="noopener noreferrer">Normas Riot</a><p style="font-size:10px;text-align:left">MotorWr isn&#39;t endorsed by Riot Games and doesn&#39;t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p></footer>
+</div>
+<dialog id="picker" aria-label="Seleccionar campeón"><div class="modal-head"><div><span class="eyebrow" id="pickerRole">CAMPEÓN</span><h2>Seleccionar campeón</h2></div><button type="button" id="closePicker" aria-label="Cerrar selector">×</button></div><div class="search"><input id="search" type="search" placeholder="Buscar por nombre…" autocomplete="off" aria-label="Buscar campeón"></div><div id="choices" class="choice-list"></div><div class="modal-foot" id="count">142 campeones oficiales</div></dialog>
+<script type="module">
+import {CHAMPIONS, CHAMPION_BY_NAME} from "./src/data/champions.js";
+import {ROLES, ROLE_LABELS, createDraft, analyzeComposition, championRecommendation, normalizeChampionName} from "./src/core/multiChampion.js";
+import {tacticalProfile} from "./src/data/tacticalProfiles.js";
+import {ROSTER_SOURCE} from "./src/data/officialRoster.js";
+import {resolveBuildReference,validateAutoMeta,patchDisplayStatus} from "./src/core/metaPolicy.js";
+import {PATCH_CHANGES,patchChangeForChampion,patchChangesForItems,patchChangesForRunes} from "./src/data/patchNotes.js";
+const $=s=>document.querySelector(s);
+const escapeHTML=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const STORAGE="motorwr_multi_v2_beta";
+const META_STORAGE="motorwr_autoMeta_v1";
+const fallbackMeta={schema:1,patch:PATCH_CHANGES.patch,patchUrl:PATCH_CHANGES.source,
+  officialSource:"https://wildrift.leagueoflegends.com/en-us/news/tags/patch-notes/",
+  updatedAt:"2026-10-19",guides:[],warning:null};
+let autoMeta=fallbackMeta;
+try{autoMeta=validateAutoMeta(JSON.parse(localStorage.getItem(META_STORAGE)||"null"));}catch{autoMeta=fallbackMeta;}
+let metaCheckedAt=0;
+async function refreshMeta(){
+  metaCheckedAt=Date.now();
+  try{
+    const res=await fetch("./src/data/autoMeta.json",{cache:"no-store",signal:AbortSignal.timeout(8000)});
+    if(!res.ok)throw new Error("HTTP "+res.status);
+    const candidate=validateAutoMeta(await res.json());
+    const differs=JSON.stringify(candidate)!==JSON.stringify(autoMeta);
+    autoMeta=candidate;
+    try{localStorage.setItem(META_STORAGE,JSON.stringify(candidate));}catch{}
+    $("#currentPatchTag").textContent=autoMeta.patch;
+    $("#syncStatus").textContent="Parche confirmado: "+autoMeta.patch+" · Último cambio de datos: "+autoMeta.updatedAt+
+      (autoMeta.warning?" · Fuente parcialmente pendiente":"")+
+      (patchDisplayStatus(autoMeta,PATCH_CHANGES.patch)==="awaiting_review"?" · Cambios detallados del parche pendientes":"");
+    if(differs&&$("#output").innerHTML.trim())renderAnalysis(false);
+  }catch(err){
+    $("#currentPatchTag").textContent=autoMeta.patch;
+    $("#syncStatus").textContent="Sin conexión a la actualización: se utiliza la última información validada guardada ("+autoMeta.patch+").";
+    console.warn("Meta update unavailable",err);
+  }
+}
+const DEFAULT={champion:"Camille",role:"baron",allies:["","","",""],enemies:["Gwen","Viego","Brand","Lucian","Lux"]};
+let data;
+try {data={...DEFAULT,...JSON.parse(localStorage.getItem(STORAGE)||"{}")};} catch {data={...DEFAULT};}
+if(!Array.isArray(data.allies)||data.allies.length!==4)data.allies=[...DEFAULT.allies];
+if(!Array.isArray(data.enemies)||data.enemies.length!==5)data.enemies=[...DEFAULT.enemies];
+if(!ROLES.includes(data.role))data.role="baron";
+if(!CHAMPION_BY_NAME.has(normalizeChampionName(data.champion)))data.champion="Camille";
+// Guardar un roster legítimo también al recuperar sesiones anteriores que contenían selecciones de LoL de PC.
+const used=new Set([normalizeChampionName(data.champion)]);
+for(const team of ["allies","enemies"]){
+ data[team]=data[team].map(n=>{
+   if(!n||!CHAMPION_BY_NAME.has(normalizeChampionName(n))||used.has(normalizeChampionName(n)))return "";
+   used.add(normalizeChampionName(n));return n;
+ });
+}
+let target={team:"own",index:-1};
+const ROLE_ORDER=["baron","jungle","mid","dragon","support"];
+const icons={"K\u0027Sante":"KSante","Aurelion Sol":"AurelionSol","Cho'Gath":"Chogath","Dr. Mundo":"DrMundo","Jarvan IV":"JarvanIV","Kai'Sa":"Kaisa","Kha'Zix":"Khazix","Kog'Maw":"KogMaw","LeBlanc":"Leblanc","Lee Sin":"LeeSin","Master Yi":"MasterYi","Miss Fortune":"MissFortune","Nunu y Willump":"Nunu","Rek'Sai":"RekSai","Renata Glasc":"Renata","Tahm Kench":"TahmKench","Twisted Fate":"TwistedFate","Vel'Koz":"Velkoz","Wukong":"MonkeyKing","Xin Zhao":"XinZhao","Bel'Veth":"Belveth"};
+function imageFor(n){return "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/champion/"+(icons[n]||n.replace(/[^a-zA-Z0-9]/g,""))+".png";}
+function avatar(n){if(!n)return '<span class="portrait">?</span>';return '<span class="portrait">'+escapeHTML(n.slice(0,1))+'<img src="'+escapeHTML(imageFor(n))+'" alt="" loading="lazy" onerror="this.remove()"></span>';}
+function getSlots(team){return team==="ally"?ROLE_ORDER.filter(r=>r!==data.role):ROLE_ORDER;}
+function currentValue(){return target.team==="own"?data.champion:(target.team==="ally"?data.allies:data.enemies)[target.index];}
+function chosen(){return [data.champion,...data.allies,...data.enemies].filter(Boolean);}
+function persist(){try{localStorage.setItem(STORAGE,JSON.stringify(data));}catch{}}
+function slot(team,index,role,name){return '<button type="button" class="pick" data-pick="'+team+'" data-index="'+index+'" aria-label="Elegir '+(team==="ally"?"aliado":"rival")+' '+escapeHTML(ROLE_LABELS[role])+'">'+avatar(name)+'<span class="person"><span style="min-width:0"><span class="type">'+escapeHTML(ROLE_LABELS[role]).toUpperCase()+'</span><span class="who">'+escapeHTML(name||"Seleccionar")+'</span></span></span><span class="chevron">›</span></button>';}
+function render(){
+ $("#ownRole").value=data.role;
+ $("#ownPick").innerHTML=avatar(data.champion)+'<span class="person"><span style="min-width:0"><span class="type">TU CAMPEÓN</span><span class="who">'+escapeHTML(data.champion)+'</span></span></span><span class="chevron">›</span>';
+ $("#allySlots").innerHTML=getSlots("ally").map((r,i)=>slot("ally",i,r,data.allies[i])).join("");
+ $("#enemySlots").innerHTML=ROLE_ORDER.map((r,i)=>slot("enemy",i,r,data.enemies[i])).join("");
+}
+function pickerOpen(team,index){
+ target={team,index};
+ $("#pickerRole").textContent=team==="own"?"TU CAMPEÓN":(team==="ally"?"ALIADO":"RIVAL")+" · "+ROLE_LABELS[getSlots(team)[index]];
+ $("#search").value="";renderChoices();$("#picker").showModal();$("#search").focus();
+}
+function renderChoices(){
+ const q=normalizeChampionName($("#search").value);
+ const selected=currentValue();
+ const inUse=new Set(chosen().filter(n=>n!==selected).map(normalizeChampionName));
+ const filtered=CHAMPIONS.filter(c=>normalizeChampionName(c.name).includes(q));
+ $("#count").textContent=filtered.length+" coincidencias · "+CHAMPIONS.length+" fichas oficiales ("+ROSTER_SOURCE.patch+")";
+ $("#choices").innerHTML=(target.team!=="own"?'<button class="choice" type="button" data-champion=""><span class="info">Sin seleccionar <small>Quitar campeón de esta posición</small></span></button>':"")+
+ filtered.map(c=>'<button class="choice" type="button" data-champion="'+escapeHTML(c.name)+'" '+(inUse.has(normalizeChampionName(c.name))?"disabled":"")+'>'+avatar(c.name)+'<span class="info">'+escapeHTML(c.name)+'<small>'+(c.quality==='unclassified'?'Etiquetas tácticas pendientes':c.damage+' · ')+(c.tags.includes("tank")?"Tanque":c.tags.includes("mage")?"Mago":c.tags.includes("assassin")?"Asesino":c.tags.includes("bruiser")?"Luchador":"Perfil editorial")+'</small></span></button>').join("");
+}
+function alertResult(err){$("#output").innerHTML='<section class="card result"><p role="alert" class="notice">'+escapeHTML(err.message||err)+'</p></section>';}
+function renderAnalysis(scroll=true){
+ try{
+  const draft=createDraft(data);
+  const a=analyzeComposition(draft,CHAMPION_BY_NAME);
+  const profile=tacticalProfile(draft.champion,draft.role);
+  const base=resolveBuildReference(draft.champion,draft.role,autoMeta);
+  const facts=a.composition;
+  const bits=[["AP",facts.magic],["AD",facts.physical],["MIX",facts.mixed],["SIN CLAS.",facts.unclassified],["CC",facts.control],["CURACIÓN",facts.healers]];
+  const lines=(xs,cl)=>xs.map(x=>'<p class="bulletline '+(cl||"")+'">'+escapeHTML(x)+'</p>').join("");
+  const empty='<p class="note">Completa la composición para ampliar el análisis.</p>';
+  const opponent=data.enemies[ROLES.indexOf(data.role)];
+  const lane=a.enemyLane?'<h3>Enfrentamiento · '+escapeHTML(ROLE_LABELS[data.role])+'</h3><p>'+escapeHTML(data.champion)+' vs '+escapeHTML(a.enemyLane)+'</p>'+lines(a.advice.lane):'<h3>Enfrentamiento</h3>'+empty;
+  const ownChange=patchChangeForChampion(draft.champion);
+  const changed=[...new Set([draft.champion,...data.enemies.filter(Boolean)])].filter(n=>patchChangeForChampion(n));
+  const patchHtml=patchDisplayStatus(autoMeta,PATCH_CHANGES.patch)==='reviewed'?'<h3>Cambios oficiales · parche '+escapeHTML(PATCH_CHANGES.patch)+'</h3>'+
+    (changed.length?lines(changed.map(n=>n+': '+patchChangeForChampion(n).summary)):'<p class="note">Ninguno de los campeones seleccionados figura entre los ocho ajustados en 7.3b.</p>')+
+    '<p class="note"><a href="'+escapeHTML(PATCH_CHANGES.source)+'" target="_blank" rel="noopener noreferrer">Notas oficiales de Riot · '+escapeHTML(PATCH_CHANGES.published)+'</a></p>':
+  '<h3>Nuevo parche '+escapeHTML(autoMeta.patch)+'</h3><div class="notice">Riot ha publicado una versión nueva. Las guías de versiones anteriores se consideran obsoletas hasta que la fuente editorial se actualice. Los detalles numéricos no se deducen automáticamente.</div>'+
+  (autoMeta.patchSubjects?'<h3>Elementos mencionados en las notas oficiales</h3>'+
+    lines([
+      'Campeones: '+(autoMeta.patchSubjects.champions.join(', ')||'sin cambios identificados'),
+      'Objetos: '+(autoMeta.patchSubjects.items.join(', ')||'sin cambios identificados'),
+      'Runas: '+(autoMeta.patchSubjects.runes.join(', ')||'sin cambios identificados')
+    ]):'<p class="note">La extracción de temas del nuevo parche requiere revisión.</p>')+
+  '<p class="note"><a href="'+escapeHTML(autoMeta.patchUrl)+'" target="_blank" rel="noopener noreferrer">Ver notas oficiales del parche '+escapeHTML(autoMeta.patch)+'</a></p>';
+  const htmlList=(xs)=>'<ol class="ref-list">'+xs.map(x=>'<li>'+escapeHTML(x)+'</li>').join('')+'</ol>';
+  let refHtml='<div class="notice">'+escapeHTML(base.message)+' No se mostrará una build sin fuente para este rol y parche.</div>';
+  if(base.status==="referenced"){
+    const b=base.reference;
+    const changedItems=patchChangesForItems(b.finalItems);
+    const changedRunes=patchChangesForRunes(b.runes);
+    const itemsNote=[...changedItems,...changedRunes].map(x=>x.name+': '+x.note);
+    refHtml='<div class="ref-panel"><div class="ref-heading"><strong>REFERENCIA EDITORIAL · '+escapeHTML(b.patch)+'</strong><span class="tag">FUENTE EXTERNA</span></div>'+
+      '<p class="note">Guía base consultada el '+escapeHTML(b.checkedAt)+'. No es una build adaptada a la composición ni una recomendación de TOP chino.</p>'+
+      '<h3>Orden base de objetos</h3>'+htmlList(b.finalItems)+
+      '<p class="note">Inicio: '+escapeHTML(b.startingItem||"No documentado")+(b.enchant?' · Encantamiento: '+escapeHTML(b.enchant):'')+'</p>'+
+      '<h3>Runas de la guía</h3>'+htmlList(b.runes)+
+      '<h3>Hechizos</h3>'+lines([b.spells.join(' + ')])+
+      '<h3>Prioridad de habilidades</h3>'+(Array.isArray(b.skillPriority)&&b.skillPriority.length?lines([b.skillPriority.join(' → ')])+'<p class="note">Prioridad editorial previa, no revalidada automáticamente contra cambios de habilidades.</p>':'<div class="notice">Prioridad de habilidades pendiente de revisión para este parche.</div>')+
+      (itemsNote.length?'<h3>Atención a cambios de 7.3b</h3>'+lines(itemsNote,"warning"):"")+
+      '<p class="note">Fuente: '+escapeHTML(b.source.publisher)+' · <a href="'+escapeHTML(b.source.url)+'" target="_blank" rel="noopener noreferrer">Consultar guía original</a></p></div>';
+  }
+  const links=(data.champion==="Camille"&&data.role==="baron")?'<button id="goCamille" class="secondary" type="button">ABRIR MOTOR ESPECIALIZADO DE CAMILLE →</button>':"";
+  $("#output").innerHTML='<section class="card result"><span class="eyebrow">PREPARACIÓN TÁCTICA · BETA</span><h2>'+escapeHTML(a.champion)+' · '+escapeHTML(ROLE_LABELS[a.role])+'</h2>'+
+   '<p class="note">Rivales seleccionados: '+a.coverage.enemies+'/5 · Aliados: '+a.coverage.allies+'/4 · Meta: '+escapeHTML(autoMeta.patch)+'</p>'+
+   '<h3>Composición enemiga</h3><div class="facts">'+bits.map(b=>'<div class="fact"><strong>'+escapeHTML(b[1])+'</strong><small>'+escapeHTML(b[0])+'</small></div>').join("")+'</div>'+lane+
+   (profile?'<h3>Perfil específico · '+escapeHTML(profile.identity)+'</h3>'+lines([profile.lane,profile.team,profile.caution]):'<div class="notice">Perfil específico todavía sin revisión para este campeón/rol. Se muestra estrategia general, no una guía mecánica verificada.</div>')+
+   '<h3>Plan de preparación por posición</h3>'+lines([a.advice.role,...a.advice.own])+
+   '<h3>Alertas por composición</h3>'+(a.advice.warnings.length?lines(a.advice.warnings,"warning"):empty)+patchHtml+
+   '<h3>Build, runas y habilidades</h3>'+refHtml+links+
+   '<p class="note">'+escapeHTML(a.provenance)+'</p></section>';
+  $("#goCamille")?.addEventListener("click",()=>{
+   try{
+    const old=JSON.parse(localStorage.getItem("camille_fast_v1")||"{}");
+    old.draft={top:data.enemies[0],jg:data.enemies[1],mid:data.enemies[2],adc:data.enemies[3],sup:data.enemies[4]};
+    localStorage.setItem("camille_fast_v1",JSON.stringify(old));
+   }catch{}
+   location.href="./camille.html";
+  });
+  if(scroll)$("#output").scrollIntoView({behavior:"smooth",block:"start"});
+ }catch(e){alertResult(e);}
+}
+document.addEventListener("click",e=>{
+ const pick=e.target.closest("[data-pick]");
+ if(pick){pickerOpen(pick.dataset.pick,Number(pick.dataset.index));return;}
+ const choice=e.target.closest("[data-champion]");
+ if(choice){
+  const name=choice.dataset.champion;
+  if(target.team==="own")data.champion=name;
+  else if(target.team==="ally")data.allies[target.index]=name;
+  else data.enemies[target.index]=name;
+  $("#picker").close();persist();render();$("#output").innerHTML="";return;
+ }
+});
+$("#ownRole").addEventListener("change",e=>{data.role=e.target.value;data.allies=["","","",""];persist();render();$("#output").innerHTML="";});
+$("#search").addEventListener("input",renderChoices);
+$("#closePicker").addEventListener("click",()=>$("#picker").close());
+$("#picker").addEventListener("click",e=>{if(e.target===$("#picker"))$("#picker").close();});
+$("#generate").addEventListener("click",()=>renderAnalysis());
+$("#clear").addEventListener("click",()=>{data.enemies=["","","","",""];persist();render();$("#output").innerHTML="";});
+$("#example").addEventListener("click",()=>{data={...DEFAULT,allies:[...DEFAULT.allies],enemies:[...DEFAULT.enemies]};persist();render();$("#output").innerHTML="";});
+try{createDraft(data);}catch{data={...DEFAULT,allies:[...DEFAULT.allies],enemies:[...DEFAULT.enemies]};}
+render();
+refreshMeta();
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-metaCheckedAt>30*60*1000)refreshMeta();});
+setInterval(()=>{if(!document.hidden&&Date.now()-metaCheckedAt>3*60*60*1000)refreshMeta();},60*60*1000);
+</script>
+<script>if("serviceWorker" in navigator && location.protocol==="https:")window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));</script>
+</body></html>
