@@ -23,6 +23,18 @@ dialog{background:#0d1b23;color:var(--text);width:min(95vw,530px);border:1px sol
 .footer{color:var(--muted);font-size:11px;text-align:center;margin-top:24px}.hidden{display:none!important}
 @media(max-width:480px){.own-grid{grid-template-columns:1fr}.shell{padding:14px 12px 30px}.card{padding:13px}.hero{padding:17px}.toplinks a{font-size:11px}.slot-grid{gap:7px}.pick{padding:8px;gap:7px;min-height:69px}.pick .portrait{width:39px;height:39px;min-width:39px}.pick .who{font-size:12px}.facts .fact strong{font-size:16px}}
 .ref-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding-left:23px}.ref-list li{border:1px solid #355e5b;border-radius:7px;padding:7px 9px 7px 3px;font-size:11px;color:#d8e9e3}.ref-panel{border:1px solid #44756e;background:#0e272e;border-radius:11px;padding:13px}.ref-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--mint)}@media(max-width:355px){.ref-list{grid-template-columns:1fr}}
+.skill-sequence{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:10px 0}
+.skill-token{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 8px;border:1px solid #42766d;border-radius:9px;background:#153c38;color:#9df4df;font-size:13px;font-weight:900}
+.skill-token.r{border-color:#b5965e;background:#403322;color:#ffe2a1}
+.skill-name{font-size:12px;color:#cfece5;font-weight:650;line-height:1.4}
+.skill-step{display:flex;gap:9px;align-items:center;padding:7px 8px;border:1px solid #34595c;border-radius:9px;background:#102d35}
+.skill-progression{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-top:12px}
+.skill-level{display:grid;gap:4px;text-align:center;align-items:center;justify-items:center;border-radius:8px;border:1px solid #35585b;background:#143039;padding:7px 3px;color:#d6e9e7;min-height:54px}
+.skill-level .lv{font-size:9px;font-weight:700;color:#a1b9b9}
+.skill-level strong{font-size:17px;color:#71dec9}
+.skill-level.ult{border-color:#b3945b;background:#352d24}
+.skill-level.ult strong{color:#ffd991}
+@media(max-width:400px){.skill-progression{gap:5px}.skill-level{min-height:47px}.skill-sequence{gap:5px}}
 </style>
 </head>
 <body>
@@ -158,6 +170,28 @@ function renderAnalysis(scroll=true){
     ]):'<p class="note">La extracción de temas del nuevo parche requiere revisión.</p>')+
   '<p class="note"><a href="'+escapeHTML(autoMeta.patchUrl)+'" target="_blank" rel="noopener noreferrer">Ver notas oficiales del parche '+escapeHTML(autoMeta.patch)+'</a></p>';
   const htmlList=(xs)=>'<ol class="ref-list">'+xs.map(x=>'<li>'+escapeHTML(x)+'</li>').join('')+'</ol>';
+
+  const skillGuide=(b)=>{
+    if(!Array.isArray(b.skillPriority)||!b.skillPriority.length)return '<div class="notice">Prioridad de habilidades pendiente de revisión para este parche.</div>';
+    const isReviewed=b.skillPriorityStatus==='source_reviewed' && b.patch===autoMeta.patch;
+    const codeMap={"Five Point Strike":"Q","Shuriken Flip":"E","Twilight Shroud":"W"};
+    const segments=b.skillPriority.map((name,i)=>({
+      name,code:codeMap[name]||String(i+1),index:i+1
+    }));
+    const maxOrder='<div class="skill-sequence">'+segments.map((part,i)=>
+      '<div class="skill-step"><span class="skill-token">'+escapeHTML(part.code)+'</span><span class="skill-name">'+escapeHTML(part.name)+'</span></div>'+
+      (i<segments.length-1?'<span aria-hidden="true">→</span>':'')
+    ).join('')+'</div>';
+    const levels=Array.isArray(b.skillLevelOrder)&&b.skillLevelOrder.length===15?
+      '<h3>Subida por nivel · 1 al 15</h3><div class="skill-progression" aria-label="Orden de habilidades por nivel">'+
+      b.skillLevelOrder.map((code,i)=>'<div class="skill-level'+(code==="R"?' ult':'')+'" aria-label="Nivel '+(i+1)+': habilidad '+escapeHTML(code)+'"><span class="lv">NV '+(i+1)+'</span><strong>'+escapeHTML(code)+'</strong></div>').join('')+
+      '</div><p class="note">R (definitiva): niveles 5, 9 y 13. La ruta puede adaptarse al enfrentamiento.</p>':'';
+    const note=isReviewed
+      ?'<p class="note">Orden editorial contrastado para '+escapeHTML(b.patch)+'. <a href="'+escapeHTML(b.skillPrioritySource||b.source.url)+'" target="_blank" rel="noopener noreferrer">Ver fuente de habilidades</a></p>'
+      :'<p class="note">Prioridad editorial previa: no se ha revalidado automáticamente para todos los campeones y cambios de habilidades.</p>';
+    return maxOrder+levels+note;
+  };
+
   const verifiedRoles=[...new Set([
     ...BUILD_REFERENCES.filter(b=>b.champion===draft.champion&&b.patch===autoMeta.patch).map(b=>b.role),
     ...autoMeta.guides.filter(b=>b.champion===draft.champion&&b.patch===autoMeta.patch).map(b=>b.role)
@@ -179,7 +213,7 @@ function renderAnalysis(scroll=true){
       '<p class="note">Inicio: '+escapeHTML(b.startingItem||"No documentado")+(b.enchant?' · Encantamiento: '+escapeHTML(b.enchant):'')+'</p>'+
       '<h3>Runas de la guía</h3>'+htmlList(b.runes)+
       '<h3>Hechizos</h3>'+lines([b.spells.join(' + ')])+
-      '<h3>Prioridad de habilidades</h3>'+(Array.isArray(b.skillPriority)&&b.skillPriority.length?lines([b.skillPriority.join(' → ')])+'<p class="note">Prioridad editorial previa, no revalidada automáticamente contra cambios de habilidades.</p>':'<div class="notice">Prioridad de habilidades pendiente de revisión para este parche.</div>')+
+      '<h3>Prioridad de habilidades</h3>'+skillGuide(b)+
       (itemsNote.length?'<h3>Atención a cambios de 7.3b</h3>'+lines(itemsNote,"warning"):"")+
       '<p class="note">Fuente: '+escapeHTML(b.source.publisher)+' · <a href="'+escapeHTML(b.source.url)+'" target="_blank" rel="noopener noreferrer">Consultar guía original</a></p></div>';
   }
