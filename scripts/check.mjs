@@ -26,7 +26,7 @@ assert(/^\d+\.\d+[a-z]?$/.test(auto.patch),'Auto meta invalid patch');
 const core=fs.readFileSync(new URL('../src/core/multiChampion.js',import.meta.url),'utf8');
 assert(html.includes('href="./multi.html"'),'Camille should link to MotorWr 2.0');
 assert(multi.includes('id="ownPick"')&&multi.includes('id="allySlots"')&&multi.includes('id="enemySlots"'),'Multichampion selectors missing');
-assert(multi.includes('analyzeComposition')&&multi.includes('getBuildReference'),'Multichampion build references disconnected');
+assert(multi.includes('analyzeComposition')&&multi.includes('resolveBuildReference'),'Multichampion build references disconnected');
 assert(multi.includes('Riot Games')&&multi.includes('etiquetas editoriales'),'Source limits need disclosure');
 assert(catalog.includes('Aatrox')&&catalog.includes('Zyra'),'Roster incomplete');
 assert(core.includes('No existe una build verificada'),'No fabricated item build allowed');
