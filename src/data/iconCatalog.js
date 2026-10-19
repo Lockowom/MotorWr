@@ -114,7 +114,8 @@ export const ICON_CATALOG = Object.freeze({
     "Brand|Sear": "https://www.mobafire.com/images/ability/brand-sear.png"
   }
 });
-// Riot Data Dragon spell/passive icons (patch 16.18.1, visual art only; WR game data may differ).\nexport const SKILL_SLOT_ICONS = Object.freeze({
+// Riot Data Dragon spell/passive icons (patch 16.18.1, visual art only; WR game data may differ).
+export const SKILL_SLOT_ICONS = Object.freeze({
   "Akali": {
     "P": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/passive/Akali_P.png",
     "Q": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/AkaliQ.png",
