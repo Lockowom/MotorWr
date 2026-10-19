@@ -1,0 +1,20 @@
+{
+  "name": "MotorWr — Draft Intelligence",
+  "short_name": "MotorWr",
+  "description": "Guía de composiciones para jugadores de Wild Rift",
+  "start_url": "./",
+  "id": "./",
+  "scope": "./",
+  "display": "standalone",
+  "lang": "es-CL",
+  "theme_color": "#081318",
+  "background_color": "#081116",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any maskable"
+    }
+  ]
+}

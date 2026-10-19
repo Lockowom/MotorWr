@@ -1,0 +1,1587 @@
+{
+  "schema": 1,
+  "source": "MotorWr taxonomy + Riot Games official Wild Rift champion listing (consulted 2026-10-18)",
+  "synced": "2026-10-18",
+  "disclaimer": "Heurística de daño/CC, no valores numéricos de Riot. La disponibilidad regional y el parche requieren contraste.",
+  "champions": [
+    {
+      "name": "Aatrox",
+      "damage": "AD",
+      "tags": [
+        "heal",
+        "bruiser",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Ahri",
+      "damage": "AP",
+      "tags": [
+        "burst",
+        "mobile",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Akali",
+      "damage": "AP",
+      "tags": [
+        "burst",
+        "mobile",
+        "assassin",
+        "stealth"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Akshan",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "mobile",
+        "auto",
+        "shield"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Alistar",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "engage"
+      ],
+      "cc": 3
+    },
+    {
+      "name": "Ambessa",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "mobile",
+        "shield"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Amumu",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "engage"
+      ],
+      "cc": 3
+    },
+    {
+      "name": "Annie",
+      "damage": "AP",
+      "tags": [
+        "burst",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Ashe",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "cc",
+        "poke"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Aurelion Sol",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Aurora",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "mobile",
+        "burst",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Bard",
+      "damage": "AP",
+      "tags": [
+        "support",
+        "cc",
+        "poke"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Blitzcrank",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "engage"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Brand",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "dot",
+        "burst",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Braum",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "shield"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Caitlyn",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "poke",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Camille",
+      "damage": "MIX",
+      "tags": [
+        "bruiser",
+        "mobile",
+        "cc",
+        "true"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Cho'Gath",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "true",
+        "heal"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Corki",
+      "damage": "MIX",
+      "tags": [
+        "ranged",
+        "poke",
+        "burst",
+        "mobile"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Darius",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "heal",
+        "cc",
+        "execute"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Diana",
+      "damage": "AP",
+      "tags": [
+        "assassin",
+        "burst",
+        "shield",
+        "engage",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Dr. Mundo",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "heal"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Draven",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "burst"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Ekko",
+      "damage": "AP",
+      "tags": [
+        "assassin",
+        "burst",
+        "mobile",
+        "cc",
+        "heal"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Elise",
+      "damage": "AP",
+      "tags": [
+        "assassin",
+        "burst",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Evelynn",
+      "damage": "AP",
+      "tags": [
+        "assassin",
+        "burst",
+        "stealth",
+        "heal"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Ezreal",
+      "damage": "MIX",
+      "tags": [
+        "ranged",
+        "poke",
+        "mobile"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Fiddlesticks",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "burst",
+        "cc",
+        "heal",
+        "engage"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Fiora",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "true",
+        "heal",
+        "mobile"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Fizz",
+      "damage": "AP",
+      "tags": [
+        "assassin",
+        "burst",
+        "mobile",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Galio",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "shield",
+        "engage"
+      ],
+      "cc": 3
+    },
+    {
+      "name": "Garen",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "heal",
+        "execute"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Gnar",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "ranged",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Gragas",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "heal",
+        "burst",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Graves",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "burst",
+        "shield"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Gwen",
+      "damage": "AP",
+      "tags": [
+        "bruiser",
+        "heal",
+        "true",
+        "mobile"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Hecarim",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "heal",
+        "engage",
+        "cc",
+        "mobile"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Heimerdinger",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Hwei",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "burst",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Irelia",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "heal",
+        "auto",
+        "mobile",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Janna",
+      "damage": "AP",
+      "tags": [
+        "support",
+        "shield",
+        "heal",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Jarvan IV",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "cc",
+        "engage"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Jax",
+      "damage": "MIX",
+      "tags": [
+        "bruiser",
+        "auto",
+        "cc",
+        "mobile"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Jayce",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "poke",
+        "burst",
+        "mobile"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Jhin",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "poke",
+        "burst",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Jinx",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "execute"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "K'Santé",
+      "damage": "AD",
+      "tags": [
+        "tank",
+        "cc",
+        "mobile"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Kai'Sa",
+      "damage": "MIX",
+      "tags": [
+        "ranged",
+        "auto",
+        "burst",
+        "mobile",
+        "shield"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Kalista",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "mobile"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Karma",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "shield",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Kassadin",
+      "damage": "AP",
+      "tags": [
+        "assassin",
+        "burst",
+        "mobile"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Katarina",
+      "damage": "AP",
+      "tags": [
+        "assassin",
+        "burst",
+        "mobile",
+        "execute"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Kayle",
+      "damage": "MIX",
+      "tags": [
+        "ranged",
+        "auto",
+        "heal",
+        "shield"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Kayn",
+      "damage": "AD",
+      "tags": [
+        "assassin",
+        "heal",
+        "mobile",
+        "burst"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Kennen",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "burst",
+        "cc",
+        "engage",
+        "ranged"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Kha'Zix",
+      "damage": "AD",
+      "tags": [
+        "assassin",
+        "burst",
+        "stealth",
+        "mobile"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Kindred",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "mobile",
+        "heal"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Kog'Maw",
+      "damage": "MIX",
+      "tags": [
+        "ranged",
+        "auto",
+        "poke"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "LeBlanc",
+      "damage": "AP",
+      "tags": [
+        "assassin",
+        "burst",
+        "mobile",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Lee Sin",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "burst",
+        "cc",
+        "mobile",
+        "engage"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Leona",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "engage"
+      ],
+      "cc": 3
+    },
+    {
+      "name": "Lillia",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "dot",
+        "mobile",
+        "cc",
+        "heal"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Lissandra",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "cc",
+        "burst",
+        "engage"
+      ],
+      "cc": 3
+    },
+    {
+      "name": "Lucian",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "burst",
+        "mobile"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Lulu",
+      "damage": "AP",
+      "tags": [
+        "support",
+        "shield",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Lux",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "burst",
+        "poke",
+        "cc",
+        "shield"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Malphite",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "engage",
+        "burst"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Malzahar",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "dot",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Maokai",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "heal",
+        "engage"
+      ],
+      "cc": 3
+    },
+    {
+      "name": "Master Yi",
+      "damage": "AD",
+      "tags": [
+        "auto",
+        "mobile",
+        "heal",
+        "execute"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Mel",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "shield",
+        "burst"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Milio",
+      "damage": "AP",
+      "tags": [
+        "support",
+        "heal",
+        "shield",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Miss Fortune",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "burst",
+        "poke"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Mordekaiser",
+      "damage": "AP",
+      "tags": [
+        "bruiser",
+        "heal",
+        "shield",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Morgana",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "cc",
+        "dot",
+        "shield"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Nami",
+      "damage": "AP",
+      "tags": [
+        "support",
+        "cc",
+        "heal"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Nasus",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "tank",
+        "heal",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Nautilus",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "engage",
+        "shield"
+      ],
+      "cc": 3
+    },
+    {
+      "name": "Neeko",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "burst",
+        "cc",
+        "engage"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Nidalee",
+      "damage": "MIX",
+      "tags": [
+        "assassin",
+        "mobile",
+        "poke",
+        "heal"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Nilah",
+      "damage": "AD",
+      "tags": [
+        "auto",
+        "mobile",
+        "heal",
+        "shield",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Nocturne",
+      "damage": "AD",
+      "tags": [
+        "assassin",
+        "burst",
+        "engage",
+        "shield"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Norra",
+      "damage": "AP",
+      "tags": [
+        "support",
+        "cc",
+        "shield"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Nunu y Willump",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "heal",
+        "cc",
+        "engage"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Olaf",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "heal",
+        "auto"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Orianna",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "burst",
+        "shield",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Ornn",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "engage"
+      ],
+      "cc": 3
+    },
+    {
+      "name": "Pantheon",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "burst",
+        "cc",
+        "engage"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Poppy",
+      "damage": "AD",
+      "tags": [
+        "tank",
+        "cc",
+        "engage"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Pyke",
+      "damage": "AD",
+      "tags": [
+        "assassin",
+        "cc",
+        "execute",
+        "stealth"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Qiyana",
+      "damage": "AD",
+      "tags": [
+        "assassin",
+        "burst",
+        "mobile",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Rakan",
+      "damage": "AP",
+      "tags": [
+        "support",
+        "cc",
+        "shield",
+        "heal",
+        "engage"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Rammus",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "engage"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Rell",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "engage"
+      ],
+      "cc": 3
+    },
+    {
+      "name": "Renekton",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "heal",
+        "cc",
+        "burst"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Rengar",
+      "damage": "AD",
+      "tags": [
+        "assassin",
+        "burst",
+        "stealth",
+        "heal"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Riven",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "mobile",
+        "burst",
+        "shield",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Rumble",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "dot",
+        "poke",
+        "shield"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Ryze",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "burst",
+        "cc",
+        "shield"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Samira",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "burst",
+        "mobile"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Senna",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "poke",
+        "heal",
+        "shield",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Seraphine",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "shield",
+        "heal",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Sett",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "true",
+        "shield",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Shen",
+      "damage": "MIX",
+      "tags": [
+        "tank",
+        "cc",
+        "shield",
+        "engage"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Shyvana",
+      "damage": "MIX",
+      "tags": [
+        "bruiser",
+        "auto",
+        "engage"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Singed",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "dot",
+        "cc",
+        "mobile"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Sion",
+      "damage": "AD",
+      "tags": [
+        "tank",
+        "cc",
+        "engage"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Sivir",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "shield"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Skarner",
+      "damage": "AD",
+      "tags": [
+        "tank",
+        "cc",
+        "engage"
+      ],
+      "cc": 3
+    },
+    {
+      "name": "Smolder",
+      "damage": "MIX",
+      "tags": [
+        "ranged",
+        "poke",
+        "execute"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Sona",
+      "damage": "AP",
+      "tags": [
+        "support",
+        "heal",
+        "shield",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Soraka",
+      "damage": "AP",
+      "tags": [
+        "support",
+        "heal",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Swain",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "heal",
+        "dot",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Syndra",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "burst",
+        "cc",
+        "poke"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Taliyah",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Talon",
+      "damage": "AD",
+      "tags": [
+        "assassin",
+        "burst",
+        "mobile",
+        "stealth"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Teemo",
+      "damage": "AP",
+      "tags": [
+        "ranged",
+        "poke",
+        "dot",
+        "stealth",
+        "blind"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Thresh",
+      "damage": "MIX",
+      "tags": [
+        "tank",
+        "cc",
+        "engage",
+        "shield"
+      ],
+      "cc": 3
+    },
+    {
+      "name": "Tristana",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "mobile",
+        "burst"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Tryndamere",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "auto",
+        "heal",
+        "execute"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Twisted Fate",
+      "damage": "MIX",
+      "tags": [
+        "mage",
+        "cc",
+        "poke"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Twitch",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "stealth",
+        "dot"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Urgot",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "ranged",
+        "execute",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Varus",
+      "damage": "MIX",
+      "tags": [
+        "ranged",
+        "poke",
+        "cc",
+        "auto"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Vayne",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "true",
+        "mobile",
+        "stealth"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Veigar",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "burst",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Vex",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "burst",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Vi",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "cc",
+        "engage",
+        "shield"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Viego",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "mobile",
+        "heal",
+        "execute",
+        "stealth"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Viktor",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "burst",
+        "cc",
+        "shield"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Vladimir",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "heal",
+        "burst"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Volibear",
+      "damage": "MIX",
+      "tags": [
+        "bruiser",
+        "heal",
+        "shield",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Warwick",
+      "damage": "MIX",
+      "tags": [
+        "bruiser",
+        "heal",
+        "cc",
+        "engage"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Wukong",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "cc",
+        "engage",
+        "stealth"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Xayah",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Xin Zhao",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "heal",
+        "cc",
+        "engage"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Yasuo",
+      "damage": "AD",
+      "tags": [
+        "bruiser",
+        "auto",
+        "cc",
+        "shield",
+        "mobile"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Yone",
+      "damage": "MIX",
+      "tags": [
+        "bruiser",
+        "auto",
+        "burst",
+        "mobile",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Yunara",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "poke"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Yuumi",
+      "damage": "AP",
+      "tags": [
+        "support",
+        "heal",
+        "shield",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Zed",
+      "damage": "AD",
+      "tags": [
+        "assassin",
+        "burst",
+        "stealth",
+        "mobile"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Zeri",
+      "damage": "MIX",
+      "tags": [
+        "ranged",
+        "auto",
+        "mobile",
+        "shield"
+      ],
+      "cc": 0
+    },
+    {
+      "name": "Ziggs",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "burst",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Zilean",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "cc"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Zoe",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "burst",
+        "poke",
+        "cc"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Zyra",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "dot",
+        "cc"
+      ],
+      "cc": 1
+    }
+  ],
+  "officialRosterUrl": "https://wildrift.leagueoflegends.com/es-es/champions/"
+}

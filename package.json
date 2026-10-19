@@ -4,9 +4,11 @@
   "version": "1.1.0",
   "type": "module",
   "scripts": {
-    "test": "node scripts/check.mjs",
+    "test": "node scripts/check.mjs && node --check v2/core.mjs && node --check v2/app.mjs && node --test tests/v2/*.test.mjs",
     "build": "node scripts/build.mjs",
-    "check": "npm run test && npm run build"
+    "check": "npm run test && npm run build",
+    "build:v2": "node scripts/build-v2.mjs",
+    "check:v2": "npm test && npm run build:v2"
   },
   "engines": {
     "node": ">=22"
