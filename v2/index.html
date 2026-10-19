@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#081318">
+<meta name="description" content="MotorWr: laboratorio de drafts y macrojuego para la comunidad de Wild Rift.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./styles.css">
+<title>MotorWr 2.0 · Draft Intelligence</title>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<div class="shell">
+ <header class="head">
+  <a class="logo" href="./" aria-label="MotorWr Inicio">MW</a>
+  <div class="brand"><strong>MOTOR<span>WR</span></strong><small>DRAFT INTELLIGENCE <i>•</i> 2.0 BETA</small></div>
+  <span class="signal"><span class="dot"></span> COMUNIDAD</span>
+ </header>
+ <nav class="nav" aria-label="Secciones">
+  <button class="on" data-tab="draft">01 · DRAFT</button>
+  <button data-tab="result">02 · GUÍA</button>
+  <button data-tab="history">03 · HISTORIAL</button>
+ </nav>
+ <main>
+  <section id="draftView">
+   <section class="hero"><div class="eyebrow">INTELIGENCIA TÁCTICA MULTICAMPEÓN</div><h1>Tu campeón.<br><em>Tu estrategia.</em></h1><p>Selecciona tu posición, los enemigos y opcionalmente tus aliados. El motor distingue recomendaciones verificadas de hipótesis tácticas.</p><div class="hero-tags"><span>5 POSICIONES</span><span>CATÁLOGO AMPLIADO</span><span>OFFLINE</span></div></section>
+   <div class="section-head"><h2>01 <span>· Tu selección</span></h2><small>Elige tu posición</small></div>
+   <div id="roles" class="role-grid" aria-label="Posición propia"></div>
+   <button type="button" class="champ-choice own-choice" data-pick="own" aria-label="Seleccionar campeón propio"><span class="portrait placeholder">?</span><span><small>TU CAMPEÓN</small><strong>Seleccionar campeón</strong><em>Elige tu personaje</em></span><b>›</b></button>
+   <div id="roleInfo" class="micro"></div>
+   <div class="section-head"><h2>02 <span>· Rivales</span></h2><small>Obligatorio · 5</small></div>
+   <div id="enemies" class="slot-grid"></div>
+   <div class="section-head"><h2>03 <span>· Aliados</span></h2><small>Opcional · aumenta precisión</small></div>
+   <div id="allies" class="slot-grid allies"></div>
+   <div class="section-head"><h2>04 <span>· Configuración</span></h2><small>Personaliza tu análisis</small></div>
+   <div class="controls">
+    <label>ESTILO DE JUEGO<select id="focus"><option value="macro">Macro / objetivos</option><option value="split">Presión lateral</option><option value="team">Peleas grupales</option></select></label>
+    <label>ENEMIGO MÁS ADELANTADO<select id="threat"><option value="">Partida igualada</option></select></label>
+   </div>
+   <div class="button-row"><button class="ghost" id="example">Cargar ejemplo</button><button class="ghost" id="clear">Limpiar draft</button></div>
+   <button class="primary" id="generate">⚡ GENERAR GUÍA FAST</button>
+   <p class="note center">Análisis previo o posterior a la partida; no accede al cliente del juego ni revela información oculta.</p>
+  </section>
+  <section id="resultView" hidden>
+   <div class="section-head"><h2>GUÍA <span>· Resultado</span></h2><small id="generatedTime"></small></div>
+   <div id="output"><div class="empty">Completa tu draft para comenzar.</div></div>
+  </section>
+  <section id="historyView" hidden>
+   <div class="section-head"><h2>HISTORIAL <span>· Tus drafts</span></h2><small>Solo en este dispositivo</small></div>
+   <div id="historyList"></div>
+  </section>
+ </main>
+ <footer><div>MOTORWR <b>2.0 BETA</b> <span>·</span> DATOS LOCALES</div><p>MotorWr es un proyecto comunitario no oficial. Riot Games no respalda ni patrocina este proyecto. Arte del juego y nombres pertenecen a sus titulares. Las recomendaciones no son datos en vivo ni porcentajes de victoria verificados.</p><a href="https://wildrift.leagueoflegends.com/es-es/champions/" target="_blank" rel="noopener noreferrer">Catálogo oficial de campeones ↗</a></footer>
+</div>
+<dialog id="picker" class="picker" aria-label="Seleccionar campeón"><div class="picker-head"><div><div class="eyebrow" id="pickRole"></div><h2>Elegir campeón</h2></div><button type="button" class="close" id="closePicker" aria-label="Cerrar">×</button></div><input id="search" type="search" placeholder="Buscar campeón..." autocomplete="off"><label class="toggle"><input id="roleOnly" type="checkbox"> Mostrar recomendados para esta posición</label><div id="champList" class="champ-list"></div><div class="micro">Los roles sugeridos son orientativos; también puedes elegir selecciones inusuales.</div></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="./app.mjs"></script>
+</body>
+</html>
