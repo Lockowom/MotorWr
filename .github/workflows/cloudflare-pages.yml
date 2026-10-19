@@ -33,6 +33,7 @@ jobs:
     needs: tests
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    environment: CLOUDFLARE_API_TOKEN
     permissions:
       contents: read
       deployments: write
@@ -47,9 +48,9 @@ jobs:
           TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           PROJECT: buldwr
         run: |
-          if [ -z "$ACCOUNT" ]; then echo "::error::Missing secret CLOUDFLARE_ACCOUNT_ID"; exit 1; fi
+          if [ -z "$ACCOUNT" ]; then echo "::error::Missing Cloudflare account ID"; exit 1; fi
           if [ -z "$TOKEN" ]; then echo "::error::Missing secret CLOUDFLARE_API_TOKEN"; exit 1; fi
-          if [ -z "$PROJECT" ]; then echo "::error::Missing variable CLOUDFLARE_PAGES_PROJECT"; exit 1; fi
+          if [ -z "$PROJECT" ]; then echo "::error::Missing Cloudflare Pages project name"; exit 1; fi
       - name: Build release
         run: npm run build
       - name: Publish to the existing Pages project
