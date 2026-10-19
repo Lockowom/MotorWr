@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
   deployments: write
 
 concurrency:
@@ -57,6 +58,11 @@ jobs:
             git push origin HEAD:feature/multi-champion-v2
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
+      - name: Trigger full PR checks after bot-authored update
+        if: steps.meta.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run cloudflare-pages.yml --ref feature/multi-champion-v2
       - name: Publish updated Cloudflare preview only
         if: steps.meta.outputs.changed == 'true'
         uses: cloudflare/wrangler-action@v4
