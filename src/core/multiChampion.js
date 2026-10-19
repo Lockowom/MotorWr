@@ -47,16 +47,20 @@ export function analyzeComposition(draft,catalog) {
   const magic=enemies.filter(c=>c.damage==="AP").length;
   const physical=enemies.filter(c=>c.damage==="AD").length;
   const mixed=enemies.filter(c=>c.damage==="MIX").length;
-  const cc=enemies.reduce((sum,c)=>sum+c.cc,0);
-  const control=cc>=8?"ALTO":cc>=4?"MEDIO":"BAJO";
+  const unclassified=enemies.filter(c=>c.quality==="unclassified");
+  const cc=enemies.reduce((sum,c)=>sum+(c.cc??0),0);
+  const control=unclassified.length?"PARCIAL":cc>=8?"ALTO":cc>=4?"MEDIO":"BAJO";
   const enemyLane=find(draft.enemies[ROLES.indexOf(draft.role)]);
   const laneFlags=[];
   if(enemyLane){
+    if(enemyLane.quality==="unclassified")laneFlags.push("Sin etiquetas tácticas revisadas para este rival: consulta su ficha oficial.");
+    else {
     if(has(enemyLane,"ranged") && !has(own,"ranged"))laneFlags.push("El rival puede hostigarte a distancia; conserva vida y controla la oleada.");
     if(has(enemyLane,"heal"))laneFlags.push("El rival tiene herramientas de curación; calcula los intercambios prolongados.");
     if(enemyLane.cc>=2)laneFlags.push("Respeta las ventanas de control de masas del rival.");
     if(has(enemyLane,"true"))laneFlags.push("El rival tiene daño verdadero: la armadura o la resistencia mágica no lo mitigan.");
     if(!laneFlags.length)laneFlags.push("Evalúa los enfriamientos y la posición de la oleada antes de intercambiar.");
+    }
   }
   const strengths=[];
   if(has(own,"ranged"))strengths.push("Puedes presionar desde rango cuando tu posición sea segura.");
@@ -69,6 +73,8 @@ export function analyzeComposition(draft,catalog) {
   if(has(own,"bruiser"))strengths.push("Evalúa si conviene duelo lateral o reunión con el equipo.");
   if(!strengths.length)strengths.push("Prioriza economía, visión y uso disciplinado de habilidades.");
   const warnings=[];
+  if(own.quality==="unclassified")warnings.push("Tu campeón está en el roster oficial, pero todavía no tiene etiquetas tácticas revisadas.");
+  if(unclassified.length)warnings.push(unclassified.length+" rival(es) carecen de clasificación táctica. Los totales de daño y control están incompletos.");
   if(enemies.length<5)warnings.push("Análisis parcial: faltan rivales por seleccionar.");
   if(magic>=3)warnings.push("Múltiples fuentes AP: revisa defensa mágica según daño real recibido.");
   if(physical>=3)warnings.push("Múltiples fuentes AD: valora mitigación física según amenazas.");
@@ -82,8 +88,8 @@ export function analyzeComposition(draft,catalog) {
   return {
     champion:own.name,role:draft.role,enemyLane:enemyLane?.name??null,
     coverage:{allies:allies.length,enemies:enemies.length,complete:enemies.length===5 && allies.length===4},
-    composition:{magic,physical,mixed,control,ccScore:cc,healers:count(enemies,"heal"),shields:count(enemies,"shield"),tanks:count(enemies,"tank"),engage:count(enemies,"engage")},
+    composition:{magic,physical,mixed,unclassified:unclassified.length,control,ccScore:cc,healers:count(enemies,"heal"),shields:count(enemies,"shield"),tanks:count(enemies,"tank"),engage:count(enemies,"engage")},
     advice:{role:ROLE_GOALS[draft.role],own:strengths,lane:laneFlags,warnings},
-    provenance:"Análisis heurístico editorial a partir de etiquetas locales; no son estadísticas oficiales, win rates, builds ni datos en directo."
+    provenance:"Los campeones provienen del listado oficial de Wild Rift; daño, control y consejos son etiquetas editoriales parciales, no estadísticas oficiales, builds ni datos en directo."
   };
 }
