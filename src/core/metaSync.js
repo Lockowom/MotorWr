@@ -118,3 +118,26 @@ export function stableGuideFingerprint(p) {
  for(let i=0;i<src.length;i++){hash^=src.charCodeAt(i);hash=Math.imul(hash,16777619);}
  return (hash>>>0).toString(16).padStart(8,'0');
 }
+
+
+// Only the names of sections changed by Riot are indexed automatically.
+// Numeric balance descriptions and buff/nerf polarity require a separate review.
+export function parseOfficialPatchSubjects(html,officialNames){
+ if(typeof html!=='string'||html.length<200||!Array.isArray(officialNames))throw Error('Invalid patch article/roster');
+ const cleanName=s=>stripTags(s).toLowerCase().replace(/[^a-z0-9]/g,'');
+ const known=new Map(officialNames.map(x=>[cleanName(x),x]));
+ const subject=(begin,end)=>{
+  const start=html.search(begin);if(start<0)return '';
+  const rest=html.slice(start);
+  const m=rest.match(end);
+  return m?rest.slice(0,m.index):rest.slice(0,25000);
+ };
+ const champBlock=subject(/CHAMPION\s+CHANGES/i,/<h2\b[^>]*>[\s\S]*?GAMEPLAY\s+CHANGES[\s\S]*?<\/h2>/i);
+ const p=[...champBlock.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map(x=>stripTags(x[1]));
+ const champions=[...new Set(p.filter(x=>x===x.toUpperCase()&&known.has(cleanName(x))).map(x=>known.get(cleanName(x))))];
+ const itemsBlock=subject(/<h2\b[^>]*>\s*Items\s*<\/h2>/i,/<h2\b/i);
+ const runesBlock=subject(/<h2\b[^>]*>\s*Runes\s*<\/h2>/i,/<h2\b/i);
+ const headings=s=>[...s.matchAll(/<h4\b[^>]*>([\s\S]*?)<\/h4>/gi)]
+  .map(x=>stripTags(x[1])).filter(x=>x.length>=2&&x.length<=95);
+ return {champions,items:[...new Set(headings(itemsBlock))],runes:[...new Set(headings(runesBlock))]};
+}
