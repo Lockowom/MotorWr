@@ -18,12 +18,20 @@ assert(sw.includes('APP_SHELL'),'Service worker offline cache missing');
 
 const multi=fs.readFileSync(new URL('../multi.html',import.meta.url),'utf8');
 const catalog=fs.readFileSync(new URL('../src/data/champions.js',import.meta.url),'utf8');
+const official=fs.readFileSync(new URL('../src/data/officialRoster.js',import.meta.url),'utf8');
+const builds=fs.readFileSync(new URL('../src/data/buildReferences.js',import.meta.url),'utf8');
+const patch=fs.readFileSync(new URL('../src/data/patchNotes.js',import.meta.url),'utf8');
 const core=fs.readFileSync(new URL('../src/core/multiChampion.js',import.meta.url),'utf8');
 assert(html.includes('href="./multi.html"'),'Camille should link to MotorWr 2.0');
 assert(multi.includes('id="ownPick"')&&multi.includes('id="allySlots"')&&multi.includes('id="enemySlots"'),'Multichampion selectors missing');
-assert(multi.includes('analyzeComposition')&&multi.includes('championRecommendation'),'Multichampion engine disconnected');
+assert(multi.includes('analyzeComposition')&&multi.includes('getBuildReference'),'Multichampion build references disconnected');
 assert(multi.includes('Riot Games')&&multi.includes('etiquetas editoriales'),'Source limits need disclosure');
 assert(catalog.includes('Aatrox')&&catalog.includes('Zyra'),'Roster incomplete');
 assert(core.includes('No existe una build verificada'),'No fabricated item build allowed');
+assert(multi.includes('142 CAMPEONES OFICIALES')&&multi.includes('7.3b'),'Roster/patch label missing');
+assert(multi.includes('referenced')&&multi.includes('Consultar guía original'),'Build provenance missing');
+assert(official.includes('Norra')&&official.includes('Skarner'),'Official roster source incomplete');
+assert(builds.includes('www.wildriftfire.com/guide/')&&builds.includes('checkedAt'),'Build sources/checked dates required');
+assert(patch.includes('7.3b')&&patch.includes('riot'),'Official patch notes missing');
 
-console.log('PASS: Camille legacy, MotorWr multi beta, PWA and provenance');
+console.log('PASS: Camille legacy, official 7.3b roster, editorial references, PWA');
