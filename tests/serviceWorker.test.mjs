@@ -93,4 +93,14 @@ assert.equal(await (await offlineIcon).text(),'icon bytes','Previously viewed ic
 let offsiteOther=null;
 listeners.fetch({request:new RequestMock({url:'https://tracker.example.com/pixel.png',destination:'image'}),respondWith:value=>{offsiteOther=value;}});
 assert.equal(offsiteOther,null,'Do not intercept unknown third-party images');
+const officialIcon='https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/AkaliQ.png';
+isOffline=false;
+network.set(officialIcon,'Riot ability bytes');
+let spellResponse=null;
+listeners.fetch({request:new RequestMock({url:officialIcon,destination:'image'}),respondWith:value=>{spellResponse=Promise.resolve(value);}});
+assert.equal(await (await spellResponse).text(),'Riot ability bytes');
+isOffline=true;
+let savedSpell=null;
+listeners.fetch({request:new RequestMock({url:officialIcon,destination:'image'}),respondWith:value=>{savedSpell=Promise.resolve(value);}});
+assert.equal(await (await savedSpell).text(),'Riot ability bytes','Riot skill images should cache for offline reuse');
 console.log('PASS: network-first modules, fallback, routed pages, allowlisted source icons and offline icon reuse');
