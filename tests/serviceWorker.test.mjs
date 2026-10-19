@@ -72,7 +72,7 @@ isOffline=true;
 assert.equal(await (await retrieve('camille.html','navigate')).text(),'legacy Camille','Offline navigation must not confuse Camille and main');
 assert.equal(await (await retrieve('index.html','navigate')).text(),'MotorWr main','Offline main navigation must show MotorWr');
 assert.equal(await (await retrieve(modulePath)).text(),'new source-backed Akali reference');
-assert.equal(await retrieve('missing-file.js'),null);
+assert.equal((await retrieve('missing-file.js')).status,0,'Offline unknown resources should report network failure');
 assert.equal(await retrieve('index.html','same-origin','POST'),null,'POST must bypass worker');
 let outside=null;
 listeners.fetch({request:new RequestMock({url:'https://example.com/asset.js'}),respondWith:value=>{outside=value;}});
