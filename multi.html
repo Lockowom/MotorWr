@@ -146,7 +146,14 @@ function renderAnalysis(scroll=true){
   const patchHtml=patchDisplayStatus(autoMeta,PATCH_CHANGES.patch)==='reviewed'?'<h3>Cambios oficiales · parche '+escapeHTML(PATCH_CHANGES.patch)+'</h3>'+
     (changed.length?lines(changed.map(n=>n+': '+patchChangeForChampion(n).summary)):'<p class="note">Ninguno de los campeones seleccionados figura entre los ocho ajustados en 7.3b.</p>')+
     '<p class="note"><a href="'+escapeHTML(PATCH_CHANGES.source)+'" target="_blank" rel="noopener noreferrer">Notas oficiales de Riot · '+escapeHTML(PATCH_CHANGES.published)+'</a></p>':
-  '<h3>Nuevo parche '+escapeHTML(autoMeta.patch)+'</h3><div class="notice">El nuevo parche fue detectado en Riot. Los cambios específicos de campeones, objetos y runas siguen pendientes de revisión estructurada. Las guías de parches anteriores no se muestran como vigentes.</div><p class="note"><a href="'+escapeHTML(autoMeta.patchUrl)+'" target="_blank" rel="noopener noreferrer">Ver notas oficiales del parche '+escapeHTML(autoMeta.patch)+'</a></p>';
+  '<h3>Nuevo parche '+escapeHTML(autoMeta.patch)+'</h3><div class="notice">Riot ha publicado una versión nueva. Las guías de versiones anteriores se consideran obsoletas hasta que la fuente editorial se actualice. Los detalles numéricos no se deducen automáticamente.</div>'+
+  (autoMeta.patchSubjects?'<h3>Elementos mencionados en las notas oficiales</h3>'+
+    lines([
+      'Campeones: '+(autoMeta.patchSubjects.champions.join(', ')||'sin cambios identificados'),
+      'Objetos: '+(autoMeta.patchSubjects.items.join(', ')||'sin cambios identificados'),
+      'Runas: '+(autoMeta.patchSubjects.runes.join(', ')||'sin cambios identificados')
+    ]):'<p class="note">La extracción de temas del nuevo parche requiere revisión.</p>')+
+  '<p class="note"><a href="'+escapeHTML(autoMeta.patchUrl)+'" target="_blank" rel="noopener noreferrer">Ver notas oficiales del parche '+escapeHTML(autoMeta.patch)+'</a></p>';
   const htmlList=(xs)=>'<ol class="ref-list">'+xs.map(x=>'<li>'+escapeHTML(x)+'</li>').join('')+'</ol>';
   let refHtml='<div class="notice">'+escapeHTML(base.message)+' No se mostrará una build sin fuente para este rol y parche.</div>';
   if(base.status==="referenced"){
