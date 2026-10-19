@@ -4,6 +4,72 @@
 export const BUILD_SOURCE_PATCH='7.3b';
 export const BUILD_REFERENCES=Object.freeze([
   {
+    "champion": "Akali",
+    "role": "mid",
+    "patch": "7.3b",
+    "checkedAt": "2026-10-19",
+    "source": {
+      "publisher": "WildRiftFire",
+      "type": "third_party_editorial",
+      "url": "https://www.wildriftfire.com/guide/akali"
+    },
+    "finalItems": [
+      "Boots of Mana",
+      "Stormsurge",
+      "Infinity Orb",
+      "Rabadon's Deathcap",
+      "Void Staff",
+      "Zhonya's Hourglass"
+    ],
+    "runes": [
+      "Electrocute",
+      "Sudden Impact",
+      "Chain Assault",
+      "Eyeball Collector",
+      "Second Wind"
+    ],
+    "spells": [
+      "Flash",
+      "Ignite"
+    ],
+    "skillPriority": [],
+    "skillPriorityStatus": "pending_review",
+    "startingItem": "Amplifying Tome"
+  },
+  {
+    "champion": "Akali",
+    "role": "baron",
+    "patch": "7.3b",
+    "checkedAt": "2026-10-19",
+    "source": {
+      "publisher": "WildRiftFire",
+      "type": "third_party_editorial",
+      "url": "https://www.wildriftfire.com/guide/akali"
+    },
+    "finalItems": [
+      "Boots of Mana",
+      "Stormsurge",
+      "Infinity Orb",
+      "Rabadon's Deathcap",
+      "Void Staff",
+      "Zhonya's Hourglass"
+    ],
+    "runes": [
+      "Fleet Footwork",
+      "Sudden Impact",
+      "Chain Assault",
+      "Eyeball Collector",
+      "Second Wind"
+    ],
+    "spells": [
+      "Flash",
+      "Ignite"
+    ],
+    "skillPriority": [],
+    "skillPriorityStatus": "pending_review",
+    "startingItem": "Amplifying Tome"
+  },
+  {
     "champion": "Camille",
     "role": "baron",
     "patch": "7.3b",

@@ -52,7 +52,7 @@ assert.equal(tacticalProfile("Lee Sin","jungle")?.status,"editorial");
 assert.equal(tacticalProfile("Jinx","dragon")?.status,"editorial");
 assert.equal(tacticalProfile("Jinx","baron"),null,"Off-role no presenta perfil como verificado.");
 assert.equal(tacticalProfile("Desconocido","baron"),null);
-assert.equal(BUILD_REFERENCES.length,10);
+assert.equal(BUILD_REFERENCES.length,12);
 assert.equal(new Set(BUILD_REFERENCES.map(x=>x.champion+"|"+x.role)).size,BUILD_REFERENCES.length);
 for(const b of BUILD_REFERENCES){
   const a=getBuildReference(b.champion,b.role);
@@ -63,6 +63,18 @@ for(const b of BUILD_REFERENCES){
   assert(a.reference.finalItems.length>=5);
   assert.equal(getBuildReference(b.champion,b.role,"7.4").status,"stale");
 }
+const akaliMid=getBuildReference("Akali","mid");
+const akaliBaron=getBuildReference("Akali","baron");
+assert.equal(akaliMid.status,"referenced");
+assert.equal(akaliBaron.status,"referenced");
+assert.deepEqual(akaliMid.reference.runes,["Electrocute","Sudden Impact","Chain Assault","Eyeball Collector","Second Wind"]);
+assert.deepEqual(akaliBaron.reference.runes,["Fleet Footwork","Sudden Impact","Chain Assault","Eyeball Collector","Second Wind"]);
+assert.equal(akaliMid.reference.finalItems.length,6);
+assert.equal(akaliMid.reference.source.url,"https://www.wildriftfire.com/guide/akali");
+assert.equal(akaliMid.reference.skillPriorityStatus,"pending_review");
+assert.equal(tacticalProfile("Akali","mid")?.status,"editorial");
+assert.equal(tacticalProfile("Akali","baron")?.status,"editorial");
+assert(tacticalProfile("Akali","mid")?.matchups?.Brand.includes("Sear"));
 assert.equal(getBuildReference("Norra","mid").status,"missing");
 assert.equal(getBuildReference("Camille","mid").status,"missing");
 assert.equal(PATCH_CHANGES.patch,"7.3b");
