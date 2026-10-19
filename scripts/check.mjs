@@ -1,7 +1,9 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
-const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const html=fs.readFileSync(new URL('../camille.html',import.meta.url),'utf8');
+const home=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const camilleManifest=JSON.parse(fs.readFileSync(new URL('../manifest-camille.webmanifest',import.meta.url),'utf8'));
 const betaManifest=JSON.parse(fs.readFileSync(new URL('../manifest-multi.webmanifest',import.meta.url),'utf8'));
 const manifest=JSON.parse(fs.readFileSync(new URL('../manifest.webmanifest',import.meta.url),'utf8'));
 const sw=fs.readFileSync(new URL('../sw.js',import.meta.url),'utf8');
@@ -10,13 +12,16 @@ assert(html.length>50000,'App bundle too small');
 assert(scripts.length>=1,'Missing client script');
 scripts.forEach((s,i)=>new vm.Script(s,{filename:'inline-'+i+'.js'}));
 assert(html.includes('application-version'),'Version not visible');
-assert(html.includes('manifest.webmanifest'),'PWA manifest not linked');
+assert(html.includes('manifest-camille.webmanifest'),'Camille legacy manifest not linked');
+assert(home.includes('manifest.webmanifest'),'Main PWA manifest not linked');
 assert(html.includes('navigator.serviceWorker.register'),'SW not registered');
 assert(html.includes('Gwen')&&html.includes('Viego'),'Draft dataset incomplete');
 assert(html.includes('Trinidad')&&html.includes('Rompecascos'),'Item catalog incomplete');
-assert(manifest.start_url==='./'&&manifest.display==='standalone','Manifest invalid');
+assert(manifest.start_url==='./'&&manifest.display==='standalone'&&manifest.name.includes('MotorWr'),'Main manifest invalid');
+assert(camilleManifest.start_url==='./camille.html'&&camilleManifest.display==='standalone','Camille legacy manifest invalid');
 assert(sw.includes('APP_SHELL'),'Service worker offline cache missing');
-assert(sw.includes("'./multi.html'")&&sw.includes("'./src/data/autoMeta.json'"),'Offline shell missing multi/meta resources');
+assert(sw.includes("'./multi.html'")&&sw.includes("'./camille.html'")&&sw.includes("'./src/data/autoMeta.json'"),'Offline shell missing routes/meta resources');
+assert(sw.includes('camille(?:\\.html)?'),'Offline Camille route missing');
 assert(sw.includes("cache:'no-store'")&&sw.includes("pageKey(url.pathname)"),'Live meta or offline route freshness missing');
 assert(sw.includes("'/multi(?:\\.html)?\\/?$/'")===false || sw.includes("pageKey"),'Offline multi route missing');
 assert(sw.includes("const key=pageKey(url.pathname)"),'A multi route can corrupt the cached legacy home');
@@ -31,7 +36,10 @@ const patch=fs.readFileSync(new URL('../src/data/patchNotes.js',import.meta.url)
 const auto=JSON.parse(fs.readFileSync(new URL('../src/data/autoMeta.json',import.meta.url),'utf8'));
 assert(/^\d+\.\d+[a-z]?$/.test(auto.patch),'Auto meta invalid patch');
 const core=fs.readFileSync(new URL('../src/core/multiChampion.js',import.meta.url),'utf8');
-assert(html.includes('href="./multi.html"'),'Camille should link to MotorWr 2.0');
+assert(html.includes('href="./multi.html"'),'Legacy Camille should link to MotorWr 2.2');
+assert(home.includes('id="ownPick"')&&home.includes('id="allySlots"')&&home.includes('id="enemySlots"'),'Main landing page is not the multichampion motor');
+assert(home.includes('href="./camille.html"')&&multi.includes('href="./camille.html"'),'Legacy Camille route missing from main and beta');
+assert(home.includes('location.href="./camille.html"'),'Camille navigation must not redirect to home');
 assert(multi.includes('id="ownPick"')&&multi.includes('id="allySlots"')&&multi.includes('id="enemySlots"'),'Multichampion selectors missing');
 assert(multi.includes('analyzeComposition')&&multi.includes('resolveBuildReference'),'Multichampion build references disconnected');
 assert(multi.includes('Riot Games')&&multi.includes('etiquetas editoriales'),'Source limits need disclosure');
@@ -43,4 +51,4 @@ assert(official.includes('Norra')&&official.includes('Skarner'),'Official roster
 assert(builds.includes('www.wildriftfire.com/guide/')&&builds.includes('checkedAt'),'Build sources/checked dates required');
 assert(patch.includes('7.3b')&&patch.toLowerCase().includes('riot'),'Official patch notes missing');
 
-console.log('PASS: Camille legacy, official 7.3b roster, editorial references, PWA');
+console.log('PASS: MotorWr 2.2 homepage, preserved Camille, routes, 7.3b references and PWA');
