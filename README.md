@@ -25,3 +25,32 @@ La interfaz seguirá llamándose *Camille FAST*; **MotorWr** es el nombre fijo d
 ## Alcance
 
 Guía táctica basada en reglas, no en datos en vivo del servidor chino. Los resultados son orientativos y deben contrastarse con el juego vigente.
+
+
+## MotorWr 2.0 beta (rama feature/multi-champion-v2)
+
+La versión estable de Camille FAST sigue siendo el punto de entrada. El enlace
+MotorWr 2.0 BETA abre la página multi.html, una experiencia alternativa con
+selección del campeón propio, rol, cuatro aliados y cinco rivales.
+
+- src/data/champions.js: 138 fichas editoriales heredadas. No es un censo
+  confirmado de los campeones disponibles en Wild Rift en el parche vigente.
+- src/core/multiChampion.js: validación de posiciones, duplicados y análisis
+  de composiciones con etiquetas heurísticas.
+- src/data/tacticalProfiles.js: perfiles editoriales específicos iniciales.
+  Los demás campeones reciben indicaciones por rol y características, sin
+  fingir perfiles individuales verificados.
+- multi.html: interfaz móvil, buscador, persistencia local y retorno a Camille FAST.
+- tests/multiChampion.test.mjs: pruebas de roles, seguridad y cobertura.
+
+Limitaciones: todavía no hay perfiles contrastados de objetos, runas y habilidades
+para todos los campeones. No se consulta en vivo al servidor chino ni la API
+de Wild Rift. Antes del lanzamiento general, contrastar catálogo oficial por
+parche, perfiles, derechos de recursos Riot y QA móvil completo.
+
+Ejecutar npm test y npm run build. El build incluye HTML y módulos JavaScript
+en dist. El service worker precarga la beta para uso offline.
+
+La rama beta debe pasar revisión y QA antes de fusionarla a main. El workflow de
+producción publica exclusivamente desde main; un workflow separado podrá subir
+versiones de vista previa sin sustituir la producción.
