@@ -34,7 +34,7 @@ export function stripTags(html){
   .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,'')
   .replace(/<[^>]+>/g,' ')
   .replace(/&(?:amp|#38);/gi,'&').replace(/&(?:quot|#34);/gi,'"')
-  .replace(/&(?:apos|#39|#x27);/gi,"'").replace(/&nbsp;|&#160;/gi,' ')
+  .replace(/&(?:apos|#39|#039|#x27);/gi,"'").replace(/&nbsp;|&#160;/gi,' ')
   .replace(/\s+/g,' ').trim();
 }
 function paragraphs(html){
@@ -52,6 +52,10 @@ function splitByH2(html){
   html:html.slice(entry.index+entry[0].length,i+1<m.length?m[i+1].index:html.length)
  }));
 }
+function alts(html){
+ const matches=[...html.matchAll(/\balt\s*=\s*(?:"([^"]+)"|'([^']+)')/gi)];
+ return matches.map(m=>stripTags(m[1]||m[2]));
+}
 function validNames(a,count){
  return a.length===count && a.every(x=>typeof x==='string' && x.length>=2 && x.length<=90 &&
  !/[<>]/.test(x) && !/^(Final Build|Runes|Summoner Spells|Boots)$/i.test(x));
@@ -60,7 +64,9 @@ function readNamesAfterMarker(block, marker, quantity) {
  const match=new RegExp(marker,'i').exec(block);
  if(!match)throw Error('Missing '+marker+' marker in editorial guide');
  const remaining=block.slice(match.index+match[0].length);
- const entries=paragraphs(remaining).slice(0,quantity);
+ const plain=paragraphs(remaining).slice(0,quantity);
+ const pictured=alts(remaining).slice(0,quantity);
+ const entries=validNames(plain,quantity)?plain:pictured;
  if(!validNames(entries,quantity)){const clue={paragraphs:entries.slice(0,9),text:stripTags(remaining).slice(0,270),alts:[...remaining.matchAll(/alt=[\"']([^\"']{2,100})[\"']/gi)].slice(0,8).map(m=>m[1])};throw Error('Malformed '+marker+' section: '+JSON.stringify(clue));}
  return entries;
 }
@@ -89,12 +95,17 @@ export function parseEditorialGuide(html,champion,expectedRoles){
  for(let i=0;i<roles.length;i++){
   if(!expectedRoles.includes(roles[i]))continue;
   const items=readNamesAfterMarker(itemGroups[i].html,'Final\\s*Build',6);
-  const p=paragraphs(runeGroups[i].html);
-  const spellsAt=p.findIndex(x=>/^Summoner\s*Spells$/i.test(x));
-  const runesAt=p.findIndex(x=>/^Runes$/i.test(x));
-  if(spellsAt<0||runesAt<0||runesAt-spellsAt<3)throw Error('Summoner spells and runes not reliably found');
-  const spells=p.slice(spellsAt+1,spellsAt+3),runes=p.slice(runesAt+1,runesAt+6);
-  if(!validNames(spells,2)||!validNames(runes,5))throw Error('Bad spell/rune field count');
+  const block=runeGroups[i].html;
+  const sum=/Summoner\s*Spells/i.exec(block),run=/\bRunes\b/i.exec(block);
+  if(!sum||!run||run.index<=sum.index)throw Error('Summoner spells and runes not reliably found');
+  const spellBlock=block.slice(sum.index+sum[0].length,run.index);
+  const runeBlock=block.slice(run.index+run[0].length);
+  const read=(piece,n)=>{
+    const ps=paragraphs(piece).slice(0,n),images=alts(piece).slice(0,n);
+    return validNames(ps,n)?ps:images;
+  };
+  const spells=read(spellBlock,2),runes=read(runeBlock,5);
+  if(!validNames(spells,2)||!validNames(runes,5))throw Error('Bad spell/rune field count; '+JSON.stringify({spells,runes}).slice(0,220));
   parsed.push({role:roles[i],patch,finalItems:items,spells,runes});
  }
  if(!parsed.length)throw Error('No supported role sections found for '+champion);
