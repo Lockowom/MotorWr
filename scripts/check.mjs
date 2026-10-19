@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+const betaManifest=JSON.parse(fs.readFileSync(new URL('../manifest-multi.webmanifest',import.meta.url),'utf8'));
 const manifest=JSON.parse(fs.readFileSync(new URL('../manifest.webmanifest',import.meta.url),'utf8'));
 const sw=fs.readFileSync(new URL('../sw.js',import.meta.url),'utf8');
 const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(m=>m[1]).filter(x=>x.trim());
@@ -15,6 +16,7 @@ assert(html.includes('Gwen')&&html.includes('Viego'),'Draft dataset incomplete')
 assert(html.includes('Trinidad')&&html.includes('Rompecascos'),'Item catalog incomplete');
 assert(manifest.start_url==='./'&&manifest.display==='standalone','Manifest invalid');
 assert(sw.includes('APP_SHELL'),'Service worker offline cache missing');
+assert(betaManifest.start_url==='./multi.html'&&betaManifest.display==='standalone','Beta PWA manifest invalid');
 
 const multi=fs.readFileSync(new URL('../multi.html',import.meta.url),'utf8');
 const catalog=fs.readFileSync(new URL('../src/data/champions.js',import.meta.url),'utf8');
