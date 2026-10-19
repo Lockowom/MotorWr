@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import {CHAMPIONS,CHAMPION_BY_NAME} from "../src/data/champions.js";
 import {ROLES,createDraft,analyzeComposition,championRecommendation} from "../src/core/multiChampion.js";
+import {TACTICAL_PROFILES,tacticalProfile} from "../src/data/tacticalProfiles.js";
 
 assert.equal(CHAMPIONS.length,138,"Catálogo heredado debe permanecer íntegro.");
 assert.equal(new Set(CHAMPIONS.map(c=>c.name)).size,CHAMPIONS.length);
@@ -30,4 +31,10 @@ assert(partial.advice.warnings.some(x=>x.includes("parcial")));
 const known={camille:{roles:["baron"],patch:"7.3b",source:"https://example.com/verified"}};
 assert.equal(championRecommendation(draft,known).status,"verified");
 assert.equal(championRecommendation(createDraft({...base,role:"mid"}),known).status,"unverified");
+assert(Object.keys(TACTICAL_PROFILES).length>=10);
+assert.equal(tacticalProfile("Camille","baron")?.status,"editorial");
+assert.equal(tacticalProfile("Lee Sin","jungle")?.status,"editorial");
+assert.equal(tacticalProfile("Jinx","dragon")?.status,"editorial");
+assert.equal(tacticalProfile("Jinx","baron"),null,"Off-role no presenta perfil como verificado.");
+assert.equal(tacticalProfile("Desconocido","baron"),null);
 console.log("PASS: 138 campeones, 5 roles, composición, faltantes, duplicados, evidencia.");
