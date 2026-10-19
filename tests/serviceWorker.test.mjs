@@ -15,15 +15,17 @@ class RequestMock {
   this.method=typeof input==='string'?'GET':(input.method||'GET');
   this.mode=typeof input==='string'?'same-origin':(input.mode||'same-origin');
   this.cache=options.cache||'default';
+  this.destination=typeof input==='string'?'':(input.destination||'');
  }
 }
 const caches={
  match:async request=>disk.get(key(request))?.clone(),
  open:async()=>({
+  match:async request=>disk.get(key(request))?.clone(),
   put:async(request,response)=>{disk.set(key(request),response.clone());},
   addAll:async requests=>{for(const r of requests){const response=await networkFetch(r);disk.set(key(r),response.clone());}}
  }),
- keys:async()=>['motorwr-personal-release-v2.2.1'],
+ keys:async()=>['motorwr-personal-release-v2.2.3','motorwr-icon-cache-v2.2.3'],
  delete:async()=>true
 };
 async function networkFetch(request){
@@ -77,4 +79,18 @@ assert.equal(await retrieve('index.html','same-origin','POST'),null,'POST must b
 let outside=null;
 listeners.fetch({request:new RequestMock({url:'https://example.com/asset.js'}),respondWith:value=>{outside=value;}});
 assert.equal(outside,null,'Cross-origin requests must not be intercepted');
-console.log('PASS: network-first JS/metadata, offline fallback, distinct Camille/Main routes, access boundaries');
+const publisherIcon='https://www.wildriftfire.com/images/items/stormsurge.png';
+network.set(publisherIcon,'icon bytes');
+isOffline=false;
+let iconResponse=null;
+listeners.fetch({request:new RequestMock({url:publisherIcon,destination:'image'}),respondWith:value=>{iconResponse=Promise.resolve(value);}});
+assert.equal(await (await iconResponse).text(),'icon bytes','Publisher icon should render');
+assert.equal(await (await caches.match(publisherIcon)).text(),'icon bytes','Publisher icon should enter offline cache');
+isOffline=true;
+let offlineIcon=null;
+listeners.fetch({request:new RequestMock({url:publisherIcon,destination:'image'}),respondWith:value=>{offlineIcon=Promise.resolve(value);}});
+assert.equal(await (await offlineIcon).text(),'icon bytes','Previously viewed icon should remain available offline');
+let offsiteOther=null;
+listeners.fetch({request:new RequestMock({url:'https://tracker.example.com/pixel.png',destination:'image'}),respondWith:value=>{offsiteOther=value;}});
+assert.equal(offsiteOther,null,'Do not intercept unknown third-party images');
+console.log('PASS: network-first modules, fallback, routed pages, allowlisted source icons and offline icon reuse');
