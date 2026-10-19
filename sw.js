@@ -1,8 +1,8 @@
 // MotorWr 2.2.1: navigation and executable modules use network-first freshness.
 // Fail offline to verified cached copies; never show a stale module just because
 // it was installed before an Akali/build update.
-const CACHE='motorwr-personal-release-v2.2.3';
-const ICON_CACHE='motorwr-icon-cache-v2.2.3';
+const CACHE='motorwr-personal-release-v2.2.4';
+const ICON_CACHE='motorwr-icon-cache-v2.2.4';
 const APP_SHELL=['./','./index.html','./multi.html','./camille.html',
  './manifest.webmanifest','./manifest-multi.webmanifest','./manifest-camille.webmanifest','./assets/icon.svg',
  './src/core/multiChampion.js','./src/core/metaPolicy.js','./src/core/metaSync.js',
@@ -49,8 +49,11 @@ self.addEventListener('fetch',event=>{
  const url=new URL(req.url);
  if(url.origin!==self.location.origin){
   // Image-only caching for verified icon providers, never arbitrary external requests.
-  if(req.destination!=='image'||!['www.wildriftfire.com','www.mobafire.com'].includes(url.hostname)||
-    !/^\/images\/(?:items|runes|summoners|ability)\/[a-z0-9-]+\.png$/.test(url.pathname))return;
+  const editorialIcon=['www.wildriftfire.com','www.mobafire.com'].includes(url.hostname) &&
+    /^\/images\/(?:items|runes|summoners|ability)\/[a-z0-9-]+\.png$/.test(url.pathname);
+  const riotSpellIcon=url.hostname==='ddragon.leagueoflegends.com' &&
+    /^\/cdn\/16\.18\.1\/img\/(?:passive|spell)\/[A-Za-z0-9_-]+\.png$/.test(url.pathname);
+  if(req.destination!=='image'||(!editorialIcon&&!riotSpellIcon))return;
   event.respondWith(caches.open(ICON_CACHE).then(async cache=>{
     const cached=await cache.match(req);
     if(cached)return cached;
