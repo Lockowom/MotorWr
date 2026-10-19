@@ -21,6 +21,8 @@ const catalog=fs.readFileSync(new URL('../src/data/champions.js',import.meta.url
 const official=fs.readFileSync(new URL('../src/data/officialRoster.js',import.meta.url),'utf8');
 const builds=fs.readFileSync(new URL('../src/data/buildReferences.js',import.meta.url),'utf8');
 const patch=fs.readFileSync(new URL('../src/data/patchNotes.js',import.meta.url),'utf8');
+const auto=JSON.parse(fs.readFileSync(new URL('../src/data/autoMeta.json',import.meta.url),'utf8'));
+assert(/^\d+\.\d+[a-z]?$/.test(auto.patch),'Auto meta invalid patch');
 const core=fs.readFileSync(new URL('../src/core/multiChampion.js',import.meta.url),'utf8');
 assert(html.includes('href="./multi.html"'),'Camille should link to MotorWr 2.0');
 assert(multi.includes('id="ownPick"')&&multi.includes('id="allySlots"')&&multi.includes('id="enemySlots"'),'Multichampion selectors missing');
