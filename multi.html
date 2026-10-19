@@ -28,7 +28,7 @@ dialog{background:#0d1b23;color:var(--text);width:min(95vw,530px);border:1px sol
 <div class="shell">
 <header class="topbar">
  <div class="brand"><span class="logo">MW</span><span>MOTOR<span style="color:var(--mint)">WR</span><span class="sub" style="display:block">DRAFT INTELLIGENCE · 2.2 BETA</span></span></div>
- <nav class="toplinks" aria-label="Navegación"><a href="./index.html">Camille FAST</a></nav>
+ <nav class="toplinks" aria-label="Navegación"><a href="./camille.html">Camille FAST</a></nav>
 </header>
 <main>
 <section class="hero"><span class="eyebrow">HERRAMIENTA PERSONAL DE WILD RIFT</span><h1>Tu campeón.<br><em>Prepara tu estrategia.</em></h1><p>Antes de jugar, estudia la composición de ambos equipos, fortalezas del rol y referencias de builds por campeón y parche. Sin acceso al estado de partidas ni ayuda automatizada en tiempo real.</p><div class="tags"><span class="tag">5 POSICIONES</span><span class="tag">142 CAMPEONES OFICIALES</span><span class="tag warn">PARCHE <span id="currentPatchTag">7.3b</span></span></div></section>
@@ -186,7 +186,7 @@ function renderAnalysis(scroll=true){
     old.draft={top:data.enemies[0],jg:data.enemies[1],mid:data.enemies[2],adc:data.enemies[3],sup:data.enemies[4]};
     localStorage.setItem("camille_fast_v1",JSON.stringify(old));
    }catch{}
-   location.href="./index.html";
+   location.href="./camille.html";
   });
   if(scroll)$("#output").scrollIntoView({behavior:"smooth",block:"start"});
  }catch(e){alertResult(e);}
