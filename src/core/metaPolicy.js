@@ -9,6 +9,14 @@ export function validateAutoMeta(raw){
  if(!raw||raw.schema!==AUTO_SCHEMA||!SAFE_PATCH.test(raw.patch)||!PATCH_LINK.test(raw.patchUrl)||
   !Array.isArray(raw.guides)||raw.guides.length>200||
   !/^\d{4}-\d\d-\d\d$/.test(raw.updatedAt))throw Error('Metadatos automáticos inválidos');
+ if(raw.patchSubjects!=null){
+  for(const key of ['champions','items','runes']){
+   const a=raw.patchSubjects[key];
+   if(!Array.isArray(a)||a.length>160||
+    !a.every(x=>typeof x==='string'&&x.length>=2&&x.length<=95)||
+    new Set(a).size!==a.length)throw Error('Secciones de parche inválidas: '+key);
+  }
+ }
  const seen=new Set();
  for(const guide of raw.guides){
   const key=String(guide.champion)+'|'+guide.role;
