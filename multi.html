@@ -140,6 +140,7 @@ function renderAnalysis(scroll=true){
   const lines=(xs,cl)=>xs.map(x=>'<p class="bulletline '+(cl||"")+'">'+escapeHTML(x)+'</p>').join("");
   const empty='<p class="note">Completa la composición para ampliar el análisis.</p>';
   const opponent=data.enemies[ROLES.indexOf(data.role)];
+  const matchupAdvice=profile?.matchups?.[a.enemyLane]||null;
   const lane=a.enemyLane?'<h3>Enfrentamiento · '+escapeHTML(ROLE_LABELS[data.role])+'</h3><p>'+escapeHTML(data.champion)+' vs '+escapeHTML(a.enemyLane)+'</p>'+lines(a.advice.lane):'<h3>Enfrentamiento</h3>'+empty;
   const ownChange=patchChangeForChampion(draft.champion);
   const changed=[...new Set([draft.champion,...data.enemies.filter(Boolean)])].filter(n=>patchChangeForChampion(n));
@@ -174,11 +175,11 @@ function renderAnalysis(scroll=true){
   const links=(data.champion==="Camille"&&data.role==="baron")?'<button id="goCamille" class="secondary" type="button">ABRIR MOTOR ESPECIALIZADO DE CAMILLE →</button>':"";
   $("#output").innerHTML='<section class="card result"><span class="eyebrow">PREPARACIÓN TÁCTICA · BETA</span><h2>'+escapeHTML(a.champion)+' · '+escapeHTML(ROLE_LABELS[a.role])+'</h2>'+
    '<p class="note">Rivales seleccionados: '+a.coverage.enemies+'/5 · Aliados: '+a.coverage.allies+'/4 · Meta: '+escapeHTML(autoMeta.patch)+'</p>'+
-   '<h3>Composición enemiga</h3><div class="facts">'+bits.map(b=>'<div class="fact"><strong>'+escapeHTML(b[1])+'</strong><small>'+escapeHTML(b[0])+'</small></div>').join("")+'</div>'+lane+
+   '<div class="button-row"><a href="#buildSection" class="secondary" style="text-decoration:none">Ver build y runas ↓</a></div><h3>Composición enemiga</h3><div class="facts">'+bits.map(b=>'<div class="fact"><strong>'+escapeHTML(b[1])+'</strong><small>'+escapeHTML(b[0])+'</small></div>').join("")+'</div>'+lane+(matchupAdvice?'<h3>Plan específico vs '+escapeHTML(a.enemyLane)+'</h3>'+lines([matchupAdvice]):'')+
    (profile?'<h3>Perfil específico · '+escapeHTML(profile.identity)+'</h3>'+lines([profile.lane,profile.team,profile.caution]):'<div class="notice">Perfil específico todavía sin revisión para este campeón/rol. Se muestra estrategia general, no una guía mecánica verificada.</div>')+
    '<h3>Plan de preparación por posición</h3>'+lines([a.advice.role,...a.advice.own])+
    '<h3>Alertas por composición</h3>'+(a.advice.warnings.length?lines(a.advice.warnings,"warning"):empty)+patchHtml+
-   '<h3>Build, runas y habilidades</h3>'+refHtml+links+
+   '<h3 id="buildSection">Build, runas y habilidades</h3>'+refHtml+links+
    '<p class="note">'+escapeHTML(a.provenance)+'</p></section>';
   $("#goCamille")?.addEventListener("click",()=>{
    try{
