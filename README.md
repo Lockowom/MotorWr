@@ -140,3 +140,20 @@ como producto público amplio es necesario registrar y someter a auditoría
 el producto/cambios en Riot Developer Portal según su política general vigente.
 No se ha realizado ese registro desde esta automatización. Las pruebas remotas
 no sustituyen QA físico en Android ni la autorización de Riot.
+
+## Verificación final de la primera ejecución real (2026-10-19)
+
+- Ejecución GitHub Actions del sincronizador: #39198127760, **SUCCESS**.
+- El parser de Riot indexó 8 campeones, 6 objetos y 4 runas del parche 7.3b.
+- Los siete sitios editoriales de la lista admitida fueron comprobados sin fallos.
+- Se detectó un cambio específico en Yasuo/Barón: la referencia de runas quedó
+  `Grasp of the Undying / Brutal / Last Stand / Legend: Alacrity / Second Wind`.
+  Yasuo/Central conserva su referencia independiente.
+- La copia actualizada quedó en `src/data/autoMeta.json` y se publicó
+  automáticamente solo en la preview de Cloudflare.
+- QA en navegador remoto: selección Yasuo/Barón, Yasuo/Central y Norra,
+  cambios por parche, límites sin datos, enlace de origen y modo móvil ~390×844
+  sin desbordamiento horizontal: pruebas satisfactorias.
+- PWA beta instalable con manifiesto separado `manifest-multi.webmanifest`.
+- Las pruebas no equivalen a homologación de Riot ni a pruebas físicas
+  de instalación/offline en Xiaomi 15T; ambas pendientes de validación final.
