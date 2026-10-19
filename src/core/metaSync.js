@@ -61,7 +61,7 @@ function readNamesAfterMarker(block, marker, quantity) {
  if(!match)throw Error('Missing '+marker+' marker in editorial guide');
  const remaining=block.slice(match.index+match[0].length);
  const entries=paragraphs(remaining).slice(0,quantity);
- if(!validNames(entries,quantity))throw Error('Malformed '+marker+' section');
+ if(!validNames(entries,quantity)){const clue={paragraphs:entries.slice(0,9),text:stripTags(remaining).slice(0,270),alts:[...remaining.matchAll(/alt=[\"']([^\"']{2,100})[\"']/gi)].slice(0,8).map(m=>m[1])};throw Error('Malformed '+marker+' section: '+JSON.stringify(clue));}
  return entries;
 }
 export function parseEditorialGuide(html,champion,expectedRoles){
