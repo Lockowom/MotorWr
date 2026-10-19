@@ -15,6 +15,32 @@ const laneRules={
  'Camille|Renekton':'Prioriza seguridad inicial y aprovecha enfriamientos de su aturdimiento.',
  'Camille|Kennen':'Mercurio situacional; evita iniciar dentro de su definitiva.'
 };
+const champTips={
+ Jax:['Utiliza Contraataque para controlar el momento del intercambio y evitar daño básico.','Presiona lateral solo con visión del rival y acceso a escape.'],
+ Gwen:['Busca Q cargada sin entrar a rango de control enemigo, usa W para evitar daño a distancia.','Prioriza duelos donde puedas mantenerte sobre el objetivo sin recibir control encadenado.'],
+ 'Lee Sin':['Rastrea al jungla y prepara ganks con líneas que tengan prioridad; conserva una habilidad para salir.','Asegura objetivos neutrales con visión y utiliza desplazamientos decisivos cuando sean seguros.'],
+ Brand:['Hostiga a distancia y evita avanzar sin control del río.','Tu daño en área castiga agrupaciones; guarda habilidades para objetivos disputados.'],
+ Lux:['Gestiona el alcance y conserva la inmovilización para evitar entradas enemigas.','Busca objetivos prioritarios desde segunda línea y protege el acceso a tu tirador.'],
+ Lucian:['Intercambia en ventanas breves y evita agotar desplazamientos sin visión.','Necesitas buena posición: dispara al objetivo accesible, sin adentrarte solo.'],
+ Jinx:['Prioriza el oro y evita regalar kills en fase temprana.','Preserva distancia y aprovecha reinicios tras bajas de tu equipo.'],
+ Nami:['Hostiga y recupera vida sin agotar maná; protege al tirador.','Guarda habilidades para romper entradas rivales y controlar objetivos.'],
+ Garen:['Preserva vida para regenerar y prioriza oleadas.','Convierte la presión lateral en estructuras; inicia sobre objetivos aislados.'],
+ Viego:['Gankeos con información y objetivos con prioridad de líneas.','Busca reinicios tras la primera eliminación, no entres primero sin respaldo.'],
+ Syndra:['Mantén la distancia y conserva el aturdimiento contra engages.','Busca control de zonas y objetivos vulnerables desde posiciones seguras.'],
+ Teemo:['Hostiga sin exponer innecesariamente tu posición al jungla.','Aporta visión y presión con trampas, evitando entrar solo a zonas oscuras.'],
+ Ahri:['Prepara la oleada antes de rotar y valora gastar el control para asegurar una jugada.','Busca flancos con movilidad y luego reposiciónate.'],
+ Fiora:['Controla vitales y administra tu movilidad para esquivar control.','Presiona lateral; evita peleas múltiples sin ventaja.'],
+ Darius:['Evita perseguir fuera de tu alcance y valora el momento para acumular la pasiva.','Amenaza la zona frontal pero no sacrifiques posición contra tiradores.'],
+ 'Miss Fortune':['Hostiga desde distancia y conserva oleadas favorables.','Coloca tu definitiva donde aliados puedan mantener inmóviles a los rivales.'],
+ Yasuo:['Respeta la oleada como recurso de movilidad y conserva la barrera para proyectiles importantes.','Entra cuando tu equipo disponga del control para tu definitiva.']
+};
+function archetypeLine(c){
+ if(c.tags.includes('assassin'))return 'Busca ventanas de daño cortas y evita entrar sin una ruta de escape.';
+ if(c.tags.includes('mage'))return 'Administra maná, alcance y oleadas; prepara visión antes de avanzar.';
+ if(c.tags.includes('ranged'))return 'Asegura oro, protege tu distancia y evita ser atrapado sin movilidad.';
+ if(c.tags.includes('tank'))return 'Controla las oleadas y conserva el control para jugadas con aliados.';
+ return 'Administra tus recursos, conoce los enfriamientos enemigos y evita muertes evitables.';
+}
 export const PROFILES=curated;
 export const ROLE_HINTS={
  top:['Aatrox','Akali','Ambessa','Camille','Darius','Dr. Mundo','Fiora','Garen','Gnar','Gragas','Gwen','Irelia','Jax','Jayce','Kayle','Kennen','Malphite','Mordekaiser','Nasus','Olaf','Ornn','Pantheon','Poppy','Renekton','Riven','Rumble','Sett','Shen','Singed','Sion','Teemo','Tryndamere','Urgot','Vayne','Volibear','Wukong','Yasuo','Yone',"K'Santé"],
@@ -110,8 +136,8 @@ export function analyze(draft,roster,settings={}){
  const lines=rolePlan(draft.role).slice();
  if(enemy.cc>=8)lines.push('Control elevado: evita iniciar frontalmente sin enfriamientos enemigos.');
  if(magicWeight>=3)lines.push('Varias amenazas AP: gestiona las defensas antes de pelear en grupo.');
- const laneNote=laneRules[draft.own+'|'+rival.name]||heroPlan?.lane||'Respeta el alcance, administra recursos y adapta intercambios al rival de tu línea.';
- const lateNote=heroPlan?.late||lines[2];
+ const laneNote=laneRules[draft.own+'|'+rival.name]||heroPlan?.lane||champTips[draft.own]?.[0]||archetypeLine(own);
+ const lateNote=heroPlan?.late||champTips[draft.own]?.[1]||lines[2];
  return {own:own.name,role:draft.role,rival:rival.name,opponents,allies,enemy,friendly,teamNotes,cc,laneRisk,teamRisk,magicWeight,physicalWeight,profile:heroPlan,items,boots,notes,lines,laneNote,lateNote,threat:threat?.name||null,coverage:heroPlan?'REFERENCIA EDITORIAL':'EXPLORATORIA',version:VERSION};
 }
 export function guideText(p){
