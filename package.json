@@ -1,7 +1,7 @@
 {
   "name": "motorwr",
   "private": true,
-  "version": "2.2.1",
+  "version": "2.2.2",
   "type": "module",
   "scripts": {
     "test": "node scripts/check.mjs && node tests/multiChampion.test.mjs && node tests/metaSync.test.mjs && node tests/serviceWorker.test.mjs",
