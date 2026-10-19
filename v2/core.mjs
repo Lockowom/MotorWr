@@ -97,12 +97,22 @@ export function analyze(draft,roster,settings={}){
  if(enemy.shield>=3)notes.push('Varios escudos: considera anti-escudo cuando limiten tus eliminaciones.');
  if(enemy.true)notes.push('Daño verdadero presente: la armadura y resistencia mágica no reducen ese componente.');
  if(!threat)notes.push('Selecciona a quién va más adelantado para priorizarlo.');
+ const teamNotes=[];
+ if(allies.length<4)teamNotes.push('Composición aliada parcial ('+allies.length+'/4 aliados): el diagnóstico de sinergia es provisional.');
+ else{
+  if(friendly.AP===0)teamNotes.push('Equipo sin fuente AP principal: rivales podrían invertir más en armadura.');
+  if(friendly.AD===0)teamNotes.push('Equipo sin fuente AD principal: rivales podrían invertir más en resistencia mágica.');
+  if(friendly.cc<3)teamNotes.push('Poco control de masas aliado: evita engages largos sin apoyo.');
+  if(friendly.engage===0)teamNotes.push('No hay iniciador evidente según la taxonomía: prioriza objetivos con ventaja de posición.');
+  if(friendly.heal+friendly.shield>=2)teamNotes.push('Hay curación o escudos aliados: considera agrupar para peleas decisivas.');
+  if(teamNotes.length===0)teamNotes.push('Composición equilibrada según indicadores básicos; verifica enfriamientos y ejecución.');
+ }
  const lines=rolePlan(draft.role).slice();
  if(enemy.cc>=8)lines.push('Control elevado: evita iniciar frontalmente sin enfriamientos enemigos.');
  if(magicWeight>=3)lines.push('Varias amenazas AP: gestiona las defensas antes de pelear en grupo.');
  const laneNote=laneRules[draft.own+'|'+rival.name]||heroPlan?.lane||'Respeta el alcance, administra recursos y adapta intercambios al rival de tu línea.';
  const lateNote=heroPlan?.late||lines[2];
- return {own:own.name,role:draft.role,rival:rival.name,opponents,allies,enemy,friendly,cc,laneRisk,teamRisk,magicWeight,physicalWeight,profile:heroPlan,items,boots,notes,lines,laneNote,lateNote,threat:threat?.name||null,coverage:heroPlan?'REFERENCIA EDITORIAL':'EXPLORATORIA',version:VERSION};
+ return {own:own.name,role:draft.role,rival:rival.name,opponents,allies,enemy,friendly,teamNotes,cc,laneRisk,teamRisk,magicWeight,physicalWeight,profile:heroPlan,items,boots,notes,lines,laneNote,lateNote,threat:threat?.name||null,coverage:heroPlan?'REFERENCIA EDITORIAL':'EXPLORATORIA',version:VERSION};
 }
 export function guideText(p){
  const role=ROLES.find(r=>r[0]===p.role)?.[1]||p.role;
