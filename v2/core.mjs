@@ -67,7 +67,7 @@ export function analyze(draft,roster,settings={}){
  const rival=by.get(draft.enemies[draft.role]);
  const laneNumber=(rival.tags.includes('ranged')?2:0)+(rival.tags.includes('poke')?1:0)+(rival.tags.includes('burst')?1:0)+(rival.tags.includes('cc')?1:0)+(rival.tags.includes('true')?1:0);
  const laneRisk=grade(laneNumber,4,2);
- const teamRisk=grade((enemy.cc>=8?2:enemy.cc>=4?1:0)+(enemy.burst>=3?2:enemy.burst>=2?1:0)+(enemy.engage>=2?1:0),4,2);
+ const teamRisk=grade((enemy.cc>=8?2:enemy.cc>=4?1:0)+(enemy.burst>=3?2:enemy.burst>=2?1:0)+(enemy.engage>=2?1:0)+(enemy.AP>=3?1:0),4,2);
  const cc=grade(enemy.cc,8,4);
  const profile=curated[draft.own];
  const heroPlan=profile?.role===draft.role ? profile : null;
