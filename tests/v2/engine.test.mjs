@@ -68,3 +68,12 @@ test('UI bundle links local static resources',()=>{
  const sw=fs.readFileSync(new URL('../../v2/sw.js',import.meta.url),'utf8');
  assert.ok(sw.includes('./data/champions.json'));
 });
+
+test('partial allies warn about incomplete synergy coverage',()=>{
+ const p=analyze(draft(),roster);
+ assert.ok(p.teamNotes.some(t=>/parcial/i.test(t)));
+ const d=draft();d.allies={jg:'Lee Sin',mid:'Ahri',adc:'Jinx',sup:'Nami'};
+ const full=analyze(d,roster);
+ assert.equal(full.allies.length,4);
+ assert.ok(!full.teamNotes.some(t=>/parcial/i.test(t)));
+});
