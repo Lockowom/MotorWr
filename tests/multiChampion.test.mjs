@@ -71,7 +71,15 @@ assert.deepEqual(akaliMid.reference.runes,["Electrocute","Sudden Impact","Chain 
 assert.deepEqual(akaliBaron.reference.runes,["Fleet Footwork","Sudden Impact","Chain Assault","Eyeball Collector","Second Wind"]);
 assert.equal(akaliMid.reference.finalItems.length,6);
 assert.equal(akaliMid.reference.source.url,"https://www.wildriftfire.com/guide/akali");
-assert.equal(akaliMid.reference.skillPriorityStatus,"pending_review");
+assert.equal(akaliMid.reference.skillPriorityStatus,"source_reviewed");
+assert.equal(akaliBaron.reference.skillPriorityStatus,"source_reviewed");
+assert.deepEqual(akaliMid.reference.skillPriority,["Five Point Strike","Shuriken Flip","Twilight Shroud"]);
+assert.deepEqual(akaliBaron.reference.skillPriority,akaliMid.reference.skillPriority);
+const leveling=["Q","E","W","Q","R","Q","E","Q","R","E","E","W","R","W","W"];
+assert.deepEqual(akaliMid.reference.skillLevelOrder,leveling);
+assert.deepEqual(akaliBaron.reference.skillLevelOrder,leveling);
+assert.deepEqual(akaliMid.reference.skillLevelOrder.map((v,i)=>v==="R"?i+1:0).filter(Boolean),[5,9,13]);
+assert.equal(akaliMid.reference.skillPrioritySource,"https://www.wildriftfire.com/guide/akali");
 assert.equal(tacticalProfile("Akali","mid")?.status,"editorial");
 assert.equal(tacticalProfile("Akali","baron")?.status,"editorial");
 assert(tacticalProfile("Akali","mid")?.matchups?.Brand.includes("Sear"));

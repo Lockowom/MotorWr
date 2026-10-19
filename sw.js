@@ -1,7 +1,7 @@
 // MotorWr 2.2.1: navigation and executable modules use network-first freshness.
 // Fail offline to verified cached copies; never show a stale module just because
 // it was installed before an Akali/build update.
-const CACHE='motorwr-personal-release-v2.2.1';
+const CACHE='motorwr-personal-release-v2.2.2';
 const APP_SHELL=['./','./index.html','./multi.html','./camille.html',
  './manifest.webmanifest','./manifest-multi.webmanifest','./manifest-camille.webmanifest','./assets/icon.svg',
  './src/core/multiChampion.js','./src/core/metaPolicy.js','./src/core/metaSync.js',

@@ -32,8 +32,10 @@ export const BUILD_REFERENCES=Object.freeze([
       "Flash",
       "Ignite"
     ],
-    "skillPriority": [],
-    "skillPriorityStatus": "pending_review",
+    "skillPriority": ["Five Point Strike","Shuriken Flip","Twilight Shroud"],
+    "skillPriorityStatus": "source_reviewed",
+    "skillLevelOrder": ["Q","E","W","Q","R","Q","E","Q","R","E","E","W","R","W","W"],
+    "skillPrioritySource": "https://www.wildriftfire.com/guide/akali",
     "startingItem": "Amplifying Tome"
   },
   {
@@ -65,8 +67,10 @@ export const BUILD_REFERENCES=Object.freeze([
       "Flash",
       "Ignite"
     ],
-    "skillPriority": [],
-    "skillPriorityStatus": "pending_review",
+    "skillPriority": ["Five Point Strike","Shuriken Flip","Twilight Shroud"],
+    "skillPriorityStatus": "source_reviewed",
+    "skillLevelOrder": ["Q","E","W","Q","R","Q","E","Q","R","E","E","W","R","W","W"],
+    "skillPrioritySource": "https://www.wildriftfire.com/guide/akali",
     "startingItem": "Amplifying Tome"
   },
   {
