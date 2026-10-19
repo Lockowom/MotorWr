@@ -1,0 +1,21 @@
+{
+  "name": "MotorWr 2.2 Beta — Wild Rift Draft",
+  "short_name": "MotorWr Beta",
+  "description": "Guías y análisis táctico de Wild Rift con metadatos de parches y builds verificados por fuente.",
+  "id": "./multi.html",
+  "start_url": "./multi.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#081016",
+  "theme_color": "#081016",
+  "orientation": "portrait",
+  "lang": "es-CL",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
