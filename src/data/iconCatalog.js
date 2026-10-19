@@ -114,62 +114,89 @@ export const ICON_CATALOG = Object.freeze({
     "Brand|Sear": "https://www.mobafire.com/images/ability/brand-sear.png"
   }
 });
+// Riot Data Dragon spell/passive icons (patch 16.18.1, visual art only; WR game data may differ).
 export const SKILL_SLOT_ICONS = Object.freeze({
   "Akali": {
-    "P": "https://www.mobafire.com/images/ability/akali-assassins-mark.png",
-    "Q": "https://www.mobafire.com/images/ability/akali-five-point-strike.png",
-    "W": "https://www.mobafire.com/images/ability/akali-twilight-shroud.png",
-    "E": "https://www.mobafire.com/images/ability/akali-shuriken-flip.png",
-    "R": "https://www.mobafire.com/images/ability/akali-perfect-execution.png"
+    "P": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/passive/Akali_P.png",
+    "Q": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/AkaliQ.png",
+    "W": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/AkaliW.png",
+    "E": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/AkaliE.png",
+    "R": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/AkaliR.png"
   },
   "Camille": {
-    "P": "https://www.mobafire.com/images/ability/camille-adaptive-defenses.png",
-    "Q": "https://www.mobafire.com/images/ability/camille-precision-protocol.png",
-    "W": "https://www.mobafire.com/images/ability/camille-tactical-sweep.png",
-    "E": "https://www.mobafire.com/images/ability/camille-hookshot.png",
-    "R": "https://www.mobafire.com/images/ability/camille-hextech-ultimatum.png"
+    "P": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/passive/Camille_Passive.png",
+    "Q": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/CamilleQ.png",
+    "W": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/CamilleW.png",
+    "E": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/CamilleE.png",
+    "R": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/CamilleR.png"
   },
   "Lee Sin": {
-    "P": "https://www.mobafire.com/images/ability/lee-sin-flurry.png",
-    "Q": "https://www.mobafire.com/images/ability/lee-sin-sonic-wave-resonating-strike.png",
-    "W": "https://www.mobafire.com/images/ability/lee-sin-safeguard-iron-will.png",
-    "E": "https://www.mobafire.com/images/ability/lee-sin-tempest-cripple.png",
-    "R": "https://www.mobafire.com/images/ability/lee-sin-dragons-rage.png"
+    "P": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/passive/LeeSinPassive.png",
+    "Q": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/LeeSinQOne.png",
+    "W": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/LeeSinWOne.png",
+    "E": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/LeeSinEOne.png",
+    "R": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/LeeSinR.png"
   },
   "Yasuo": {
-    "P": "https://www.mobafire.com/images/ability/yasuo-way-of-the-wanderer.png",
-    "Q": "https://www.mobafire.com/images/ability/yasuo-steel-tempest.png",
-    "W": "https://www.mobafire.com/images/ability/yasuo-wind-wall.png",
-    "E": "https://www.mobafire.com/images/ability/yasuo-sweeping-blade.png",
-    "R": "https://www.mobafire.com/images/ability/yasuo-last-breath.png"
+    "P": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/passive/Yasuo_Passive.png",
+    "Q": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/YasuoQ1Wrapper.png",
+    "W": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/YasuoW.png",
+    "E": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/YasuoE.png",
+    "R": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/YasuoR.png"
   },
   "Jinx": {
-    "P": "https://www.mobafire.com/images/ability/jinx-get-excited.png",
-    "Q": "https://www.mobafire.com/images/ability/jinx-switcheroo.png",
-    "W": "https://www.mobafire.com/images/ability/jinx-zap.png",
-    "E": "https://www.mobafire.com/images/ability/jinx-flame-chompers.png",
-    "R": "https://www.mobafire.com/images/ability/jinx-super-mega-death-rocket.png"
+    "P": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/passive/Jinx_Passive.png",
+    "Q": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/JinxQ.png",
+    "W": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/JinxW.png",
+    "E": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/JinxE.png",
+    "R": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/JinxR.png"
   },
   "Ahri": {
-    "P": "https://www.mobafire.com/images/ability/ahri-essence-theft.png",
-    "Q": "https://www.mobafire.com/images/ability/ahri-orb-of-deception.png",
-    "W": "https://www.mobafire.com/images/ability/ahri-fox-fire.png",
-    "E": "https://www.mobafire.com/images/ability/ahri-charm.png",
-    "R": "https://www.mobafire.com/images/ability/ahri-spirit-rush.png"
+    "P": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/passive/Ahri_SoulEater2.png",
+    "Q": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/AhriQ.png",
+    "W": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/AhriW.png",
+    "E": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/AhriE.png",
+    "R": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/AhriR.png"
   },
   "Thresh": {
-    "P": "https://www.mobafire.com/images/ability/thresh-damnation.png",
-    "Q": "https://www.mobafire.com/images/ability/thresh-death-sentence.png",
-    "W": "https://www.mobafire.com/images/ability/thresh-dark-passage.png",
-    "E": "https://www.mobafire.com/images/ability/thresh-flay.png",
-    "R": "https://www.mobafire.com/images/ability/thresh-the-box.png"
+    "P": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/passive/Thresh_Passive.png",
+    "Q": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/ThreshQ.png",
+    "W": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/ThreshW.png",
+    "E": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/ThreshE.png",
+    "R": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/ThreshRPenta.png"
   },
   "Brand": {
-    "P": "https://www.mobafire.com/images/ability/brand-blaze.png",
-    "Q": "https://www.mobafire.com/images/ability/brand-sear.png",
-    "W": "https://www.mobafire.com/images/ability/brand-pillar-of-flame.png",
-    "E": "https://www.mobafire.com/images/ability/brand-conflagration.png",
-    "R": "https://www.mobafire.com/images/ability/brand-pyroclasm.png"
+    "P": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/passive/BrandP.png",
+    "Q": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/BrandQ.png",
+    "W": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/BrandW.png",
+    "E": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/BrandE.png",
+    "R": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/BrandR.png"
   }
+});
+export const SKILL_NAME_SLOT = Object.freeze({
+  "Akali|Five Point Strike": "Q",
+  "Akali|Shuriken Flip": "E",
+  "Akali|Twilight Shroud": "W",
+  "Camille|Tactical Sweep": "W",
+  "Camille|Precision Protocol": "Q",
+  "Camille|Hookshot": "E",
+  "Lee Sin|Sonic Wave / Resonating Strike": "Q",
+  "Lee Sin|Safeguard / Iron Will": "W",
+  "Lee Sin|Tempest / Cripple": "E",
+  "Yasuo|Steel Tempest": "Q",
+  "Yasuo|Sweeping Blade": "E",
+  "Yasuo|Wind Wall": "W",
+  "Jinx|Switcheroo!": "Q",
+  "Jinx|Zap!": "W",
+  "Jinx|Flame Chompers!": "E",
+  "Ahri|Orb of Deception": "Q",
+  "Ahri|Fox-Fire": "W",
+  "Ahri|Charm": "E",
+  "Thresh|Death Sentence": "Q",
+  "Thresh|Flay": "E",
+  "Thresh|Dark Passage": "W",
+  "Brand|Pillar of Flame": "W",
+  "Brand|Conflagration": "E",
+  "Brand|Sear": "Q"
 });
 export const ICON_PROVENANCE = Object.freeze({checkedAt:"2026-10-19",publisher:"WildRiftFire/MOBAFire",guideHosts:["www.wildriftfire.com","www.mobafire.com"]});

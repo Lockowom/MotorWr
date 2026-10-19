@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#081016">
-<meta name="application-version" content="2.2.3">
+<meta name="application-version" content="2.2.4">
 <meta name="description" content="MotorWr 2.2: herramienta personal de análisis de composiciones, builds y parches de Wild Rift.">
-<title>MotorWr 2.2.3 — Wild Rift Draft Intelligence</title>
+<title>MotorWr 2.2.4 — Wild Rift Draft Intelligence</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#081016;--card:#13242b;--card2:#192e34;--stroke:#305058;--mint:#71e0ca;--text:#ecf4f2;--muted:#9cb3b7;--gold:#e4bf83;font-family:Inter,Roboto,system-ui,-apple-system,sans-serif}
@@ -71,7 +71,7 @@ dialog{background:#0d1b23;color:var(--text);width:min(95vw,530px);border:1px sol
 <body>
 <div class="shell">
 <header class="topbar">
- <div class="brand"><span class="logo">MW</span><span>MOTOR<span style="color:var(--mint)">WR</span><span class="sub" style="display:block">DRAFT INTELLIGENCE · 2.2.3</span></span></div>
+ <div class="brand"><span class="logo">MW</span><span>MOTOR<span style="color:var(--mint)">WR</span><span class="sub" style="display:block">DRAFT INTELLIGENCE · 2.2.4</span></span></div>
  <nav class="toplinks" aria-label="Navegación"><a href="./camille.html">Camille FAST</a></nav>
 </header>
 <main>
@@ -87,7 +87,7 @@ dialog{background:#0d1b23;color:var(--text);width:min(95vw,530px);border:1px sol
 <section id="output" aria-label="Resultado táctico" aria-live="polite"></section>
 <section class="card"><details><summary style="cursor:pointer;font-weight:800">Fuentes, limitaciones y privacidad</summary><p class="note">El roster de 142 campeones se contrastó con el listado oficial de Wild Rift el 19-10-2026; no implica roles oficialmente homologados. Las etiquetas de daño, control y habilidades son editoriales y se señalan cuando faltan. Las builds referenciadas proceden de WildRiftFire, no de una API de Riot ni del servidor chino, y se muestran únicamente en las combinaciones de campeón y rol contrastadas para 7.3b. No hay recomendaciones automatizadas sobre partidas en curso. Tus selecciones se guardan solo en este navegador.</p><p class="note">Los retratos se solicitan a Riot Data Dragon para League of Legends y podrían diferir o faltar en Wild Rift. MotorWr es una herramienta de estudio para uso personal; no está afiliada ni respaldada por Riot Games.</p><p class="note"><a href="https://wildrift.leagueoflegends.com/es-es/champions/" target="_blank" rel="noopener noreferrer">Consultar campeones oficiales de Wild Rift</a></p></details></section>
 </main>
-<footer class="footer">MotorWr 2.2.3 · Uso personal · Sin cuenta ni telemetría · <a href="https://www.riotgames.com/en/legal" target="_blank" rel="noopener noreferrer">Normas Riot</a><p style="font-size:10px;text-align:left">MotorWr isn&#39;t endorsed by Riot Games and doesn&#39;t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p></footer>
+<footer class="footer">MotorWr 2.2.4 · Uso personal · Sin cuenta ni telemetría · <a href="https://www.riotgames.com/en/legal" target="_blank" rel="noopener noreferrer">Normas Riot</a><p style="font-size:10px;text-align:left">MotorWr isn&#39;t endorsed by Riot Games and doesn&#39;t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p></footer>
 </div>
 <dialog id="picker" aria-label="Seleccionar campeón"><div class="modal-head"><div><span class="eyebrow" id="pickerRole">CAMPEÓN</span><h2>Seleccionar campeón</h2></div><button type="button" id="closePicker" aria-label="Cerrar selector">×</button></div><div class="search"><input id="search" type="search" placeholder="Buscar por nombre…" autocomplete="off" aria-label="Buscar campeón"></div><div id="choices" class="choice-list"></div><div class="modal-foot" id="count">142 campeones oficiales</div></dialog>
 <script type="module">
@@ -97,7 +97,7 @@ import {tacticalProfile} from "./src/data/tacticalProfiles.js";
 import {ROSTER_SOURCE} from "./src/data/officialRoster.js";
 import {resolveBuildReference,validateAutoMeta,patchDisplayStatus} from "./src/core/metaPolicy.js";
 import {BUILD_REFERENCES} from "./src/data/buildReferences.js";
-import {iconFor,skillIconFor,fallbackLabel} from "./src/core/iconResolver.js";
+import {iconFor,skillIconFor,skillSlotForName,fallbackLabel} from "./src/core/iconResolver.js";
 import {PATCH_CHANGES,patchChangeForChampion,patchChangesForItems,patchChangesForRunes} from "./src/data/patchNotes.js";
 const $=s=>document.querySelector(s);
 const escapeHTML=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -211,10 +211,7 @@ function renderAnalysis(scroll=true){
     '<li><span class="ref-counter" aria-label="Orden '+(i+1)+'">'+(i+1)+'</span>'+
     imageTile(type,name,champion)+'<span class="ref-name">'+escapeHTML(name)+'</span></li>'
   ).join('')+'</ol>';
-  const slotForSkill=(champion,name)=>{
-    const src=iconFor('ability',name,champion);
-    return src?['Q','W','E','R'].find(slot=>skillIconFor(champion,slot)===src)||null:null;
-  };
+  const slotForSkill=(champion,name)=>skillSlotForName(champion,name);
 
   const skillGuide=(b)=>{
     if(!Array.isArray(b.skillPriority)||!b.skillPriority.length)return '<div class="notice">Prioridad de habilidades pendiente de revisión para este parche.</div>';

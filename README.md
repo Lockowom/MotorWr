@@ -203,3 +203,15 @@ de los datos MetaSync. Cuando un parche añada un objeto o runa desconocida
 para el atlas actual, seguirá mostrándose su nombre legible con inicial
 en lugar de enlazar una URL de icono inventada; revisar el atlas periódicamente
 junto al mantenimiento de guías. La app permanece orientada al uso personal.
+
+### MotorWr 2.2.4 — fiabilidad de iconos de habilidades
+
+Los retratos Q/W/E/R y pasivas de los ocho campeones referenciados usan ahora
+los ficheros especificados por Riot Data Dragon (versión 16.18.1).
+Los datos estratégicos siguen siendo del parche **Wild Rift 7.3b**, mientras
+que los iconos son únicamente referencias visuales del cliente de League of
+Legends: no confundir estas versiones. El catálogo de Riot queda fijado por
+versión para evitar que futuras actualizaciones cambien imágenes sin revisión.
+Se mantienen nombres visibles y alternativa con letra si un recurso está roto.
+El Service Worker almacena esos iconos oficiales después de verse y las
+pruebas garantizan que las prioridades específicas conservan Q/E/W correctas.
