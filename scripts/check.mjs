@@ -40,7 +40,7 @@ assert(/^\d+\.\d+[a-z]?$/.test(auto.patch),'Auto meta invalid patch');
 const core=fs.readFileSync(new URL('../src/core/multiChampion.js',import.meta.url),'utf8');
 assert(html.includes('href="./multi.html"'),'Legacy Camille should link to MotorWr 2.2');
 assert(home.includes('id="ownPick"')&&home.includes('id="allySlots"')&&home.includes('id="enemySlots"'),'Main landing page is not the multichampion motor');
-const currentModules=[...home.matchAll(/<script\\b[^>]*type=["']module["'][^>]*>([\\s\\S]*?)<\\/script>/gi)];
+const currentModules=[...home.matchAll(/<script\b[^>]*type=["']module["'][^>]*>([\s\S]*?)<\/script>/gi)];
 assert(currentModules.length===1,'Main engine module script missing or repeated');
 const moduleCheck=spawnSync(process.execPath,['--check','--input-type=module'],{input:currentModules[0][1],encoding:'utf8'});
 assert.equal(moduleCheck.status,0,'MotorWr main engine syntax: '+moduleCheck.stderr);
