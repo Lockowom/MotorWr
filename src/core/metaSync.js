@@ -127,8 +127,8 @@ export function parseOfficialPatchSubjects(html,officialNames){
  const cleanName=s=>stripTags(s).toLowerCase().replace(/[^a-z0-9]/g,'');
  const known=new Map(officialNames.map(x=>[cleanName(x),x]));
  const subject=(begin,end)=>{
-  const start=html.search(begin);if(start<0)return '';
-  const rest=html.slice(start);
+  const opening=begin.exec(html);if(!opening)return '';
+  const rest=html.slice(opening.index+opening[0].length);
   const m=rest.match(end);
   return m?rest.slice(0,m.index):rest.slice(0,25000);
  };
