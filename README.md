@@ -73,11 +73,9 @@ cuatro runas con cambios recogidos en las notas oficiales de 7.3b.
 
 La interfaz se destina a preparación/revisión y **no** interactúa con Wild Rift,
 lee partida en vivo, realiza overlays, ni automatiza decisiones en el cliente.
-Provisionalmente es un proyecto comunitario de acceso gratuito. Antes de
-su lanzamiento masivo deben revisarse los requisitos de registro/auditoría
-en el Developer Portal y la política vigente de Riot Games.
+**Alcance actual: uso exclusivamente personal.** Sin registro de usuarios, distribución comunitaria, monetización ni promoción. La revisión asociada a un lanzamiento masivo queda fuera de alcance. Se deben seguir respetando las políticas y licencias aplicables de Riot; su política general menciona registro y auditoría de productos de terceros, por lo que no se declara una exención jurídica automática.
 
-#### Criterios mínimos de publicación
+#### Criterios de funcionamiento privado y mantenimiento
 
 - [x] Roster oficial 7.3b y 142 URL por campeón.
 - [x] Bloquear duplicados por equipo y entre equipos en la interfaz.
@@ -86,8 +84,9 @@ en el Developer Portal y la política vigente de Riot Games.
 - [x] Tests de cinco posiciones, referencias, patch, datos faltantes y PWA.
 - [ ] Validar manualmente interfaz en Xiaomi y otros dispositivos.
 - [ ] Incrementar perfiles por rol y referencias de fuente por parche.
-- [ ] Revisar cumplimiento Riot/registro del producto.
-- [ ] Fusionar beta a producción tras aprobación explícita.
+- [ ] Revisar uso personal frente a políticas de Riot antes de cualquier distribución (no constituye autorización formal).
+- [ ] Protección de acceso a GitHub y Cloudflare; verificar que el proyecto no sea accesible sin autenticación.
+- [ ] Fusionar rama beta a la instancia personal solo cuando los controles técnicos sean aprobados.
 
 
 ## MotorWr MetaSync 2.2 — actualización automática continua
@@ -135,10 +134,7 @@ Se pueden simular un parche posterior y entradas corruptas con
 **Limitaciones y cumplimiento:** las nuevas guías/roles que no figuren en la
 lista de origen verificado necesitan admisión y revisión. Las transcripciones
 de datos numéricos oficiales y las prioridades de habilidades nuevas no
-se generan automáticamente, para evitar afirmaciones falsas. Para distribuir
-como producto público amplio es necesario registrar y someter a auditoría
-el producto/cambios en Riot Developer Portal según su política general vigente.
-No se ha realizado ese registro desde esta automatización. Las pruebas remotas
+se generan automáticamente, para evitar afirmaciones falsas. No se planifica distribuir como producto público. La política general de Riot incluye registro y auditoría de productos; la modalidad personal no constituye por sí misma una exención confirmada. No se ha realizado ese trámite desde esta automatización. Las pruebas remotas
 no sustituyen QA físico en Android ni la autorización de Riot.
 
 ## Verificación final de la primera ejecución real (2026-10-19)
@@ -157,3 +153,23 @@ no sustituyen QA físico en Android ni la autorización de Riot.
 - PWA beta instalable con manifiesto separado `manifest-multi.webmanifest`.
 - Las pruebas no equivalen a homologación de Riot ni a pruebas físicas
   de instalación/offline en Xiaomi 15T; ambas pendientes de validación final.
+
+## Decisión de producto: exclusivamente personal (2026-10-19)
+
+MotorWr **no se desarrolla para la comunidad ni para obtener reconocimiento**.
+El proyecto está destinado a una sola persona, sin usuarios externos, marketing,
+cuentas públicas, patrocinio o monetización. Mantener guías, parches y runas
+actualizados automáticamente sigue siendo parte del objetivo personal.
+
+**Privacidad pendiente de infraestructura:** el repositorio GitHub
+`Lockowom/MotorWr` fue verificado como `public` el 2026-10-19.
+Tanto `buldwr.pages.dev` como `multi-champion-v2.buldwr.pages.dev`
+son accesibles públicamente hasta que se apliquen políticas de autenticación.
+No se declara el servicio privado antes de verificar GitHub Private y
+Cloudflare Access en producción y todas las URL de preview. El nombre,
+logo o texto de "uso personal" no restringen visitas.
+
+**Revisión:** se retira del plan el proceso de aprobación para un
+lanzamiento comunitario inexistente. No se eliminan controles técnicos,
+seguridad, trazabilidad, licencias o las obligaciones aplicables de Riot.
+Referencia: https://developer.riotgames.com/policies/general
