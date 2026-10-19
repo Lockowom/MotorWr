@@ -1,14 +1,40 @@
-const CACHE = 'motorwr-multichampion-beta-v2.1';
-const APP_SHELL = ['./','./index.html','./multi.html','./manifest.webmanifest','./assets/icon.svg','./src/core/multiChampion.js','./src/data/champions.js','./src/data/tacticalProfiles.js','./src/data/officialRoster.js','./src/data/patchNotes.js','./src/data/buildReferences.js'];
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(APP_SHELL)).then(()=>self.skipWaiting())));
-self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('motorwr-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
-self.addEventListener('fetch',e=>{
- const req=e.request;
+// Offline-first shell with a network-first, validated live-meta resource.
+// A multi.html navigation must never overwrite the cached legacy index.html.
+const CACHE='motorwr-multichampion-beta-v2.2';
+const APP_SHELL=['./','./index.html','./multi.html','./manifest.webmanifest','./assets/icon.svg',
+ './src/core/multiChampion.js','./src/core/metaPolicy.js','./src/core/metaSync.js',
+ './src/data/champions.js','./src/data/tacticalProfiles.js','./src/data/officialRoster.js',
+ './src/data/patchNotes.js','./src/data/buildReferences.js','./src/data/autoMeta.json'];
+const pageKey=path=>/\/multi(?:\.html)?\/?$/.test(path)?'./multi.html':'./index.html';
+self.addEventListener('install',event=>{
+ event.waitUntil(caches.open(CACHE).then(c=>c.addAll(APP_SHELL)).then(()=>self.skipWaiting()));
+});
+self.addEventListener('activate',event=>{
+ event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('motorwr-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));
+});
+self.addEventListener('fetch',event=>{
+ const req=event.request;
  if(req.method!=='GET')return;
  const url=new URL(req.url);
  if(url.origin!==self.location.origin)return;
+ const dynamic=url.pathname.endsWith('/src/data/autoMeta.json');
  if(req.mode==='navigate'){
-  e.respondWith(fetch(req).then(res=>{if(res.ok){const cp=res.clone();caches.open(CACHE).then(c=>c.put('./index.html',cp)).catch(()=>{});}return res;}).catch(()=>caches.match('./index.html')));return;
+  const key=pageKey(url.pathname);
+  event.respondWith(fetch(req).then(async res=>{
+   if(res.ok){const cache=await caches.open(CACHE);await cache.put(key,res.clone()).catch(()=>{});}
+   return res;
+  }).catch(()=>caches.match(key).then(res=>res||caches.match('./index.html')||Response.error())));
+  return;
  }
- e.respondWith(caches.match(req).then(cached=>cached||fetch(req).then(res=>{if(res.ok){const cp=res.clone();caches.open(CACHE).then(c=>c.put(req,cp)).catch(()=>{});}return res;}).catch(()=>cached||Response.error())));
+ if(dynamic){
+  event.respondWith(fetch(new Request(req,{cache:'no-store'})).then(async res=>{
+   if(res.ok){const cache=await caches.open(CACHE);await cache.put('./src/data/autoMeta.json',res.clone()).catch(()=>{});}
+   return res;
+  }).catch(()=>caches.match('./src/data/autoMeta.json').then(res=>res||Response.error())));
+  return;
+ }
+ event.respondWith(caches.match(req).then(cached=>cached||fetch(req).then(res=>{
+  if(res.ok){const cp=res.clone();caches.open(CACHE).then(c=>c.put(req,cp)).catch(()=>{});}
+  return res;
+ }).catch(()=>Response.error())));
 });
