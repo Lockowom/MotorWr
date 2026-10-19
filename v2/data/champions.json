@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "source": "MotorWr v1.1 threat taxonomy",
+  "source": "MotorWr taxonomy + Riot Games official Wild Rift champion listing (consulted 2026-10-18)",
   "synced": "2026-10-18",
-  "disclaimer": "Cobertura experimental; presencia en Wild Rift y objetos pendientes de comprobación individual.",
+  "disclaimer": "Heurística de daño/CC, no valores numéricos de Riot. La disponibilidad regional y el parche requieren contraste.",
   "champions": [
     {
       "name": "Aatrox",
@@ -496,6 +496,16 @@
       "cc": 0
     },
     {
+      "name": "K'Santé",
+      "damage": "AD",
+      "tags": [
+        "tank",
+        "cc",
+        "mobile"
+      ],
+      "cc": 2
+    },
+    {
       "name": "Kai'Sa",
       "damage": "MIX",
       "tags": [
@@ -726,6 +736,17 @@
       "cc": 2
     },
     {
+      "name": "Maokai",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "heal",
+        "engage"
+      ],
+      "cc": 3
+    },
+    {
       "name": "Master Yi",
       "damage": "AD",
       "tags": [
@@ -737,15 +758,15 @@
       "cc": 0
     },
     {
-      "name": "Maokai",
+      "name": "Mel",
       "damage": "AP",
       "tags": [
-        "tank",
-        "cc",
-        "heal",
-        "engage"
+        "mage",
+        "poke",
+        "shield",
+        "burst"
       ],
-      "cc": 3
+      "cc": 1
     },
     {
       "name": "Milio",
@@ -834,6 +855,17 @@
       "cc": 2
     },
     {
+      "name": "Nidalee",
+      "damage": "MIX",
+      "tags": [
+        "assassin",
+        "mobile",
+        "poke",
+        "heal"
+      ],
+      "cc": 0
+    },
+    {
       "name": "Nilah",
       "damage": "AD",
       "tags": [
@@ -852,6 +884,16 @@
         "assassin",
         "burst",
         "engage",
+        "shield"
+      ],
+      "cc": 1
+    },
+    {
+      "name": "Norra",
+      "damage": "AP",
+      "tags": [
+        "support",
+        "cc",
         "shield"
       ],
       "cc": 1
@@ -963,6 +1005,16 @@
         "engage"
       ],
       "cc": 2
+    },
+    {
+      "name": "Rell",
+      "damage": "AP",
+      "tags": [
+        "tank",
+        "cc",
+        "engage"
+      ],
+      "cc": 3
     },
     {
       "name": "Renekton",
@@ -1118,6 +1170,26 @@
       "cc": 0
     },
     {
+      "name": "Skarner",
+      "damage": "AD",
+      "tags": [
+        "tank",
+        "cc",
+        "engage"
+      ],
+      "cc": 3
+    },
+    {
+      "name": "Smolder",
+      "damage": "MIX",
+      "tags": [
+        "ranged",
+        "poke",
+        "execute"
+      ],
+      "cc": 0
+    },
+    {
       "name": "Sona",
       "damage": "AP",
       "tags": [
@@ -1157,6 +1229,16 @@
         "burst",
         "cc",
         "poke"
+      ],
+      "cc": 2
+    },
+    {
+      "name": "Taliyah",
+      "damage": "AP",
+      "tags": [
+        "mage",
+        "poke",
+        "cc"
       ],
       "cc": 2
     },
@@ -1415,6 +1497,16 @@
       "cc": 2
     },
     {
+      "name": "Yunara",
+      "damage": "AD",
+      "tags": [
+        "ranged",
+        "auto",
+        "poke"
+      ],
+      "cc": 0
+    },
+    {
       "name": "Yuumi",
       "damage": "AP",
       "tags": [
@@ -1424,16 +1516,6 @@
         "cc"
       ],
       "cc": 1
-    },
-    {
-      "name": "Yunara",
-      "damage": "AD",
-      "tags": [
-        "ranged",
-        "auto",
-        "poke"
-      ],
-      "cc": 0
     },
     {
       "name": "Zed",
@@ -1500,5 +1582,6 @@
       ],
       "cc": 1
     }
-  ]
+  ],
+  "officialRosterUrl": "https://wildrift.leagueoflegends.com/es-es/champions/"
 }
