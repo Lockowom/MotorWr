@@ -114,4 +114,62 @@ export const ICON_CATALOG = Object.freeze({
     "Brand|Sear": "https://www.mobafire.com/images/ability/brand-sear.png"
   }
 });
+export const SKILL_SLOT_ICONS = Object.freeze({
+  "Akali": {
+    "P": "https://www.mobafire.com/images/ability/akali-assassins-mark.png",
+    "Q": "https://www.mobafire.com/images/ability/akali-five-point-strike.png",
+    "W": "https://www.mobafire.com/images/ability/akali-twilight-shroud.png",
+    "E": "https://www.mobafire.com/images/ability/akali-shuriken-flip.png",
+    "R": "https://www.mobafire.com/images/ability/akali-perfect-execution.png"
+  },
+  "Camille": {
+    "P": "https://www.mobafire.com/images/ability/camille-adaptive-defenses.png",
+    "Q": "https://www.mobafire.com/images/ability/camille-precision-protocol.png",
+    "W": "https://www.mobafire.com/images/ability/camille-tactical-sweep.png",
+    "E": "https://www.mobafire.com/images/ability/camille-hookshot.png",
+    "R": "https://www.mobafire.com/images/ability/camille-hextech-ultimatum.png"
+  },
+  "Lee Sin": {
+    "P": "https://www.mobafire.com/images/ability/lee-sin-flurry.png",
+    "Q": "https://www.mobafire.com/images/ability/lee-sin-sonic-wave-resonating-strike.png",
+    "W": "https://www.mobafire.com/images/ability/lee-sin-safeguard-iron-will.png",
+    "E": "https://www.mobafire.com/images/ability/lee-sin-tempest-cripple.png",
+    "R": "https://www.mobafire.com/images/ability/lee-sin-dragons-rage.png"
+  },
+  "Yasuo": {
+    "P": "https://www.mobafire.com/images/ability/yasuo-way-of-the-wanderer.png",
+    "Q": "https://www.mobafire.com/images/ability/yasuo-steel-tempest.png",
+    "W": "https://www.mobafire.com/images/ability/yasuo-wind-wall.png",
+    "E": "https://www.mobafire.com/images/ability/yasuo-sweeping-blade.png",
+    "R": "https://www.mobafire.com/images/ability/yasuo-last-breath.png"
+  },
+  "Jinx": {
+    "P": "https://www.mobafire.com/images/ability/jinx-get-excited.png",
+    "Q": "https://www.mobafire.com/images/ability/jinx-switcheroo.png",
+    "W": "https://www.mobafire.com/images/ability/jinx-zap.png",
+    "E": "https://www.mobafire.com/images/ability/jinx-flame-chompers.png",
+    "R": "https://www.mobafire.com/images/ability/jinx-super-mega-death-rocket.png"
+  },
+  "Ahri": {
+    "P": "https://www.mobafire.com/images/ability/ahri-essence-theft.png",
+    "Q": "https://www.mobafire.com/images/ability/ahri-orb-of-deception.png",
+    "W": "https://www.mobafire.com/images/ability/ahri-fox-fire.png",
+    "E": "https://www.mobafire.com/images/ability/ahri-charm.png",
+    "R": "https://www.mobafire.com/images/ability/ahri-spirit-rush.png"
+  },
+  "Thresh": {
+    "P": "https://www.mobafire.com/images/ability/thresh-damnation.png",
+    "Q": "https://www.mobafire.com/images/ability/thresh-death-sentence.png",
+    "W": "https://www.mobafire.com/images/ability/thresh-dark-passage.png",
+    "E": "https://www.mobafire.com/images/ability/thresh-flay.png",
+    "R": "https://www.mobafire.com/images/ability/thresh-the-box.png"
+  },
+  "Brand": {
+    "P": "https://www.mobafire.com/images/ability/brand-blaze.png",
+    "Q": "https://www.mobafire.com/images/ability/brand-sear.png",
+    "W": "https://www.mobafire.com/images/ability/brand-pillar-of-flame.png",
+    "E": "https://www.mobafire.com/images/ability/brand-conflagration.png",
+    "R": "https://www.mobafire.com/images/ability/brand-pyroclasm.png"
+  }
+});
 export const ICON_PROVENANCE = Object.freeze({checkedAt:"2026-10-19",publisher:"WildRiftFire/MOBAFire",guideHosts:["www.wildriftfire.com","www.mobafire.com"]});
