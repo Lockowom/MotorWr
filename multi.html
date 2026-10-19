@@ -47,6 +47,7 @@ dialog{background:#0d1b23;color:var(--text);width:min(95vw,530px);border:1px sol
 <script type="module">
 import {CHAMPIONS, CHAMPION_BY_NAME} from "./src/data/champions.js";
 import {ROLES, ROLE_LABELS, createDraft, analyzeComposition, championRecommendation, normalizeChampionName} from "./src/core/multiChampion.js";
+import {tacticalProfile} from "./src/data/tacticalProfiles.js";
 const $=s=>document.querySelector(s);
 const escapeHTML=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const STORAGE="motorwr_multi_v2_beta";
@@ -93,13 +94,14 @@ function renderAnalysis(){
  const draft=createDraft(data);
  const a=analyzeComposition(draft,CHAMPION_BY_NAME);
  const verified=championRecommendation(draft);
+ const profile=tacticalProfile(draft.champion,draft.role);
  const facts=a.composition;
  const bits=[["AP",facts.magic],["AD",facts.physical],["MIX",facts.mixed],["CC",facts.control],["CURACIÓN",facts.healers],["TANQUES",facts.tanks]];
  const lines=(xs,cl)=>xs.map(s=>'<p class="bulletline '+(cl||"")+'">'+escapeHTML(s)+'</p>').join("");
  const empty='<p class="note">Completa la composición para ampliar el análisis.</p>';
  const lane=a.enemyLane?'<h3>Enfrentamiento · '+escapeHTML(ROLE_LABELS[data.role])+'</h3><p>'+escapeHTML(data.champion)+' vs '+escapeHTML(a.enemyLane)+'</p>'+lines(a.advice.lane):'<h3>Enfrentamiento</h3>'+empty;
  const links=(data.champion==="Camille"&&data.role==="baron")?'<button id="goCamille" class="secondary" type="button">ABRIR BUILD DE CAMILLE FAST →</button>':"";
- $("#output").innerHTML='<section class="card result"><span class="eyebrow">ANÁLISIS TÁCTICO · BETA</span><h2>'+escapeHTML(a.champion)+' · '+escapeHTML(ROLE_LABELS[a.role])+'</h2><p class="note">Rivales seleccionados: '+a.coverage.enemies+'/5 · Aliados: '+a.coverage.allies+'/4</p><h3>Composición enemiga</h3><div class="facts">'+bits.map(b=>'<div class="fact"><strong>'+escapeHTML(b[1])+'</strong><small>'+escapeHTML(b[0])+'</small></div>').join("")+'</div>'+lane+'<h3>Plan para tu posición</h3>'+lines([a.advice.role,...a.advice.own])+'<h3>Avisos tácticos</h3>'+(a.advice.warnings.length?lines(a.advice.warnings,"warning"):empty)+'<h3>Build, runas y habilidades</h3><div class="notice">'+escapeHTML(verified.message)+' No inventamos objetos, runas ni orden de habilidades: faltan perfiles contrastados por campeón, rol y parche.</div>'+links+'<p class="note">'+escapeHTML(a.provenance)+'</p></section>';
+ $("#output").innerHTML='<section class="card result"><span class="eyebrow">ANÁLISIS TÁCTICO · BETA</span><h2>'+escapeHTML(a.champion)+' · '+escapeHTML(ROLE_LABELS[a.role])+'</h2><p class="note">Rivales seleccionados: '+a.coverage.enemies+'/5 · Aliados: '+a.coverage.allies+'/4</p><h3>Composición enemiga</h3><div class="facts">'+bits.map(b=>'<div class="fact"><strong>'+escapeHTML(b[1])+'</strong><small>'+escapeHTML(b[0])+'</small></div>').join("")+'</div>'+lane+(profile?'<h3>Perfil específico · '+escapeHTML(profile.identity)+'</h3>'+lines([profile.lane,profile.team,profile.caution]):'<div class="notice">Perfil específico por campeón/rol todavía en preparación. Se muestra estrategia por características y posición, no una guía mecánica verificada.</div>')+'<h3>Plan para tu posición</h3>'+lines([a.advice.role,...a.advice.own])+'<h3>Avisos tácticos</h3>'+(a.advice.warnings.length?lines(a.advice.warnings,"warning"):empty)+'<h3>Build, runas y habilidades</h3><div class="notice">'+escapeHTML(verified.message)+' No inventamos objetos, runas ni orden de habilidades: faltan perfiles contrastados por campeón, rol y parche.</div>'+links+'<p class="note">'+escapeHTML(a.provenance)+'</p></section>';
  $("#goCamille")?.addEventListener("click",()=>{
   try{
    const old=JSON.parse(localStorage.getItem("camille_fast_v1")||"{}");
