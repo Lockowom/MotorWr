@@ -15,4 +15,15 @@ assert(html.includes('Gwen')&&html.includes('Viego'),'Draft dataset incomplete')
 assert(html.includes('Trinidad')&&html.includes('Rompecascos'),'Item catalog incomplete');
 assert(manifest.start_url==='./'&&manifest.display==='standalone','Manifest invalid');
 assert(sw.includes('APP_SHELL'),'Service worker offline cache missing');
-console.log('PASS: HTML bundle, syntax, champion/items, PWA manifest and SW');
+
+const multi=fs.readFileSync(new URL('../multi.html',import.meta.url),'utf8');
+const catalog=fs.readFileSync(new URL('../src/data/champions.js',import.meta.url),'utf8');
+const core=fs.readFileSync(new URL('../src/core/multiChampion.js',import.meta.url),'utf8');
+assert(html.includes('href="./multi.html"'),'Camille should link to MotorWr 2.0');
+assert(multi.includes('id="ownPick"')&&multi.includes('id="allySlots"')&&multi.includes('id="enemySlots"'),'Multichampion selectors missing');
+assert(multi.includes('analyzeComposition')&&multi.includes('championRecommendation'),'Multichampion engine disconnected');
+assert(multi.includes('Riot Games')&&multi.includes('etiquetas editoriales'),'Source limits need disclosure');
+assert(catalog.includes('Aatrox')&&catalog.includes('Zyra'),'Roster incomplete');
+assert(core.includes('No existe una build verificada'),'No fabricated item build allowed');
+
+console.log('PASS: Camille legacy, MotorWr multi beta, PWA and provenance');
