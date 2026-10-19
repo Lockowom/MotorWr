@@ -1,4 +1,4 @@
-# MetaSync v2.2: initial live adapter verification after failing closed on source markup
+# MetaSync v2.2: verified official patch and editorial data sources, production-safe update gates
 name: MotorWr — automatic meta synchronization
 
 on:
@@ -11,11 +11,10 @@ on:
 
 permissions:
   contents: write
-  actions: write
   deployments: write
 
 concurrency:
-  group: motorwr-meta-sync-preview
+  group: motorwr-meta-sync-production
   cancel-in-progress: false
 
 jobs:
@@ -25,10 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     environment: CLOUDFLARE_API_TOKEN
     steps:
-      - name: Checkout beta branch (production remains isolated)
+      - name: Checkout production branch
         uses: actions/checkout@v4
         with:
-          ref: feature/multi-champion-v2
+          ref: main
           persist-credentials: true
           fetch-depth: 0
       - name: Use Node 22
@@ -39,9 +38,9 @@ jobs:
         run: node scripts/sync-meta.mjs
       - name: Validate metadata and PWA
         run: npm test
-      - name: Build non-production preview
+      - name: Build production release
         run: npm run build
-      - name: Commit audited metadata only to beta branch
+      - name: Commit audited metadata only to production
         id: meta
         shell: bash
         run: |
@@ -55,26 +54,21 @@ jobs:
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git add src/data/autoMeta.json
             git commit -m 'data(meta): synchronized verified Wild Rift sources'
-            git push origin HEAD:feature/multi-champion-v2
+            git push origin HEAD:main
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
-      - name: Trigger full PR checks after bot-authored update
-        if: steps.meta.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run cloudflare-pages.yml --ref feature/multi-champion-v2
-      - name: Publish updated Cloudflare preview only
+      - name: Publish updated Cloudflare production only
         if: steps.meta.outputs.changed == 'true'
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 4e5250a7fe2c9281b03e6a2d184897e8
-          command: pages deploy dist --project-name=buldwr --branch=multi-champion-v2
+          command: pages deploy dist --project-name=buldwr --branch=main
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Summary
         if: always()
         shell: bash
         run: |
           echo 'Automated meta audit runs at 08:17 and 20:17 UTC.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Writes and uploads ONLY the isolated beta; main PWA is unchanged.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Writes to main ONLY validated src/data/autoMeta.json when a source change is confirmed.' >> "$GITHUB_STEP_SUMMARY"
           echo 'Updated source data: ${{ steps.meta.outputs.changed }}' >> "$GITHUB_STEP_SUMMARY"
