@@ -31,6 +31,7 @@ assert(betaManifest.start_url==='./multi.html'&&betaManifest.display==='standalo
 
 const multi=fs.readFileSync(new URL('../multi.html',import.meta.url),'utf8');
 assert(multi.includes('skill-progression')&&multi.includes('skillGuide(b)'), 'Secondary skill order UI missing');
+assert(multi.includes('iconList(b.finalItems')&&multi.includes('iconList(b.runes')&&multi.includes('iconList(b.spells'),'Secondary icon renderer disconnected');
 assert(home.includes('href="./camille.html"')&&multi.includes('href="./camille.html"'),'Legacy Camille route missing from main and beta');
 const catalog=fs.readFileSync(new URL('../src/data/champions.js',import.meta.url),'utf8');
 const official=fs.readFileSync(new URL('../src/data/officialRoster.js',import.meta.url),'utf8');
@@ -47,6 +48,9 @@ const moduleCheck=spawnSync(process.execPath,['--check','--input-type=module'],{
 assert.equal(moduleCheck.status,0,'MotorWr main engine syntax: '+moduleCheck.stderr);
 assert(home.includes('matchupAdvice')&&home.includes('id="buildSection"'),'Specific matchup and quick-build UI must be available');
 assert(home.includes('skill-progression')&&home.includes('skillGuide(b)'), 'Main skill order UI missing');
+assert(home.includes('iconList(b.finalItems')&&home.includes('iconList(b.runes')&&home.includes('iconList(b.spells'),'Main icon renderer disconnected');
+assert(home.includes('skillIconFor')&&home.includes('imageTile'),'Skill icons missing from main renderer');
+assert(sw.includes('ICON_CACHE')&&sw.includes('wildriftfire.com'),'Offline icon image cache missing');
 
 assert(home.includes('location.href="./camille.html"'),'Camille navigation must not redirect to home');
 assert(multi.includes('id="ownPick"')&&multi.includes('id="allySlots"')&&multi.includes('id="enemySlots"'),'Multichampion selectors missing');

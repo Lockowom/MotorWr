@@ -173,3 +173,33 @@ logo o texto de "uso personal" no restringen visitas.
 lanzamiento comunitario inexistente. No se eliminan controles técnicos,
 seguridad, trazabilidad, licencias o las obligaciones aplicables de Riot.
 Referencia: https://developer.riotgames.com/policies/general
+
+## MotorWr 2.2.3 — iconografía verificada
+
+La app usa iconos de objetos, runas y hechizos identificados en las guías
+editoriales de WildRiftFire y retratos de habilidades de MOBAFire, que
+muestran recursos gráficos propiedad de Riot y sus respectivos publicadores.
+Son referencias a sus URL de origen; no se incorporan copias binarias al
+repositorio y no se atribuye propiedad o patrocinio a MotorWr.
+
+- `src/data/iconCatalog.js`: listado de URL verificadas para **45 objetos,
+  29 runas, 5 hechizos, 24 habilidades específicas por nombre** y
+  **40 iconos de slots P/Q/W/E/R** para los ocho campeones con guías.
+- `src/core/iconResolver.js`: acceso exclusivo a las URL verificadas y
+  fallback textual cuando no se dispone de icono (evita mostrar la imagen
+  de otro objeto o una ruta no corroborada).
+- `index.html` y `multi.html`: tarjetas con imagen, nombre y orden de
+  compra/runa; hechizos ilustrados; Q/W/E/R y secuencia del nivel 1 al 15.
+- `sw.js`: guarda las imágenes cargadas desde los dos proveedores admitidos,
+  de modo que puedan reutilizarse sin conexión después de haberse visto.
+  **No garantiza** disponer offline de imágenes nunca cargadas.
+- `tests/iconCatalog.test.mjs`: garantiza que la fuente actual de las guías
+  con builds mostradas dispone de iconos para todos sus objetos, runas,
+  hechizos y habilidades; `tests/serviceWorker.test.mjs` comprueba
+  caché/reutilización offline y bloqueo de hosts no permitidos.
+
+**Actualizaciones futuras:** el catálogo de nombres de iconos es independiente
+de los datos MetaSync. Cuando un parche añada un objeto o runa desconocida
+para el atlas actual, seguirá mostrándose su nombre legible con inicial
+en lugar de enlazar una URL de icono inventada; revisar el atlas periódicamente
+junto al mantenimiento de guías. La app permanece orientada al uso personal.

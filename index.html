@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#081016">
-<meta name="application-version" content="2.2.2">
+<meta name="application-version" content="2.2.3">
 <meta name="description" content="MotorWr 2.2: herramienta personal de análisis de composiciones, builds y parches de Wild Rift.">
-<title>MotorWr 2.2.2 — Wild Rift Draft Intelligence</title>
+<title>MotorWr 2.2.3 — Wild Rift Draft Intelligence</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#081016;--card:#13242b;--card2:#192e34;--stroke:#305058;--mint:#71e0ca;--text:#ecf4f2;--muted:#9cb3b7;--gold:#e4bf83;font-family:Inter,Roboto,system-ui,-apple-system,sans-serif}
@@ -35,12 +35,43 @@ dialog{background:#0d1b23;color:var(--text);width:min(95vw,530px);border:1px sol
 .skill-level.ult{border-color:#b3945b;background:#352d24}
 .skill-level.ult strong{color:#ffd991}
 @media(max-width:400px){.skill-progression{gap:5px}.skill-level{min-height:47px}.skill-sequence{gap:5px}}
+
+/* Source-verified icon cards: preserve readable labels if the image is unavailable. */
+.ref-list{list-style:none;padding:0;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:9px 0}
+.ref-list li{position:relative;display:flex;align-items:center;gap:10px;min-width:0;min-height:66px;padding:9px;background:#112f36;border:1px solid #42686a;border-radius:12px}
+.ref-list .ref-name{display:block;min-width:0;overflow-wrap:anywhere;hyphens:auto;font-size:12px;font-weight:650;line-height:1.26}
+.ref-counter{position:absolute;top:-5px;left:-5px;z-index:1;min-width:19px;height:19px;padding:1px 3px;display:grid;place-items:center;border-radius:5px;background:#205b52;border:1px solid #6ad9c3;font-size:10px;font-weight:850;color:#e5fff5}
+.asset-thumb{position:relative;display:inline-grid;place-items:center;flex:none;overflow:hidden;width:43px;height:43px;border-radius:10px;border:1px solid #567478;background:linear-gradient(135deg,#244852,#102931);vertical-align:middle;color:#9cead8}
+.asset-placeholder{font-size:17px;font-weight:850;color:#a4e1d7}
+.asset-thumb img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;border-radius:9px;background:#13272e}
+.asset-thumb img[hidden]{display:none}
+.asset-thumb.rune{border-radius:50%;background:#152b3a;border-color:#5f718a}
+.asset-thumb.rune img{border-radius:50%}
+.asset-thumb.spell{border-color:#9b8151}
+.asset-inline{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.asset-inline .asset-thumb{width:30px;height:30px;border-radius:7px}
+.skill-step{min-width:0;max-width:100%;flex:1 1 145px;gap:9px}
+.skill-step .skill-token{display:flex;align-items:center;gap:5px;min-width:0;height:auto;padding:3px 4px}
+.skill-step .asset-thumb{width:37px;height:37px;border-radius:8px}
+.skill-step .skill-code{min-width:17px;text-align:center}
+.skill-step .skill-name{overflow-wrap:anywhere;min-width:0}
+.skill-sequence{gap:7px}
+.skill-progression{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.skill-level{gap:3px;min-width:0;padding:7px 2px}
+.skill-level .asset-thumb{width:29px;height:29px;border-radius:7px}
+.skill-level .asset-placeholder{font-size:12px}
+.skill-level strong{font-size:12px}
+@media(max-width:420px){
+.ref-list{gap:7px}.ref-list li{padding:7px 5px;gap:6px;min-height:66px}.ref-list .asset-thumb{width:38px;height:38px}.ref-list .ref-name{font-size:11px}
+.skill-step{flex:1 1 100%}.skill-level .asset-thumb{width:25px;height:25px}
+}
+@media(max-width:340px){.ref-list{grid-template-columns:1fr}.ref-list .asset-thumb{width:40px;height:40px}}
 </style>
 </head>
 <body>
 <div class="shell">
 <header class="topbar">
- <div class="brand"><span class="logo">MW</span><span>MOTOR<span style="color:var(--mint)">WR</span><span class="sub" style="display:block">DRAFT INTELLIGENCE · 2.2.2</span></span></div>
+ <div class="brand"><span class="logo">MW</span><span>MOTOR<span style="color:var(--mint)">WR</span><span class="sub" style="display:block">DRAFT INTELLIGENCE · 2.2.3</span></span></div>
  <nav class="toplinks" aria-label="Navegación"><a href="./camille.html">Camille FAST</a></nav>
 </header>
 <main>
@@ -56,7 +87,7 @@ dialog{background:#0d1b23;color:var(--text);width:min(95vw,530px);border:1px sol
 <section id="output" aria-label="Resultado táctico" aria-live="polite"></section>
 <section class="card"><details><summary style="cursor:pointer;font-weight:800">Fuentes, limitaciones y privacidad</summary><p class="note">El roster de 142 campeones se contrastó con el listado oficial de Wild Rift el 19-10-2026; no implica roles oficialmente homologados. Las etiquetas de daño, control y habilidades son editoriales y se señalan cuando faltan. Las builds referenciadas proceden de WildRiftFire, no de una API de Riot ni del servidor chino, y se muestran únicamente en las combinaciones de campeón y rol contrastadas para 7.3b. No hay recomendaciones automatizadas sobre partidas en curso. Tus selecciones se guardan solo en este navegador.</p><p class="note">Los retratos se solicitan a Riot Data Dragon para League of Legends y podrían diferir o faltar en Wild Rift. MotorWr es una herramienta de estudio para uso personal; no está afiliada ni respaldada por Riot Games.</p><p class="note"><a href="https://wildrift.leagueoflegends.com/es-es/champions/" target="_blank" rel="noopener noreferrer">Consultar campeones oficiales de Wild Rift</a></p></details></section>
 </main>
-<footer class="footer">MotorWr 2.2.2 · Uso personal · Sin cuenta ni telemetría · <a href="https://www.riotgames.com/en/legal" target="_blank" rel="noopener noreferrer">Normas Riot</a><p style="font-size:10px;text-align:left">MotorWr isn&#39;t endorsed by Riot Games and doesn&#39;t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p></footer>
+<footer class="footer">MotorWr 2.2.3 · Uso personal · Sin cuenta ni telemetría · <a href="https://www.riotgames.com/en/legal" target="_blank" rel="noopener noreferrer">Normas Riot</a><p style="font-size:10px;text-align:left">MotorWr isn&#39;t endorsed by Riot Games and doesn&#39;t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p></footer>
 </div>
 <dialog id="picker" aria-label="Seleccionar campeón"><div class="modal-head"><div><span class="eyebrow" id="pickerRole">CAMPEÓN</span><h2>Seleccionar campeón</h2></div><button type="button" id="closePicker" aria-label="Cerrar selector">×</button></div><div class="search"><input id="search" type="search" placeholder="Buscar por nombre…" autocomplete="off" aria-label="Buscar campeón"></div><div id="choices" class="choice-list"></div><div class="modal-foot" id="count">142 campeones oficiales</div></dialog>
 <script type="module">
@@ -66,6 +97,7 @@ import {tacticalProfile} from "./src/data/tacticalProfiles.js";
 import {ROSTER_SOURCE} from "./src/data/officialRoster.js";
 import {resolveBuildReference,validateAutoMeta,patchDisplayStatus} from "./src/core/metaPolicy.js";
 import {BUILD_REFERENCES} from "./src/data/buildReferences.js";
+import {iconFor,skillIconFor,fallbackLabel} from "./src/core/iconResolver.js";
 import {PATCH_CHANGES,patchChangeForChampion,patchChangesForItems,patchChangesForRunes} from "./src/data/patchNotes.js";
 const $=s=>document.querySelector(s);
 const escapeHTML=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -169,22 +201,34 @@ function renderAnalysis(scroll=true){
       'Runas: '+(autoMeta.patchSubjects.runes.join(', ')||'sin cambios identificados')
     ]):'<p class="note">La extracción de temas del nuevo parche requiere revisión.</p>')+
   '<p class="note"><a href="'+escapeHTML(autoMeta.patchUrl)+'" target="_blank" rel="noopener noreferrer">Ver notas oficiales del parche '+escapeHTML(autoMeta.patch)+'</a></p>';
-  const htmlList=(xs)=>'<ol class="ref-list">'+xs.map(x=>'<li>'+escapeHTML(x)+'</li>').join('')+'</ol>';
+  const imageTile=(type,name,champion="",slot="")=>{
+    const src=(slot?skillIconFor(champion,slot):null)||iconFor(type,name,champion);
+    const initial=fallbackLabel(name,slot);
+    return '<span class="asset-thumb '+escapeHTML(type)+'" aria-hidden="true"><span class="asset-placeholder">'+escapeHTML(initial)+'</span>'+
+      (src?'<img src="'+escapeHTML(src)+'" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.remove()">':'')+'</span>';
+  };
+  const iconList=(xs,type,champion="")=>'<ol class="ref-list '+escapeHTML(type)+'-list">'+xs.map((name,i)=>
+    '<li><span class="ref-counter" aria-label="Orden '+(i+1)+'">'+(i+1)+'</span>'+
+    imageTile(type,name,champion)+'<span class="ref-name">'+escapeHTML(name)+'</span></li>'
+  ).join('')+'</ol>';
+  const slotForSkill=(champion,name)=>{
+    const src=iconFor('ability',name,champion);
+    return src?['Q','W','E','R'].find(slot=>skillIconFor(champion,slot)===src)||null:null;
+  };
 
   const skillGuide=(b)=>{
     if(!Array.isArray(b.skillPriority)||!b.skillPriority.length)return '<div class="notice">Prioridad de habilidades pendiente de revisión para este parche.</div>';
     const isReviewed=b.skillPriorityStatus==='source_reviewed' && b.patch===autoMeta.patch;
-    const codeMap={"Five Point Strike":"Q","Shuriken Flip":"E","Twilight Shroud":"W"};
     const segments=b.skillPriority.map((name,i)=>({
-      name,code:codeMap[name]||String(i+1),index:i+1
+      name,code:slotForSkill(b.champion,name)||String(i+1),index:i+1
     }));
     const maxOrder='<div class="skill-sequence">'+segments.map((part,i)=>
-      '<div class="skill-step"><span class="skill-token">'+escapeHTML(part.code)+'</span><span class="skill-name">'+escapeHTML(part.name)+'</span></div>'+
+      '<div class="skill-step"><span class="skill-token">'+imageTile('ability',part.name,b.champion,part.code)+'<strong class="skill-code">'+escapeHTML(part.code)+'</strong></span><span class="skill-name">'+escapeHTML(part.name)+'</span></div>'+
       (i<segments.length-1?'<span aria-hidden="true">→</span>':'')
     ).join('')+'</div>';
     const levels=Array.isArray(b.skillLevelOrder)&&b.skillLevelOrder.length===15?
       '<h3>Subida por nivel · 1 al 15</h3><div class="skill-progression" aria-label="Orden de habilidades por nivel">'+
-      b.skillLevelOrder.map((code,i)=>'<div class="skill-level'+(code==="R"?' ult':'')+'" aria-label="Nivel '+(i+1)+': habilidad '+escapeHTML(code)+'"><span class="lv">NV '+(i+1)+'</span><strong>'+escapeHTML(code)+'</strong></div>').join('')+
+      b.skillLevelOrder.map((code,i)=>'<div class="skill-level'+(code==="R"?' ult':'')+'" aria-label="Nivel '+(i+1)+': habilidad '+escapeHTML(code)+'"><span class="lv">NV '+(i+1)+'</span>'+imageTile('ability',code,b.champion,code)+'<strong>'+escapeHTML(code)+'</strong></div>').join('')+
       '</div><p class="note">R (definitiva): niveles 5, 9 y 13. La ruta puede adaptarse al enfrentamiento.</p>':'';
     const note=isReviewed
       ?'<p class="note">Orden editorial contrastado para '+escapeHTML(b.patch)+'. <a href="'+escapeHTML(b.skillPrioritySource||b.source.url)+'" target="_blank" rel="noopener noreferrer">Ver fuente de habilidades</a></p>'
@@ -209,10 +253,11 @@ function renderAnalysis(scroll=true){
     const itemsNote=[...changedItems,...changedRunes].map(x=>x.name+': '+x.note);
     refHtml='<div class="ref-panel"><div class="ref-heading"><strong>REFERENCIA EDITORIAL · '+escapeHTML(b.patch)+'</strong><span class="tag">FUENTE EXTERNA</span></div>'+
       '<p class="note">Guía base consultada el '+escapeHTML(b.checkedAt)+'. No es una build adaptada a la composición ni una recomendación de TOP chino.</p>'+
-      '<h3>Orden base de objetos</h3>'+htmlList(b.finalItems)+
-      '<p class="note">Inicio: '+escapeHTML(b.startingItem||"No documentado")+(b.enchant?' · Encantamiento: '+escapeHTML(b.enchant):'')+'</p>'+
-      '<h3>Runas de la guía</h3>'+htmlList(b.runes)+
-      '<h3>Hechizos</h3>'+lines([b.spells.join(' + ')])+
+      '<h3>Orden base de objetos</h3>'+iconList(b.finalItems,'item')+
+      '<p class="note asset-inline">Inicio: '+(b.startingItem?imageTile('item',b.startingItem)+' '+escapeHTML(b.startingItem):'No documentado')+
+      (b.enchant?' · Encantamiento: '+imageTile('item',b.enchant)+' '+escapeHTML(b.enchant):'')+'</p>'+
+      '<h3>Runas de la guía</h3>'+iconList(b.runes,'rune')+
+      '<h3>Hechizos</h3>'+iconList(b.spells,'spell')+
       '<h3>Prioridad de habilidades</h3>'+skillGuide(b)+
       (itemsNote.length?'<h3>Atención a cambios de 7.3b</h3>'+lines(itemsNote,"warning"):"")+
       '<p class="note">Fuente: '+escapeHTML(b.source.publisher)+' · <a href="'+escapeHTML(b.source.url)+'" target="_blank" rel="noopener noreferrer">Consultar guía original</a></p></div>';

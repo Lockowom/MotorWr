@@ -1,10 +1,10 @@
 {
   "name": "motorwr",
   "private": true,
-  "version": "2.2.2",
+  "version": "2.2.3",
   "type": "module",
   "scripts": {
-    "test": "node scripts/check.mjs && node tests/multiChampion.test.mjs && node tests/metaSync.test.mjs && node tests/serviceWorker.test.mjs",
+    "test": "node scripts/check.mjs && node tests/multiChampion.test.mjs && node tests/metaSync.test.mjs && node tests/serviceWorker.test.mjs && node tests/iconCatalog.test.mjs",
     "build": "node scripts/build.mjs",
     "check": "npm run test && npm run build",
     "meta:check": "node scripts/sync-meta.mjs --dry-run",
