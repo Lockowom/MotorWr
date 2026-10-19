@@ -172,4 +172,30 @@ export const ICON_CATALOG = Object.freeze({
     "R": "https://ddragon.leagueoflegends.com/cdn/16.18.1/img/spell/BrandR.png"
   }
 });
+export const SKILL_NAME_SLOT = Object.freeze({
+  "Akali|Five Point Strike": "Q",
+  "Akali|Shuriken Flip": "E",
+  "Akali|Twilight Shroud": "W",
+  "Camille|Tactical Sweep": "W",
+  "Camille|Precision Protocol": "Q",
+  "Camille|Hookshot": "E",
+  "Lee Sin|Sonic Wave / Resonating Strike": "Q",
+  "Lee Sin|Safeguard / Iron Will": "W",
+  "Lee Sin|Tempest / Cripple": "E",
+  "Yasuo|Steel Tempest": "Q",
+  "Yasuo|Sweeping Blade": "E",
+  "Yasuo|Wind Wall": "W",
+  "Jinx|Switcheroo!": "Q",
+  "Jinx|Zap!": "W",
+  "Jinx|Flame Chompers!": "E",
+  "Ahri|Orb of Deception": "Q",
+  "Ahri|Fox-Fire": "W",
+  "Ahri|Charm": "E",
+  "Thresh|Death Sentence": "Q",
+  "Thresh|Flay": "E",
+  "Thresh|Dark Passage": "W",
+  "Brand|Pillar of Flame": "W",
+  "Brand|Conflagration": "E",
+  "Brand|Sear": "Q"
+});
 export const ICON_PROVENANCE = Object.freeze({checkedAt:"2026-10-19",publisher:"WildRiftFire/MOBAFire",guideHosts:["www.wildriftfire.com","www.mobafire.com"]});
