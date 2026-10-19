@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {comparePatch,parseOfficialPatchIndex,parseEditorialGuide,stableGuideFingerprint} from '../src/core/metaSync.js';
+import {comparePatch,parseOfficialPatchIndex,parseOfficialPatchSubjects,parseEditorialGuide,stableGuideFingerprint} from '../src/core/metaSync.js';
 import {resolveBuildReference,validateAutoMeta,patchDisplayStatus} from '../src/core/metaPolicy.js';
 const initial=JSON.parse(fs.readFileSync(new URL('../src/data/autoMeta.json',import.meta.url)));
 validateAutoMeta(initial);
@@ -14,6 +14,9 @@ const index='<main><h2>Wild Rift Patch Notes 7.3c</h2><h2>Wild Rift Patch Notes 
 assert.equal(parseOfficialPatchIndex(index).patch,'7.3c');
 assert(parseOfficialPatchIndex(index).url.endsWith('7-3c/'));
 assert.throws(()=>parseOfficialPatchIndex('<main>Something unrelated</main>'.padEnd(150,'.')));
+const patchArticle='<main><p>CHAMPION CHANGES</p><p>YASUO</p><p>Damage adjusted</p><p>JHIN</p><h2>GAMEPLAY CHANGES</h2><h2>Items</h2><h4>Thornmail</h4><h4>Statikk Shiv</h4><h2>Runes</h2><h4>Electrocute</h4><h2>Other Battlefield Content</h2></main>'.padEnd(450,'.');
+const subs=parseOfficialPatchSubjects(patchArticle,['Yasuo','Jhin','Camille']);
+assert.deepEqual(subs,{champions:['Yasuo','Jhin'],items:['Thornmail','Statikk Shiv'],runes:['Electrocute']});
 const buildSection=(champ,boots,extra,spells=['Flash','Ignite'],runes=['Conqueror','Brutal','Cut Down','Legend: Alacrity','Bone Plating'])=>
  '<h2>'+champ+"'s Item Build</h2>Starting Item<p>Long Sword</p>Boots<p>"+boots+"</p>Final Build"+
  [boots,...extra].map(x=>'<p>'+x+'</p>').join('')+
