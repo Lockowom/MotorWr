@@ -32,6 +32,6 @@ assert(multi.includes('142 CAMPEONES OFICIALES')&&multi.includes('7.3b'),'Roster
 assert(multi.includes('referenced')&&multi.includes('Consultar guía original'),'Build provenance missing');
 assert(official.includes('Norra')&&official.includes('Skarner'),'Official roster source incomplete');
 assert(builds.includes('www.wildriftfire.com/guide/')&&builds.includes('checkedAt'),'Build sources/checked dates required');
-assert(patch.includes('7.3b')&&patch.includes('riot'),'Official patch notes missing');
+assert(patch.includes('7.3b')&&patch.toLowerCase().includes('riot'),'Official patch notes missing');
 
 console.log('PASS: Camille legacy, official 7.3b roster, editorial references, PWA');
