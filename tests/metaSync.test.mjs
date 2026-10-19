@@ -33,6 +33,19 @@ assert.equal(p[0].finalItems.length,6);
 assert.equal(p[1].spells[1],'Smite');
 assert.equal(p[0].runes.length,5);
 assert.equal(p[0].patch,'7.3b');
+
+const imgAlt=name=>'<img alt="'+name.replace(/'/g,'&#039;')+'" src="stub.png">';
+const sourceLike='<h1>Camille Build Guide for Wild Rift</h1><p>Patch 7.3b</p><p>Solo Build A</p>'+
+ '<h2>Camille&#039;s Item Build</h2>Starting Item'+imgAlt('Ruby Crystal')+
+ 'Final Build'+['Plated Steelcaps','Trinity Force','Hullbreaker','Eclipse',"Death's Dance",'Spear of Shojin','Goredrinker'].map(imgAlt).join('')+
+ '<h2>Camille&#039;s Spells &amp; Runes</h2>Summoner Spells'+['Flash','Ignite'].map(imgAlt).join('')+
+ 'Runes'+['Grasp of the Undying','Demolish','Second Wind','Perseverance','Scorch'].map(imgAlt).join('')+
+ '<h2>Camille&#039;s Skill Order</h2>'+''.padEnd(1800,'.');
+const imageGuide=parseEditorialGuide(sourceLike,'Camille',['baron']);
+assert.equal(imageGuide[0].finalItems[4],"Death's Dance");
+assert.deepEqual(imageGuide[0].spells,['Flash','Ignite']);
+assert.deepEqual(imageGuide[0].runes,['Grasp of the Undying','Demolish','Second Wind','Perseverance','Scorch']);
+
 assert.throws(()=>parseEditorialGuide(sample,'Yasuo',['baron']));
 assert.throws(()=>parseEditorialGuide(sample.replace('<p>Runes</p>','<p>No rune heading</p>'),'Camille',['baron','jungle']));
 const fp=stableGuideFingerprint(p[0]);
