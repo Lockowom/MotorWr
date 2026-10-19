@@ -29,6 +29,7 @@ assert(sw.includes("const key=pageKey(url.pathname)"),'A multi route can corrupt
 assert(betaManifest.start_url==='./multi.html'&&betaManifest.display==='standalone','Beta PWA manifest invalid');
 
 const multi=fs.readFileSync(new URL('../multi.html',import.meta.url),'utf8');
+assert(home.includes('href="./camille.html"')&&multi.includes('href="./camille.html"'),'Legacy Camille route missing from main and beta');
 const catalog=fs.readFileSync(new URL('../src/data/champions.js',import.meta.url),'utf8');
 const official=fs.readFileSync(new URL('../src/data/officialRoster.js',import.meta.url),'utf8');
 const builds=fs.readFileSync(new URL('../src/data/buildReferences.js',import.meta.url),'utf8');
@@ -38,7 +39,6 @@ assert(/^\d+\.\d+[a-z]?$/.test(auto.patch),'Auto meta invalid patch');
 const core=fs.readFileSync(new URL('../src/core/multiChampion.js',import.meta.url),'utf8');
 assert(html.includes('href="./multi.html"'),'Legacy Camille should link to MotorWr 2.2');
 assert(home.includes('id="ownPick"')&&home.includes('id="allySlots"')&&home.includes('id="enemySlots"'),'Main landing page is not the multichampion motor');
-assert(home.includes('href="./camille.html"')&&multi.includes('href="./camille.html"'),'Legacy Camille route missing from main and beta');
 assert(home.includes('location.href="./camille.html"'),'Camille navigation must not redirect to home');
 assert(multi.includes('id="ownPick"')&&multi.includes('id="allySlots"')&&multi.includes('id="enemySlots"'),'Multichampion selectors missing');
 assert(multi.includes('analyzeComposition')&&multi.includes('resolveBuildReference'),'Multichampion build references disconnected');
