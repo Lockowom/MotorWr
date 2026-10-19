@@ -1,7 +1,7 @@
 // Offline-first shell with a network-first, validated live-meta resource.
 // A multi.html navigation must never overwrite the cached legacy index.html.
-const CACHE='motorwr-multichampion-beta-v2.2';
-const APP_SHELL=['./','./index.html','./multi.html','./manifest.webmanifest','./assets/icon.svg',
+const CACHE='motorwr-multichampion-beta-v2.2.1';
+const APP_SHELL=['./','./index.html','./multi.html','./manifest.webmanifest','./manifest-multi.webmanifest','./assets/icon.svg',
  './src/core/multiChampion.js','./src/core/metaPolicy.js','./src/core/metaSync.js',
  './src/data/champions.js','./src/data/tacticalProfiles.js','./src/data/officialRoster.js',
  './src/data/patchNotes.js','./src/data/buildReferences.js','./src/data/autoMeta.json'];
