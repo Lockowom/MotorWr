@@ -4,6 +4,69 @@
   "patchUrl": "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3b/",
   "updatedAt": "2026-10-19",
   "officialSource": "https://wildrift.leagueoflegends.com/en-us/news/tags/patch-notes/",
-  "guides": [],
+  "guides": [
+    {
+      "champion": "Yasuo",
+      "role": "baron",
+      "patch": "7.3b",
+      "checkedAt": "2026-10-19",
+      "source": {
+        "publisher": "WildRiftFire",
+        "type": "third_party_editorial",
+        "url": "https://www.wildriftfire.com/guide/yasuo"
+      },
+      "finalItems": [
+        "Berserker's Greaves",
+        "Blade of the Ruined King",
+        "Immortal Shieldbow",
+        "Lord Dominik's Regard",
+        "Infinity Edge",
+        "Guardian Angel"
+      ],
+      "runes": [
+        "Grasp of the Undying",
+        "Brutal",
+        "Last Stand",
+        "Legend: Alacrity",
+        "Second Wind"
+      ],
+      "spells": [
+        "Flash",
+        "Ignite"
+      ],
+      "skillPriority": [
+        "Steel Tempest",
+        "Sweeping Blade",
+        "Wind Wall"
+      ],
+      "skillPriorityStatus": "prior_editorial"
+    }
+  ],
+  "patchSubjects": {
+    "champions": [
+      "Volibear",
+      "Jhin",
+      "Tryndamere",
+      "Hwei",
+      "Nocturne",
+      "Yunara",
+      "Senna",
+      "Yasuo"
+    ],
+    "items": [
+      "Youmuu's Ghostblade",
+      "Locket of the Iron Solari",
+      "Thornmail",
+      "Warmog's Armor",
+      "Statikk Shiv",
+      "Yun Tal Wildarrows"
+    ],
+    "runes": [
+      "Electrocute",
+      "Cheap Shot",
+      "Grasp of the Undying",
+      "Aery"
+    ]
+  },
   "warning": null
 }
