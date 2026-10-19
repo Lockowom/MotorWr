@@ -89,3 +89,54 @@ en el Developer Portal y la política vigente de Riot Games.
 - [ ] Revisar cumplimiento Riot/registro del producto.
 - [ ] Fusionar beta a producción tras aprobación explícita.
 
+
+## MotorWr MetaSync 2.2 — actualización automática continua
+
+**Origen y frecuencia:** `.github/workflows/motorwr-meta-watch.yml` reside en la rama
+predeterminada `main` porque GitHub ejecuta `schedule` solamente desde esa rama.
+Los controles se programan a las **08:17 y 20:17 UTC** todos los días. El workflow
+revisa `feature/multi-champion-v2`, nunca edita el sitio estable.
+
+**Fuentes públicas identificadas:** índice oficial de notas de Riot,
+`https://wildrift.leagueoflegends.com/en-us/news/tags/patch-notes/`;
+una lista explícita de siete páginas WildRiftFire (diez combinaciones rol-campeón)
+que ya figuraban en referencias editoriales. Se consulta un número acotado de páginas
+y se respetan las restricciones de los sitios. No se extrae información de partidas,
+cuentas, clientes de juego ni estadísticas TOP de China.
+
+**Reglas del motor:**
+
+1. Un parche solo se cambia cuando figura en las notas oficiales y se confirma
+   la página concreta publicada por Riot. Una subida anómala de numeración bloquea
+   la actualización hasta revisión.
+2. La lista de campeones, objetos y runas mencionados en el parche se indexa
+   automáticamente cuando se reconoce la estructura oficial. No se infieren
+   valores numéricos ni dirección buff/nerf sin revisión.
+3. En cada guía existente se comprueban el nombre del campeón, los roles indicados
+   por la fuente, la versión de parche y los **seis objetos, cinco runas y dos
+   hechizos**. Se compara su huella con la última versión aceptada.
+4. Si la fuente del nuevo parche está atrasada, **se retiran las builds antiguas
+   de las recomendaciones vigentes**. Un contenido ausente o una estructura
+   inesperada no se reemplaza con suposiciones.
+5. La prioridad de habilidades de la plantilla anterior no se considera
+   actualizada automáticamente cuando el parche cambia; queda pendiente.
+6. Las novedades se registran en `src/data/autoMeta.json` con referencia y fecha,
+   pasan `npm test` y `npm run build`, y se despliegan únicamente en
+   **Cloudflare Pages Preview**, sin tocar `main` ni producción.
+7. Con conexión, la beta comprueba el JSON al abrir y al recuperar foco después
+   de 30 minutos. La PWA prioriza el recurso actualizado en red, conserva su
+   última copia válida y advierte explícitamente cuando está sin conexión.
+
+**Comandos:** `npm run meta:check` comprueba fuentes sin escribir archivos;
+`npm run meta:sync` actualiza exclusivamente `src/data/autoMeta.json`.
+Se pueden simular un parche posterior y entradas corruptas con
+`node tests/metaSync.test.mjs`.
+
+**Limitaciones y cumplimiento:** las nuevas guías/roles que no figuren en la
+lista de origen verificado necesitan admisión y revisión. Las transcripciones
+de datos numéricos oficiales y las prioridades de habilidades nuevas no
+se generan automáticamente, para evitar afirmaciones falsas. Para distribuir
+como producto público amplio es necesario registrar y someter a auditoría
+el producto/cambios en Riot Developer Portal según su política general vigente.
+No se ha realizado ese registro desde esta automatización. Las pruebas remotas
+no sustituyen QA físico en Android ni la autorización de Riot.
