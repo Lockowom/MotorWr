@@ -1,5 +1,5 @@
-const CACHE = 'motorwr-multichampion-beta-v2';
-const APP_SHELL = ['./','./index.html','./multi.html','./manifest.webmanifest','./assets/icon.svg','./src/core/multiChampion.js','./src/data/champions.js','./src/data/tacticalProfiles.js'];
+const CACHE = 'motorwr-multichampion-beta-v2.1';
+const APP_SHELL = ['./','./index.html','./multi.html','./manifest.webmanifest','./assets/icon.svg','./src/core/multiChampion.js','./src/data/champions.js','./src/data/tacticalProfiles.js','./src/data/officialRoster.js','./src/data/patchNotes.js','./src/data/buildReferences.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(APP_SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('motorwr-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{
