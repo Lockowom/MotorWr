@@ -24,6 +24,9 @@ jobs:
           node-version: '22'
       - name: Validate source and test beta
         run: npm test
+      - name: Inspect external source adapter (temporary QA)
+        continue-on-error: true
+        run: node scripts/sync-meta.mjs --dry-run
       - name: Build preview files
         run: npm run build
       - name: Publish to non-production Cloudflare Pages branch
