@@ -16,6 +16,11 @@ assert(html.includes('Gwen')&&html.includes('Viego'),'Draft dataset incomplete')
 assert(html.includes('Trinidad')&&html.includes('Rompecascos'),'Item catalog incomplete');
 assert(manifest.start_url==='./'&&manifest.display==='standalone','Manifest invalid');
 assert(sw.includes('APP_SHELL'),'Service worker offline cache missing');
+assert(sw.includes("'./multi.html'")&&sw.includes("'./src/data/autoMeta.json'"),'Offline shell missing multi/meta resources');
+assert(sw.includes("cache:'no-store'")&&sw.includes("pageKey(url.pathname)"),'Live meta or offline route freshness missing');
+assert(sw.includes("'/multi(?:\\.html)?\\/?$/'")===false || sw.includes("pageKey"),'Offline multi route missing');
+assert(sw.includes("const key=pageKey(url.pathname)"),'A multi route can corrupt the cached legacy home');
+
 assert(betaManifest.start_url==='./multi.html'&&betaManifest.display==='standalone','Beta PWA manifest invalid');
 
 const multi=fs.readFileSync(new URL('../multi.html',import.meta.url),'utf8');
