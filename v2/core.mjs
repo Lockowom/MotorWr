@@ -78,7 +78,7 @@ export function analyze(draft,roster,settings={}){
  if(heroPlan){
   if(magicWeight>=3 || (threat&&threat.damage!=='AD')){
    boots='Botas de Mercurio';
-   const defense=enemy.dot>=2?'Fuerza de la Naturaleza':'Fauces de Malmortius';
+   const defense=(enemy.dot>=2 || (enemy.dot>=1 && enemy.AP>=3))?'Fuerza de la Naturaleza':'Fauces de Malmortius';
    items=items.filter(x=>x!=='Baile de la Muerte');
    items.splice(threat?1:2,0,defense);
    items=items.slice(0,5);
