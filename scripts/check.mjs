@@ -62,6 +62,12 @@ assert(multi.includes('142 CAMPEONES OFICIALES')&&multi.includes('7.3b'),'Roster
 assert(multi.includes('referenced')&&multi.includes('Consultar guía original'),'Build provenance missing');
 assert(official.includes('Norra')&&official.includes('Skarner'),'Official roster source incomplete');
 assert(builds.includes('www.wildriftfire.com/guide/')&&builds.includes('checkedAt'),'Build sources/checked dates required');
+const expansion=fs.readFileSync(new URL('../src/data/expandedBuilds.js',import.meta.url),'utf8');
+const expandedIcons=fs.readFileSync(new URL('../src/data/expandedIcons.js',import.meta.url),'utf8');
+assert(expansion.includes('Miss Fortune')&&expansion.includes('Yone'),'Coverage expansion not built');
+assert(expandedIcons.includes('mobafire.com/images/ability')&&expandedIcons.includes('wildriftfire.com/images/items'),'Extended icons missing');
+assert(home.includes('ability-kit')&&home.includes('40 GUÍAS POR ROL'),'Expanded champion kit fallback/UI not wired');
+assert(sw.includes("'./src/data/expandedBuilds.js'")&&sw.includes("'./src/data/expandedIcons.js'"),'Offline expansion not cached');
 assert(patch.includes('7.3b')&&patch.toLowerCase().includes('riot'),'Official patch notes missing');
 
 console.log('PASS: MotorWr 2.2 homepage, preserved Camille, routes, 7.3b references and PWA');
