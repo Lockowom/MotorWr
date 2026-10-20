@@ -23,7 +23,7 @@ for(const build of BUILD_REFERENCES){
   if(!value)failed.push([build.champion,build.role,type,name]);
  }
  for(const slot of ['P','Q','W','E','R']){
-  assert(skillIconFor(build.champion,slot)?.startsWith('https://ddragon.leagueoflegends.com/cdn/16.18.1/img/'),build.champion+' '+slot+' official spell icon is unavailable');
+  assert(skillIconFor(build.champion,slot)?.startsWith('https://www.mobafire.com/images/ability/'),build.champion+' '+slot+' verified guide spell icon is unavailable');
  }
 }
 assert.deepEqual(failed,[],'Every item/rune/spell/ability in the current published guide set needs a real source icon');
@@ -33,7 +33,7 @@ assert.equal(iconFor('unknown','Flash'),null);
 assert.equal(fallbackLabel('Stormsurge'),'S');
 assert.equal(fallbackLabel('Flash','Q'),'Q');
 assert(iconFor('ability','Five Point Strike','Akali')?.includes('akali-five-point-strike.png'));
-assert(skillIconFor('Akali','R')?.includes('AkaliR.png'));
+assert(skillIconFor('Akali','R')?.endsWith('/akali-perfect-execution.png'));
 assert.equal(skillSlotForName('Akali','Five Point Strike'),'Q');
 assert.equal(skillSlotForName('Akali','Shuriken Flip'),'E');
 assert.equal(skillSlotForName('Akali','Twilight Shroud'),'W');
