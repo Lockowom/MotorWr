@@ -84,7 +84,7 @@ dialog{background:#0d1b23;color:var(--text);width:min(95vw,530px);border:1px sol
  <nav class="toplinks" aria-label="Navegación"><a href="./camille.html">Camille FAST</a></nav>
 </header>
 <main>
-<section class="hero"><span class="eyebrow">HERRAMIENTA PERSONAL DE WILD RIFT</span><h1>Tu campeón.<br><em>Prepara tu estrategia.</em></h1><p>Antes de jugar, estudia la composición de ambos equipos, fortalezas del rol y referencias de builds por campeón y parche. Sin acceso al estado de partidas ni ayuda automatizada en tiempo real.</p><div class="tags"><span class="tag">5 POSICIONES</span><span class="tag">142 CAMPEONES OFICIALES</span><span class="tag">40 GUÍAS POR ROL</span><span class="tag warn">PARCHE <span id="currentPatchTag">7.3b</span></span></div></section>
+<section class="hero"><span class="eyebrow">HERRAMIENTA PERSONAL DE WILD RIFT</span><h1>Tu campeón.<br><em>Prepara tu estrategia.</em></h1><p>Antes de jugar, estudia la composición de ambos equipos, fortalezas del rol y referencias de builds por campeón y parche. Sin acceso al estado de partidas ni ayuda automatizada en tiempo real.</p><div class="tags"><span class="tag">5 POSICIONES</span><span class="tag">142 CAMPEONES OFICIALES</span><span class="tag" id="coverageTag">40 REFERENCIAS · 7.3b</span><span class="tag warn">PARCHE <span id="currentPatchTag">7.3b</span></span></div></section>
 <p id="syncStatus" class="note" role="status" aria-live="polite">Comprobando actualizaciones del meta...</p>
 <section class="card" aria-label="Tu campeón">
  <div class="section-head"><h2>01 · Tu selección</h2><small>Campeón y rol propios</small></div>
@@ -117,6 +117,14 @@ const fallbackMeta={schema:1,patch:PATCH_CHANGES.patch,patchUrl:PATCH_CHANGES.so
   updatedAt:"2026-10-19",guides:[],warning:null};
 let autoMeta=fallbackMeta;
 try{autoMeta=validateAutoMeta(JSON.parse(localStorage.getItem(META_STORAGE)||"null"));}catch{autoMeta=fallbackMeta;}
+function updateCoverageTag(){
+ const pairs=new Set([
+   ...BUILD_REFERENCES.filter(b=>b.patch===autoMeta.patch).map(b=>b.champion+'|'+b.role),
+   ...autoMeta.guides.filter(b=>b.patch===autoMeta.patch).map(b=>b.champion+'|'+b.role)
+ ]);
+ const tag=$("#coverageTag");
+ if(tag)tag.textContent=pairs.size+" GUÍAS DISPONIBLES · "+autoMeta.patch;
+}
 let metaCheckedAt=0;
 async function refreshMeta(){
   metaCheckedAt=Date.now();
@@ -128,12 +136,14 @@ async function refreshMeta(){
     autoMeta=candidate;
     try{localStorage.setItem(META_STORAGE,JSON.stringify(candidate));}catch{}
     $("#currentPatchTag").textContent=autoMeta.patch;
+    updateCoverageTag();
     $("#syncStatus").textContent="Parche confirmado: "+autoMeta.patch+" · Último cambio de datos: "+autoMeta.updatedAt+
       (autoMeta.warning?" · Fuente parcialmente pendiente":"")+
       (patchDisplayStatus(autoMeta,PATCH_CHANGES.patch)==="awaiting_review"?" · Cambios detallados del parche pendientes":"");
     if(differs&&$("#output").innerHTML.trim())renderAnalysis(false);
   }catch(err){
     $("#currentPatchTag").textContent=autoMeta.patch;
+    updateCoverageTag();
     $("#syncStatus").textContent="Sin conexión a la actualización: se utiliza la última información validada guardada ("+autoMeta.patch+").";
     console.warn("Meta update unavailable",err);
   }
@@ -324,6 +334,7 @@ $("#clear").addEventListener("click",()=>{data.enemies=["","","","",""];persist(
 $("#example").addEventListener("click",()=>{data={...DEFAULT,allies:[...DEFAULT.allies],enemies:[...DEFAULT.enemies]};persist();render();$("#output").innerHTML="";});
 try{createDraft(data);}catch{data={...DEFAULT,allies:[...DEFAULT.allies],enemies:[...DEFAULT.enemies]};}
 render();
+updateCoverageTag();
 refreshMeta();
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-metaCheckedAt>30*60*1000)refreshMeta();});
 setInterval(()=>{if(!document.hidden&&Date.now()-metaCheckedAt>3*60*60*1000)refreshMeta();},60*60*1000);
