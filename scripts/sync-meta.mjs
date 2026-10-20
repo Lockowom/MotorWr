@@ -89,6 +89,7 @@ if(!noGuides){
  }
 }
 if(!noGuides&&checked===0&&groups.size)throw Error('No editorial sources validated: '+errors.join(' | '));
+if(flags.has('--strict-sources')&&errors.length)throw Error('Source adapter failures: '+errors.join(' | '));
 const candidate={
  schema:1,
  patch,
