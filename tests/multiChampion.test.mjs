@@ -52,7 +52,11 @@ assert.equal(tacticalProfile("Lee Sin","jungle")?.status,"editorial");
 assert.equal(tacticalProfile("Jinx","dragon")?.status,"editorial");
 assert.equal(tacticalProfile("Jinx","baron"),null,"Off-role no presenta perfil como verificado.");
 assert.equal(tacticalProfile("Desconocido","baron"),null);
-assert.equal(BUILD_REFERENCES.length,12);
+assert.equal(BUILD_REFERENCES.length,40);
+assert.equal(new Set(BUILD_REFERENCES.map(x=>x.champion)).size,28);
+for(const [name,role] of [["Gwen","baron"],["Gwen","jungle"],["Lux","support"],["Lux","mid"],["Viego","jungle"],["Yone","jungle"],["Yone","mid"],["Yone","baron"],["Darius","jungle"],["Diana","mid"],["Orianna","mid"],["Nami","support"],["Ezreal","dragon"],["Ashe","dragon"]]){
+ assert.equal(getBuildReference(name,role).status,"referenced",name+" "+role+" reference is missing");
+}
 assert.equal(new Set(BUILD_REFERENCES.map(x=>x.champion+"|"+x.role)).size,BUILD_REFERENCES.length);
 for(const b of BUILD_REFERENCES){
   const a=getBuildReference(b.champion,b.role);

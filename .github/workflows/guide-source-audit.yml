@@ -1,0 +1,30 @@
+name: MotorWr — source guide audit
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'src/data/expandedBuilds.js'
+      - 'src/data/expandedIcons.js'
+      - 'src/data/buildReferences.js'
+      - 'src/core/metaSync.js'
+      - 'scripts/sync-meta.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: motorwr-guide-source-audit-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    name: Verify guide source integrity
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Review all current editorial sources without writing files
+        run: npm run meta:check -- --strict-sources
+      - name: Unit-check source trust and reference roles
+        run: npm test

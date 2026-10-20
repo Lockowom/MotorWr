@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#081016">
-<meta name="application-version" content="2.2.5">
+<meta name="application-version" content="2.3.0">
 <meta name="description" content="MotorWr 2.2: herramienta personal de análisis de composiciones, builds y parches de Wild Rift.">
-<title>MotorWr 2.2.5 — Wild Rift Draft Intelligence</title>
+<title>MotorWr 2.3.0 — Wild Rift Draft Intelligence</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#081016;--card:#13242b;--card2:#192e34;--stroke:#305058;--mint:#71e0ca;--text:#ecf4f2;--muted:#9cb3b7;--gold:#e4bf83;font-family:Inter,Roboto,system-ui,-apple-system,sans-serif}
@@ -66,16 +66,25 @@ dialog{background:#0d1b23;color:var(--text);width:min(95vw,530px);border:1px sol
 .skill-step{flex:1 1 100%}.skill-level .asset-thumb{width:25px;height:25px}
 }
 @media(max-width:340px){.ref-list{grid-template-columns:1fr}.ref-list .asset-thumb{width:40px;height:40px}}
+.ability-kit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.ability-kit .kit-item{display:flex;align-items:center;gap:9px;min-width:0;border:1px solid #355e5b;border-radius:10px;padding:9px;background:#102d35}
+.ability-kit .kit-slot{font-size:11px;font-weight:900;color:var(--mint);min-width:13px}
+.ability-kit .kit-name{font-size:11px;line-height:1.4;overflow-wrap:anywhere}
+.ability-kit .asset-thumb{flex:none}
+@media(max-width:340px){.ability-kit{grid-template-columns:1fr}}
+.coverage-hint{font-size:10px;font-weight:750;display:block;margin-top:4px;letter-spacing:.1px}
+.coverage-hint.covered{color:#8ee0bf}
+.coverage-hint.pending{color:#bba994}
 </style>
 </head>
 <body>
 <div class="shell">
 <header class="topbar">
- <div class="brand"><span class="logo">MW</span><span>MOTOR<span style="color:var(--mint)">WR</span><span class="sub" style="display:block">DRAFT INTELLIGENCE · 2.2.5</span></span></div>
+ <div class="brand"><span class="logo">MW</span><span>MOTOR<span style="color:var(--mint)">WR</span><span class="sub" style="display:block">DRAFT INTELLIGENCE · 2.3.0</span></span></div>
  <nav class="toplinks" aria-label="Navegación"><a href="./camille.html">Camille FAST</a></nav>
 </header>
 <main>
-<section class="hero"><span class="eyebrow">HERRAMIENTA PERSONAL DE WILD RIFT</span><h1>Tu campeón.<br><em>Prepara tu estrategia.</em></h1><p>Antes de jugar, estudia la composición de ambos equipos, fortalezas del rol y referencias de builds por campeón y parche. Sin acceso al estado de partidas ni ayuda automatizada en tiempo real.</p><div class="tags"><span class="tag">5 POSICIONES</span><span class="tag">142 CAMPEONES OFICIALES</span><span class="tag warn">PARCHE <span id="currentPatchTag">7.3b</span></span></div></section>
+<section class="hero"><span class="eyebrow">HERRAMIENTA PERSONAL DE WILD RIFT</span><h1>Tu campeón.<br><em>Prepara tu estrategia.</em></h1><p>Antes de jugar, estudia la composición de ambos equipos, fortalezas del rol y referencias de builds por campeón y parche. Sin acceso al estado de partidas ni ayuda automatizada en tiempo real.</p><div class="tags"><span class="tag">5 POSICIONES</span><span class="tag">142 CAMPEONES OFICIALES</span><span class="tag" id="coverageTag">40 REFERENCIAS · 7.3b</span><span class="tag warn">PARCHE <span id="currentPatchTag">7.3b</span></span></div></section>
 <p id="syncStatus" class="note" role="status" aria-live="polite">Comprobando actualizaciones del meta...</p>
 <section class="card" aria-label="Tu campeón">
  <div class="section-head"><h2>01 · Tu selección</h2><small>Campeón y rol propios</small></div>
@@ -87,7 +96,7 @@ dialog{background:#0d1b23;color:var(--text);width:min(95vw,530px);border:1px sol
 <section id="output" aria-label="Resultado táctico" aria-live="polite"></section>
 <section class="card"><details><summary style="cursor:pointer;font-weight:800">Fuentes, limitaciones y privacidad</summary><p class="note">El roster de 142 campeones se contrastó con el listado oficial de Wild Rift el 19-10-2026; no implica roles oficialmente homologados. Las etiquetas de daño, control y habilidades son editoriales y se señalan cuando faltan. Las builds referenciadas proceden de WildRiftFire, no de una API de Riot ni del servidor chino, y se muestran únicamente en las combinaciones de campeón y rol contrastadas para 7.3b. No hay recomendaciones automatizadas sobre partidas en curso. Tus selecciones se guardan solo en este navegador.</p><p class="note">Los retratos se solicitan a Riot Data Dragon para League of Legends y podrían diferir o faltar en Wild Rift. MotorWr es una herramienta de estudio para uso personal; no está afiliada ni respaldada por Riot Games.</p><p class="note"><a href="https://wildrift.leagueoflegends.com/es-es/champions/" target="_blank" rel="noopener noreferrer">Consultar campeones oficiales de Wild Rift</a></p></details></section>
 </main>
-<footer class="footer">MotorWr 2.2.5 · Uso personal · Sin cuenta ni telemetría · <a href="https://www.riotgames.com/en/legal" target="_blank" rel="noopener noreferrer">Normas Riot</a><p style="font-size:10px;text-align:left">MotorWr isn&#39;t endorsed by Riot Games and doesn&#39;t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p></footer>
+<footer class="footer">MotorWr 2.3.0 · Uso personal · Sin cuenta ni telemetría · <a href="https://www.riotgames.com/en/legal" target="_blank" rel="noopener noreferrer">Normas Riot</a><p style="font-size:10px;text-align:left">MotorWr isn&#39;t endorsed by Riot Games and doesn&#39;t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p></footer>
 </div>
 <dialog id="picker" aria-label="Seleccionar campeón"><div class="modal-head"><div><span class="eyebrow" id="pickerRole">CAMPEÓN</span><h2>Seleccionar campeón</h2></div><button type="button" id="closePicker" aria-label="Cerrar selector">×</button></div><div class="search"><input id="search" type="search" placeholder="Buscar por nombre…" autocomplete="off" aria-label="Buscar campeón"></div><div id="choices" class="choice-list"></div><div class="modal-foot" id="count">142 campeones oficiales</div></dialog>
 <script type="module">
@@ -108,6 +117,14 @@ const fallbackMeta={schema:1,patch:PATCH_CHANGES.patch,patchUrl:PATCH_CHANGES.so
   updatedAt:"2026-10-19",guides:[],warning:null};
 let autoMeta=fallbackMeta;
 try{autoMeta=validateAutoMeta(JSON.parse(localStorage.getItem(META_STORAGE)||"null"));}catch{autoMeta=fallbackMeta;}
+function updateCoverageTag(){
+ const pairs=new Set([
+   ...BUILD_REFERENCES.filter(b=>b.patch===autoMeta.patch).map(b=>b.champion+'|'+b.role),
+   ...autoMeta.guides.filter(b=>b.patch===autoMeta.patch).map(b=>b.champion+'|'+b.role)
+ ]);
+ const tag=$("#coverageTag");
+ if(tag)tag.textContent=pairs.size+" GUÍAS DISPONIBLES · "+autoMeta.patch;
+}
 let metaCheckedAt=0;
 async function refreshMeta(){
   metaCheckedAt=Date.now();
@@ -119,12 +136,14 @@ async function refreshMeta(){
     autoMeta=candidate;
     try{localStorage.setItem(META_STORAGE,JSON.stringify(candidate));}catch{}
     $("#currentPatchTag").textContent=autoMeta.patch;
+    updateCoverageTag();
     $("#syncStatus").textContent="Parche confirmado: "+autoMeta.patch+" · Último cambio de datos: "+autoMeta.updatedAt+
       (autoMeta.warning?" · Fuente parcialmente pendiente":"")+
       (patchDisplayStatus(autoMeta,PATCH_CHANGES.patch)==="awaiting_review"?" · Cambios detallados del parche pendientes":"");
     if(differs&&$("#output").innerHTML.trim())renderAnalysis(false);
   }catch(err){
     $("#currentPatchTag").textContent=autoMeta.patch;
+    updateCoverageTag();
     $("#syncStatus").textContent="Sin conexión a la actualización: se utiliza la última información validada guardada ("+autoMeta.patch+").";
     console.warn("Meta update unavailable",err);
   }
@@ -154,9 +173,13 @@ function currentValue(){return target.team==="own"?data.champion:(target.team===
 function chosen(){return [data.champion,...data.allies,...data.enemies].filter(Boolean);}
 function persist(){try{localStorage.setItem(STORAGE,JSON.stringify(data));}catch{}}
 function slot(team,index,role,name){return '<button type="button" class="pick" data-pick="'+team+'" data-index="'+index+'" aria-label="Elegir '+(team==="ally"?"aliado":"rival")+' '+escapeHTML(ROLE_LABELS[role])+'">'+avatar(name)+'<span class="person"><span style="min-width:0"><span class="type">'+escapeHTML(ROLE_LABELS[role]).toUpperCase()+'</span><span class="who">'+escapeHTML(name||"Seleccionar")+'</span></span></span><span class="chevron">›</span></button>';}
+function hasVerifiedGuide(name,role){
+ return resolveBuildReference(name,role,autoMeta).status==="referenced";
+}
 function render(){
  $("#ownRole").value=data.role;
- $("#ownPick").innerHTML=avatar(data.champion)+'<span class="person"><span style="min-width:0"><span class="type">TU CAMPEÓN</span><span class="who">'+escapeHTML(data.champion)+'</span></span></span><span class="chevron">›</span>';
+ const sourceReady=hasVerifiedGuide(data.champion,data.role);
+ $("#ownPick").innerHTML=avatar(data.champion)+'<span class="person"><span style="min-width:0"><span class="type">TU CAMPEÓN</span><span class="who">'+escapeHTML(data.champion)+'</span><span class="coverage-hint '+(sourceReady?'covered':'pending')+'">'+(sourceReady?'Build para tu posición disponible':'Build para esta posición pendiente')+'</span></span></span><span class="chevron">›</span>';
  $("#allySlots").innerHTML=getSlots("ally").map((r,i)=>slot("ally",i,r,data.allies[i])).join("");
  $("#enemySlots").innerHTML=ROLE_ORDER.map((r,i)=>slot("enemy",i,r,data.enemies[i])).join("");
 }
@@ -172,7 +195,8 @@ function renderChoices(){
  const filtered=CHAMPIONS.filter(c=>normalizeChampionName(c.name).includes(q));
  $("#count").textContent=filtered.length+" coincidencias · "+CHAMPIONS.length+" fichas oficiales ("+ROSTER_SOURCE.patch+")";
  $("#choices").innerHTML=(target.team!=="own"?'<button class="choice" type="button" data-champion=""><span class="info">Sin seleccionar <small>Quitar campeón de esta posición</small></span></button>':"")+
- filtered.map(c=>'<button class="choice" type="button" data-champion="'+escapeHTML(c.name)+'" '+(inUse.has(normalizeChampionName(c.name))?"disabled":"")+'>'+avatar(c.name)+'<span class="info">'+escapeHTML(c.name)+'<small>'+(c.quality==='unclassified'?'Etiquetas tácticas pendientes':c.damage+' · ')+(c.tags.includes("tank")?"Tanque":c.tags.includes("mage")?"Mago":c.tags.includes("assassin")?"Asesino":c.tags.includes("bruiser")?"Luchador":"Perfil editorial")+'</small></span></button>').join("");
+ filtered.map(c=>'<button class="choice" type="button" data-champion="'+escapeHTML(c.name)+'" '+(inUse.has(normalizeChampionName(c.name))?"disabled":"")+'>'+avatar(c.name)+'<span class="info">'+escapeHTML(c.name)+'<small>'+(c.quality==='unclassified'?'Etiquetas tácticas pendientes':c.damage+' · ')+(c.tags.includes("tank")?"Tanque":c.tags.includes("mage")?"Mago":c.tags.includes("assassin")?"Asesino":c.tags.includes("bruiser")?"Luchador":"Perfil editorial")+
+ (target.team==="own"?(hasVerifiedGuide(c.name,data.role)?" · BUILD DISPONIBLE":" · Build pendiente"):"")+'</small></span></button>').join("");
 }
 function alertResult(err){$("#output").innerHTML='<section class="card result"><p role="alert" class="notice">'+escapeHTML(err.message||err)+'</p></section>';}
 function renderAnalysis(scroll=true){
@@ -214,7 +238,17 @@ function renderAnalysis(scroll=true){
   const slotForSkill=(champion,name)=>skillSlotForName(champion,name);
 
   const skillGuide=(b)=>{
-    if(!Array.isArray(b.skillPriority)||!b.skillPriority.length)return '<div class="notice">Prioridad de habilidades pendiente de revisión para este parche.</div>';
+    if(!Array.isArray(b.skillPriority)||!b.skillPriority.length){
+      // Verified ability identities are not equivalent to a reviewed priority order.
+      const kit=b.abilities&&["P","Q","W","E","R"].every(k=>typeof b.abilities[k]==="string"&&b.abilities[k].trim());
+      if(!kit)return '<div class="notice">Prioridad de habilidades pendiente de revisión para este parche.</div>';
+      const images=["P","Q","W","E","R"].map(k=>
+        '<div class="kit-item"><span class="kit-slot">'+k+'</span>'+imageTile('ability',b.abilities[k],b.champion,k)+
+        '<span class="kit-name">'+escapeHTML(b.abilities[k])+'</span></div>').join('');
+      return '<p class="note">Kit de habilidades identificado en la fuente, por posición. El orden de subida por nivel sigue pendiente de comprobación.</p>'+
+       '<div class="ability-kit">'+images+'</div>'+
+       '<div class="notice">No hay prioridad de habilidades contrastada para esta guía. Los iconos P/Q/W/E/R no representan un orden recomendado.</div>';
+    }
     const isReviewed=b.skillPriorityStatus==='source_reviewed' && b.patch===autoMeta.patch;
     const segments=b.skillPriority.map((name,i)=>({
       name,code:slotForSkill(b.champion,name)||String(i+1),index:i+1
@@ -300,6 +334,7 @@ $("#clear").addEventListener("click",()=>{data.enemies=["","","","",""];persist(
 $("#example").addEventListener("click",()=>{data={...DEFAULT,allies:[...DEFAULT.allies],enemies:[...DEFAULT.enemies]};persist();render();$("#output").innerHTML="";});
 try{createDraft(data);}catch{data={...DEFAULT,allies:[...DEFAULT.allies],enemies:[...DEFAULT.enemies]};}
 render();
+updateCoverageTag();
 refreshMeta();
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&Date.now()-metaCheckedAt>30*60*1000)refreshMeta();});
 setInterval(()=>{if(!document.hidden&&Date.now()-metaCheckedAt>3*60*60*1000)refreshMeta();},60*60*1000);

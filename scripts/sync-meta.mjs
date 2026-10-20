@@ -1,5 +1,5 @@
-// Scheduled release-safe updater for the MotorWr BETA branch.
-// Sources are public, checked conservatively, and never written to production.
+// Scheduled release-safe updater; GitHub Actions validates before committing only audited metadata.
+// Sources are public and checked conservatively; production deployment happens after tests.
 import fs from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import {OFFICIAL_PATCH_INDEX,parseOfficialPatchIndex,parseOfficialPatchSubjects,parseEditorialGuide,comparePatch,stableGuideFingerprint} from '../src/core/metaSync.js';
@@ -73,6 +73,9 @@ if(!noGuides){
      skillPriority:patch===baseline.patch?[...baseline.skillPriority]:[],
      skillPriorityStatus:patch===baseline.patch?'prior_editorial':'pending_review'
     };
+    // Keep verified, patch-matched ability identities when the editorial source updates
+    // objects/runes. Do not imply that an ability level-up order has been verified.
+    if(baseline.abilities && baseline.patch===patch)candidate.abilities={...baseline.abilities};
     const previousFingerprint=existing?stableGuideFingerprint(existing):stableGuideFingerprint(baseline);
     const fingerprint=stableGuideFingerprint(candidate);
     if(existing&&previousFingerprint===fingerprint)continue;
@@ -86,6 +89,7 @@ if(!noGuides){
  }
 }
 if(!noGuides&&checked===0&&groups.size)throw Error('No editorial sources validated: '+errors.join(' | '));
+if(flags.has('--strict-sources')&&errors.length)throw Error('Source adapter failures: '+errors.join(' | '));
 const candidate={
  schema:1,
  patch,
@@ -107,5 +111,5 @@ for(const msg of sourceResults)console.log('META_SYNC_PENDING '+msg);
 if(errors.length)for(const e of errors)console.warn('META_SYNC_WARNING '+e);
 if(changed&&!dry){
  fs.writeFileSync(file,JSON.stringify(candidate,null,2)+'\n');
- console.log('Updated beta autoMeta.json; run test gate and deploy preview.');
+ console.log('Updated audited autoMeta.json; the workflow will validate and deploy the current environment.');
 }else console.log('No committed changes (or dry-run).');

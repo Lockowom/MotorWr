@@ -27,6 +27,9 @@ const sample='<h1>Camille Build Guide for Wild Rift</h1><p>Patch 7.3b</p><p>Solo
  buildSection('Camille','Gluttonous Greaves',['Trinity Force','Eclipse',"Death's Dance",'Guardian Angel','Spear of Shojin'],['Flash','Smite'])+
  '<h2>How to play Camille</h2>'+''.padEnd(1500,'.');
 const p=parseEditorialGuide(sample,'Camille',['baron','jungle']);
+const dariusSource=sample.replaceAll('Camille','Darius').replaceAll("Darius's","Darius'");
+const dar=parseEditorialGuide(dariusSource,'Darius',['baron','jungle']);
+assert.deepEqual(dar.map(x=>x.role),['baron','jungle'],'Possessive Darius headings must be recognized');
 assert.equal(p.length,2);
 assert.deepEqual(p.map(x=>x.role),['baron','jungle']);
 assert.equal(p[0].finalItems.length,6);

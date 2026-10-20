@@ -1,3 +1,4 @@
+import {EXPANDED_REFERENCES} from './expandedBuilds.js';
 // Referencias estáticas contrastadas con guías editoriales de WildRiftFire (7.3b, 2026-10-19).
 // NO son registros de partidas ni builds TOP CN; NO son óptimas automáticamente para cada composición.
 // Se muestra la versión base de cada guía con enlace y parche; la adaptación es contextual y no automática.
@@ -437,7 +438,7 @@ export const BUILD_REFERENCES=Object.freeze([
     ],
     "startingItem": "Spectral Sickle"
   }
-].map(p=>Object.freeze(p)));
+].concat(EXPANDED_REFERENCES).map(p=>Object.freeze(p)));
 export function getBuildReference(champion,role,patch=BUILD_SOURCE_PATCH){
   const ref=BUILD_REFERENCES.find(p=>p.champion===champion&&p.role===role);
   if(!ref)return {status:'missing',message:'Sin guía contrastada para este campeón y rol en MotorWr.'};
