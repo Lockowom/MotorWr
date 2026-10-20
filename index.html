@@ -72,6 +72,9 @@ dialog{background:#0d1b23;color:var(--text);width:min(95vw,530px);border:1px sol
 .ability-kit .kit-name{font-size:11px;line-height:1.4;overflow-wrap:anywhere}
 .ability-kit .asset-thumb{flex:none}
 @media(max-width:340px){.ability-kit{grid-template-columns:1fr}}
+.coverage-hint{font-size:10px;font-weight:750;display:block;margin-top:4px;letter-spacing:.1px}
+.coverage-hint.covered{color:#8ee0bf}
+.coverage-hint.pending{color:#bba994}
 </style>
 </head>
 <body>
@@ -160,9 +163,13 @@ function currentValue(){return target.team==="own"?data.champion:(target.team===
 function chosen(){return [data.champion,...data.allies,...data.enemies].filter(Boolean);}
 function persist(){try{localStorage.setItem(STORAGE,JSON.stringify(data));}catch{}}
 function slot(team,index,role,name){return '<button type="button" class="pick" data-pick="'+team+'" data-index="'+index+'" aria-label="Elegir '+(team==="ally"?"aliado":"rival")+' '+escapeHTML(ROLE_LABELS[role])+'">'+avatar(name)+'<span class="person"><span style="min-width:0"><span class="type">'+escapeHTML(ROLE_LABELS[role]).toUpperCase()+'</span><span class="who">'+escapeHTML(name||"Seleccionar")+'</span></span></span><span class="chevron">›</span></button>';}
+function hasVerifiedGuide(name,role){
+ return resolveBuildReference(name,role,autoMeta).status==="referenced";
+}
 function render(){
  $("#ownRole").value=data.role;
- $("#ownPick").innerHTML=avatar(data.champion)+'<span class="person"><span style="min-width:0"><span class="type">TU CAMPEÓN</span><span class="who">'+escapeHTML(data.champion)+'</span></span></span><span class="chevron">›</span>';
+ const sourceReady=hasVerifiedGuide(data.champion,data.role);
+ $("#ownPick").innerHTML=avatar(data.champion)+'<span class="person"><span style="min-width:0"><span class="type">TU CAMPEÓN</span><span class="who">'+escapeHTML(data.champion)+'</span><span class="coverage-hint '+(sourceReady?'covered':'pending')+'">'+(sourceReady?'Build para tu posición disponible':'Build para esta posición pendiente')+'</span></span></span><span class="chevron">›</span>';
  $("#allySlots").innerHTML=getSlots("ally").map((r,i)=>slot("ally",i,r,data.allies[i])).join("");
  $("#enemySlots").innerHTML=ROLE_ORDER.map((r,i)=>slot("enemy",i,r,data.enemies[i])).join("");
 }
@@ -178,7 +185,8 @@ function renderChoices(){
  const filtered=CHAMPIONS.filter(c=>normalizeChampionName(c.name).includes(q));
  $("#count").textContent=filtered.length+" coincidencias · "+CHAMPIONS.length+" fichas oficiales ("+ROSTER_SOURCE.patch+")";
  $("#choices").innerHTML=(target.team!=="own"?'<button class="choice" type="button" data-champion=""><span class="info">Sin seleccionar <small>Quitar campeón de esta posición</small></span></button>':"")+
- filtered.map(c=>'<button class="choice" type="button" data-champion="'+escapeHTML(c.name)+'" '+(inUse.has(normalizeChampionName(c.name))?"disabled":"")+'>'+avatar(c.name)+'<span class="info">'+escapeHTML(c.name)+'<small>'+(c.quality==='unclassified'?'Etiquetas tácticas pendientes':c.damage+' · ')+(c.tags.includes("tank")?"Tanque":c.tags.includes("mage")?"Mago":c.tags.includes("assassin")?"Asesino":c.tags.includes("bruiser")?"Luchador":"Perfil editorial")+'</small></span></button>').join("");
+ filtered.map(c=>'<button class="choice" type="button" data-champion="'+escapeHTML(c.name)+'" '+(inUse.has(normalizeChampionName(c.name))?"disabled":"")+'>'+avatar(c.name)+'<span class="info">'+escapeHTML(c.name)+'<small>'+(c.quality==='unclassified'?'Etiquetas tácticas pendientes':c.damage+' · ')+(c.tags.includes("tank")?"Tanque":c.tags.includes("mage")?"Mago":c.tags.includes("assassin")?"Asesino":c.tags.includes("bruiser")?"Luchador":"Perfil editorial")+
+ (target.team==="own"?(hasVerifiedGuide(c.name,data.role)?" · BUILD DISPONIBLE":" · Build pendiente"):"")+'</small></span></button>').join("");
 }
 function alertResult(err){$("#output").innerHTML='<section class="card result"><p role="alert" class="notice">'+escapeHTML(err.message||err)+'</p></section>';}
 function renderAnalysis(scroll=true){
