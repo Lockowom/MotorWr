@@ -1,3 +1,4 @@
+import {EXPANDED_ICONS,EXPANDED_SKILL_SLOT_ICONS,EXPANDED_SKILL_NAME_SLOT} from '../data/expandedIcons.js';
 import {ICON_CATALOG,SKILL_SLOT_ICONS,SKILL_NAME_SLOT} from '../data/iconCatalog.js';
 
 // Trusted, exact mappings extracted from existing editorial source images.
@@ -6,14 +7,14 @@ const TRUSTED_IMAGE=/^https:\/\/(?:www\.wildriftfire\.com\/images\/(?:items|rune
 export function iconFor(type,name,champion=''){
  if(!['item','rune','spell','ability'].includes(type)||typeof name!=='string'||!name.trim())return null;
  const key=type==='ability'?champion+'|'+name:name;
- const src=ICON_CATALOG[type]?.[key];
+ const src=ICON_CATALOG[type]?.[key]??EXPANDED_ICONS[type]?.[key];
  return typeof src==='string'&&TRUSTED_IMAGE.test(src)?src:null;
 }
 export function skillSlotForName(champion,name){
- return SKILL_NAME_SLOT[champion+'|'+name]||null;
+ return SKILL_NAME_SLOT[champion+'|'+name]||EXPANDED_SKILL_NAME_SLOT[champion+'|'+name]||null;
 }
 export function skillIconFor(champion,slot){
- const src=SKILL_SLOT_ICONS[champion]?.[slot];
+ const src=SKILL_SLOT_ICONS[champion]?.[slot]??EXPANDED_SKILL_SLOT_ICONS[champion]?.[slot];
  return typeof src==='string'&&TRUSTED_IMAGE.test(src)?src:null;
 }
 export function fallbackLabel(name,slot){
