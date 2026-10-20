@@ -215,3 +215,47 @@ versión para evitar que futuras actualizaciones cambien imágenes sin revisión
 Se mantienen nombres visibles y alternativa con letra si un recurso está roto.
 El Service Worker almacena esos iconos oficiales después de verse y las
 pruebas garantizan que las prioridades específicas conservan Q/E/W correctas.
+
+## MotorWr 2.3.0 — expansión verificable de guías
+
+La selección mantiene **142 campeones** del roster oficial del parche 7.3b;
+la cobertura de referencias aumenta de **12 a 40 combinaciones de rol**
+para **28 campeones distintos**. La cobertura NO equivale a guías por rol
+para cada uno de los 142 campeones.
+
+Se agregaron Gwen, Viego, Lux, Lucian, Garen, Vi, Orianna, Ezreal, Nami,
+Sett, Yone, Miss Fortune, Seraphine, Leona, Master Yi, Morgana, Darius,
+Ashe, Riven y Diana. Los datos se contrastaron con las páginas de
+WildRiftFire el 2026-10-20 y corresponden a **7.3b**.
+
+Cada combinación conserva su rol explícito, seis objetos finales, cinco
+runas, dos hechizos y URL de origen. Los kits P/Q/W/E/R incluyen nombres
+e iconos respaldados por la fuente. **NO se calcula la prioridad de subida
+cuando la fuente HTML disponible no permite comprobarla**: aparece una
+advertencia específica, no una secuencia ficticia.
+
+Arquitectura incremental:
+
+- `src/data/expandedBuilds.js`: referencias editoriales adicionales con
+  campeón, rol, parche, fecha, objetos, runas, hechizos y nombres de habilidades.
+- `src/data/expandedIcons.js`: mapa exacto de imágenes observadas en esas guías.
+  El cliente conserva texto y un marcador de sustitución cuando la imagen falla.
+- `src/data/buildReferences.js`: concatena las guías iniciales y ampliadas,
+  sin sobrescribir la configuración de Camille o Akali.
+- `src/core/iconResolver.js`: consulta los mapas actuales y ampliados sin
+  construir URLs de imágenes para nombres desconocidos.
+- `tests/coverageExpansion.test.mjs`: verifica 28 entradas nuevas, roles
+  válidos y todos los iconos; `npm test` los aplica en cada PR.
+- `.github/workflows/guide-source-audit.yml`: ejecuta una revisión remota
+  estricta y no destructiva de las fuentes si cambia el catálogo de builds.
+
+MetaSync sigue ejecutándose dos veces al día y ahora vigila las páginas de
+los 28 campeones con referencias configuradas. Si una fuente publica datos de
+otro parche, no los anuncia como vigentes; si cambia una guía, solo promueve
+los elementos extraídos y validados. Las etiquetas de habilidades verificadas
+se conservan para el mismo parche; los órdenes de subida siguen requiriendo
+evidencia específica.
+
+Se mantiene el alcance **personal**, sin monetización ni usuarios externos.
+El acceso a GitHub/Cloudflare sigue siendo público hasta que su propietario
+active restricciones de acceso por separado.
