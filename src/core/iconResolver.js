@@ -2,7 +2,7 @@ import {ICON_CATALOG,SKILL_SLOT_ICONS,SKILL_NAME_SLOT} from '../data/iconCatalog
 
 // Trusted, exact mappings extracted from existing editorial source images.
 // Never guess URLs for unrecognized names: render a text fallback instead.
-const TRUSTED_IMAGE=/^https:\/\/(?:www\.wildriftfire\.com\/images\/(?:items|runes|summoners)\/[a-z0-9-]+|www\.mobafire\.com\/images\/ability\/[a-z0-9-]+|ddragon\.leagueoflegends\.com\/cdn\/16\.18\.1\/img\/(?:passive|spell)\/[A-Za-z0-9_-]+)\.png$/;
+const TRUSTED_IMAGE=/^https:\/\/(?:www\.wildriftfire\.com\/images\/(?:items|runes|summoners)\/[a-z0-9-]+|www\.mobafire\.com\/images\/ability\/[a-z0-9-]+)\.png$/;
 export function iconFor(type,name,champion=''){
  if(!['item','rune','spell','ability'].includes(type)||typeof name!=='string'||!name.trim())return null;
  const key=type==='ability'?champion+'|'+name:name;
