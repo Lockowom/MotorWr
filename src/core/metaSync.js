@@ -81,8 +81,8 @@ export function parseEditorialGuide(html,champion,expectedRoles){
  if(!patchMatch)throw Error('Patch tag missing from editorial guide');
  const patch=patchMatch[1].toLowerCase();
  const sectionList=splitByH2(html);
- const itemGroups=sectionList.filter(s=>/\'s Item Build$/i.test(s.title));
- const runeGroups=sectionList.filter(s=>/\'s Spells\s*&\s*Runes$/i.test(s.title));
+ const itemGroups=sectionList.filter(s=>/(?:\'s|\') Item Build$/i.test(s.title));
+ const runeGroups=sectionList.filter(s=>/(?:\'s|\') Spells\s*&\s*Runes$/i.test(s.title));
  if(!itemGroups.length||itemGroups.length!==runeGroups.length)throw Error('Guide groups are missing/unbalanced');
  const beforeFirst=html.slice(html.search(/Build Guide for Wild Rift/i),html.indexOf('<h2',html.search(/Build Guide for Wild Rift/i)));
  const declaredRoles=[...stripTags(beforeFirst).matchAll(/\b(Solo|Baron|Top|Jungle|Mid|Middle|Dragon|Duo|ADC|Support)\s+Build\b/gi)]
