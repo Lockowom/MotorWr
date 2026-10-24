@@ -241,11 +241,23 @@ function renderAnalysis(scroll=true){
     if(!Array.isArray(b.skillPriority)||!b.skillPriority.length){
       // Verified ability identities are not equivalent to a reviewed priority order.
       const kit=b.abilities&&["P","Q","W","E","R"].every(k=>typeof b.abilities[k]==="string"&&b.abilities[k].trim());
-      if(!kit)return '<div class="notice">Prioridad de habilidades pendiente de revisión para este parche.</div>';
+      if(!kit){
+        if(Array.isArray(b.priorSkillPriority)&&b.priorSkillPriority.length&&b.priorSkillPriorityPatch){
+          return '<div class="notice">Última prioridad contrastada: parche '+escapeHTML(b.priorSkillPriorityPatch)+
+            '. El orden no está confirmado para '+escapeHTML(autoMeta.patch)+'.</div>'+
+            '<p class="bulletline">'+b.priorSkillPriority.map(name=>escapeHTML(name)).join(' → ')+'</p>';
+        }
+        return '<div class="notice">Prioridad de habilidades pendiente de revisión para este parche.</div>';
+      }
       const images=["P","Q","W","E","R"].map(k=>
         '<div class="kit-item"><span class="kit-slot">'+k+'</span>'+imageTile('ability',b.abilities[k],b.champion,k)+
         '<span class="kit-name">'+escapeHTML(b.abilities[k])+'</span></div>').join('');
-      return '<p class="note">Kit de habilidades identificado en la fuente, por posición. El orden de subida por nivel sigue pendiente de comprobación.</p>'+
+      const kitPatch=b.abilitiesVerifiedPatch||b.patch;
+      const historical=kitPatch!==autoMeta.patch;
+      const kitNote=historical
+        ?'Kit histórico identificado en '+kitPatch+'. Sus nombres e iconos requieren revisión para '+autoMeta.patch+'.'
+        :'Kit de habilidades identificado en una fuente del parche '+kitPatch+'. El orden de subida sigue pendiente.';
+      return '<p class="note">'+escapeHTML(kitNote)+'</p>'+
        '<div class="ability-kit">'+images+'</div>'+
        '<div class="notice">No hay prioridad de habilidades contrastada para esta guía. Los iconos P/Q/W/E/R no representan un orden recomendado.</div>';
     }
