@@ -4,7 +4,13 @@ name: MotorWr — automatic meta synchronization
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/motorwr-meta-watch.yml']
+    paths:
+      - '.github/workflows/motorwr-meta-watch.yml'
+      - 'src/data/buildReferences.js'
+      - 'src/data/expandedBuilds.js'
+      - 'src/core/metaSync.js'
+      - 'src/core/metaPolicy.js'
+      - 'scripts/sync-meta.mjs'
   schedule:
     - cron: '17 8,20 * * *'
   workflow_dispatch:
