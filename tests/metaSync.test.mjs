@@ -73,6 +73,32 @@ assert.equal(patchDisplayStatus(newMeta,'7.3b'),'awaiting_review');
 const snapshot={champion:'Camille',role:'baron',patch:'7.3c',checkedAt:'2026-11-01',source:{publisher:'WildRiftFire',type:'third_party_editorial',url:'https://www.wildriftfire.com/guide/camille'},finalItems:p[0].finalItems,runes:p[0].runes,spells:p[0].spells,skillPriority:[],skillPriorityStatus:'pending_review'};
 assert.equal(resolveBuildReference('Camille','baron',{...newMeta,guides:[snapshot]}).status,'referenced');
 assert.equal(resolveBuildReference('Camille','jungle',{...newMeta,guides:[snapshot]}).status,'stale');
+const historicalGwen=getBuildReference('Gwen','baron',BUILD_SOURCE_PATCH).reference;
+assert(historicalGwen?.abilities?.Q,'The expanded source-backed catalog must have known Gwen ability identities');
+const newGwen={
+  ...snapshot,champion:'Gwen',role:'baron',
+  source:{publisher:'WildRiftFire',type:'third_party_editorial',url:'https://www.wildriftfire.com/guide/gwen'},
+  finalItems:historicalGwen.finalItems,runes:historicalGwen.runes,spells:historicalGwen.spells
+};
+const sameChampionLater=resolveBuildReference('Gwen','baron',{...newMeta,guides:[newGwen]});
+assert.equal(sameChampionLater.status,'referenced');
+assert.equal(sameChampionLater.reference.patch,'7.3c');
+assert.equal(sameChampionLater.reference.abilities.Q,historicalGwen.abilities.Q);
+assert.equal(sameChampionLater.reference.abilitiesVerifiedPatch,'7.3b','Older kit icons must identify their review patch');
+const gwenWithCurrentAbilities={...newGwen,abilities:historicalGwen.abilities};
+assert.equal(resolveBuildReference('Gwen','baron',{...newMeta,guides:[gwenWithCurrentAbilities]}).reference.abilitiesVerifiedPatch,'7.3c');
+const oldAkali=getBuildReference('Akali','mid',BUILD_SOURCE_PATCH).reference;
+assert.equal(oldAkali.skillPriorityStatus,'source_reviewed');
+const akaliCurrent={
+  ...snapshot,champion:'Akali',role:'mid',
+  source:{publisher:'WildRiftFire',type:'third_party_editorial',url:'https://www.wildriftfire.com/guide/akali'},
+  finalItems:oldAkali.finalItems,runes:oldAkali.runes,spells:oldAkali.spells
+};
+const akaliLater=resolveBuildReference('Akali','mid',{...newMeta,guides:[akaliCurrent]});
+assert.equal(akaliLater.reference.priorSkillPriorityPatch,'7.3b');
+assert.deepEqual(akaliLater.reference.priorSkillPriority,oldAkali.skillPriority);
+assert.equal(akaliLater.reference.skillPriorityStatus,'pending_review','Historical level order must not be promoted as current');
+
 assert.throws(()=>validateAutoMeta({...newMeta,guides:[snapshot,snapshot]}));
 assert.equal(validateAutoMeta({...newMeta,guides:[{...snapshot,abilities:abilityResult}]}).guides[0].abilities.Q,'Snip Snip!');
 assert.throws(()=>validateAutoMeta({...newMeta,guides:[{...snapshot,abilities:{Q:'Snip Snip!'}}]}));
