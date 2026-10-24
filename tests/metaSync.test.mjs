@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {comparePatch,parseOfficialPatchIndex,parseOfficialPatchSubjects,parseEditorialGuide,parseEditorialAbilityKit,stableGuideFingerprint} from '../src/core/metaSync.js';
 import {resolveBuildReference,validateAutoMeta,patchDisplayStatus} from '../src/core/metaPolicy.js';
-import {BUILD_SOURCE_PATCH} from '../src/data/buildReferences.js';
+import {BUILD_SOURCE_PATCH,getBuildReference} from '../src/data/buildReferences.js';
 const initial=JSON.parse(fs.readFileSync(new URL('../src/data/autoMeta.json',import.meta.url)));
 validateAutoMeta(initial);
 assert(/^\d+\.\d+[a-z]?$/.test(initial.patch),'El parche guardado debe ser válido, no estar fijado a un único release');
