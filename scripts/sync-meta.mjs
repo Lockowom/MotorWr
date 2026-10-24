@@ -75,7 +75,8 @@ if(!noGuides){
     };
     // Keep verified, patch-matched ability identities when the editorial source updates
     // objects/runes. Do not imply that an ability level-up order has been verified.
-    if(baseline.abilities && baseline.patch===patch)candidate.abilities={...baseline.abilities};
+    if(p.abilities)candidate.abilities={...p.abilities};
+    else if(baseline.abilities && baseline.patch===patch)candidate.abilities={...baseline.abilities};
     const previousFingerprint=existing?stableGuideFingerprint(existing):stableGuideFingerprint(baseline);
     const fingerprint=stableGuideFingerprint(candidate);
     if(existing&&previousFingerprint===fingerprint)continue;
