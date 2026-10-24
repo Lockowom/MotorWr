@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {comparePatch,parseOfficialPatchIndex,parseOfficialPatchSubjects,parseEditorialGuide,stableGuideFingerprint} from '../src/core/metaSync.js';
+import {comparePatch,parseOfficialPatchIndex,parseOfficialPatchSubjects,parseEditorialGuide,parseEditorialAbilityKit,stableGuideFingerprint} from '../src/core/metaSync.js';
 import {resolveBuildReference,validateAutoMeta,patchDisplayStatus} from '../src/core/metaPolicy.js';
+import {BUILD_SOURCE_PATCH} from '../src/data/buildReferences.js';
 const initial=JSON.parse(fs.readFileSync(new URL('../src/data/autoMeta.json',import.meta.url)));
 validateAutoMeta(initial);
-assert.equal(initial.patch,'7.3b');
+assert(/^\d+\.\d+[a-z]?$/.test(initial.patch),'El parche guardado debe ser válido, no estar fijado a un único release');
+assert(comparePatch(initial.patch,BUILD_SOURCE_PATCH)>=0,'El meta vigente no puede retroceder frente al catálogo editorial');
 assert(comparePatch('7.4','7.3b')>0);
 assert(comparePatch('7.10','7.9')>0);
 assert(comparePatch('7.3b','7.3a')>0);
@@ -36,6 +38,12 @@ assert.equal(p[0].finalItems.length,6);
 assert.equal(p[1].spells[1],'Smite');
 assert.equal(p[0].runes.length,5);
 assert.equal(p[0].patch,'7.3b');
+const abilitiesFixture='<h1>Gwen Build Guide for Wild Rift</h1><h2>Gwen\'s Skill Order</h2>'+
+ '<p>Thousand Cuts (Passive)</p>Quick Skill Order\nSnip Snip!\n<ul><li></li></ul>\nHallowed Mist\n<ul></ul>\nSkip \'n Slash\n<ul></ul>\nNeedlework\n<ul></ul>Quick Skill Order';
+const abilityResult=parseEditorialAbilityKit(abilitiesFixture,'Gwen');
+assert.deepEqual(abilityResult,{P:'Thousand Cuts',Q:'Snip Snip!',W:'Hallowed Mist',E:"Skip 'n Slash",R:'Needlework'});
+assert.equal(parseEditorialAbilityKit('<h2>Other</h2>','Gwen'),null);
+
 
 const imgAlt=name=>'<img alt="'+name.replace(/'/g,'&#039;')+'" src="stub.png">';
 const sourceLike='<h1>Camille Build Guide for Wild Rift</h1><p>Patch 7.3b</p><p>Solo Build A</p>'+
@@ -54,16 +62,20 @@ assert.throws(()=>parseEditorialGuide(sample.replace('<p>Runes</p>','<p>No rune 
 const fp=stableGuideFingerprint(p[0]);
 assert.equal(fp,stableGuideFingerprint({...p[0],checkedAt:'2088-01-01'}));
 assert.notEqual(fp,stableGuideFingerprint({...p[0],runes:['Aery',...p[0].runes.slice(1)]}));
-const oldRef=resolveBuildReference('Camille','baron',initial);
+// Fixed local fixture: the real snapshot may advance automatically from 7.3b to 7.3c, 7.4, etc.
+const referenceMeta={...initial,patch:BUILD_SOURCE_PATCH,patchUrl:'https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3b/',guides:[]};
+const oldRef=resolveBuildReference('Camille','baron',referenceMeta);
 assert.equal(oldRef.status,'referenced');
 assert.equal(oldRef.automated,false);
-const newMeta={...initial,patch:'7.3c',patchUrl:'https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3c/',guides:[]};
+const newMeta={...referenceMeta,patch:'7.3c',patchUrl:'https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3c/',guides:[]};
 assert.equal(resolveBuildReference('Camille','baron',newMeta).status,'stale');
 assert.equal(patchDisplayStatus(newMeta,'7.3b'),'awaiting_review');
 const snapshot={champion:'Camille',role:'baron',patch:'7.3c',checkedAt:'2026-11-01',source:{publisher:'WildRiftFire',type:'third_party_editorial',url:'https://www.wildriftfire.com/guide/camille'},finalItems:p[0].finalItems,runes:p[0].runes,spells:p[0].spells,skillPriority:[],skillPriorityStatus:'pending_review'};
 assert.equal(resolveBuildReference('Camille','baron',{...newMeta,guides:[snapshot]}).status,'referenced');
 assert.equal(resolveBuildReference('Camille','jungle',{...newMeta,guides:[snapshot]}).status,'stale');
 assert.throws(()=>validateAutoMeta({...newMeta,guides:[snapshot,snapshot]}));
+assert.equal(validateAutoMeta({...newMeta,guides:[{...snapshot,abilities:abilityResult}]}).guides[0].abilities.Q,'Snip Snip!');
+assert.throws(()=>validateAutoMeta({...newMeta,guides:[{...snapshot,abilities:{Q:'Snip Snip!'}}]}));
 assert.throws(()=>validateAutoMeta({...newMeta,guides:[{...snapshot,source:{...snapshot.source,url:'https://evil.test/guide'}}]}));
 assert.throws(()=>validateAutoMeta({...newMeta,patchUrl:'https://evil.test'}));
 console.log('PASS: live meta parsers, stale gates, source trust, role mapping and change fingerprints');
