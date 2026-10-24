@@ -1,0 +1,348 @@
+MOTORWR - CONTINUIDAD DE DESARROLLO
+TXT MAESTRO PARA CODEX Y ANTIGRAVITY
+Corte verificado: 24 de octubre de 2026
+Proyecto: MotorWr (herramienta PERSONAL de estudio de Wild Rift)
+
+====================================================================
+0. INSTRUCCION PRINCIPAL
+====================================================================
+
+Continua el proyecto EXISTENTE MotorWr como ingeniero senior full-stack,
+especialista en calidad, datos de juego, seguridad y UX movil.
+NO crees otro proyecto ni reemplaces arquitectura funcional sin justificarlo.
+Inspecciona el repositorio real ANTES de actuar. Trabaja en ramas, ejecuta
+pruebas, documenta resultados y deja PR revisables.
+
+REPO: https://github.com/Lockowom/MotorWr
+RAMA PRINCIPAL: main
+WEB: https://buldwr.pages.dev/
+TECNOLOGIA: JavaScript ESM, PWA con Service Worker, Node >=22 para CI,
+GitHub Actions y Cloudflare Pages.
+ALCANCE: uso exclusivamente PERSONAL; sin comunidad, monetizacion,
+reconocimiento publico ni sistema de cuentas como objetivos.
+
+IMPORTANTE: este documento refleja un corte del 24-10-2026.
+Si GitHub, Riot o las fuentes han cambiado, manda el estado real del
+checkout actual. NO copies version, SHA, parche o cobertura historicos
+como si fueran valores actuales sin volver a comprobarlos.
+
+====================================================================
+1. ESTADO REAL VERIFICADO EN GITHUB EL 24-10-2026
+====================================================================
+
+- package.json de main indica version 2.3.0.
+- Existe seleccion de 142 campeones, tomada del roster de Riot
+  originalmente contrastado para el parche 7.3b.
+- Hay 40 combinaciones campeon+rol con referencias contrastadas para
+  28 campeones diferentes: 12 referencias originales mas 28 ampliadas.
+- src/data/autoMeta.json contiene actualmente parche 7.3c,
+  updatedAt 2026-10-24 y un snapshot de 40 guias.
+- src/data/buildReferences.js mantiene BUILD_SOURCE_PATCH = 7.3b;
+  src/data/expandedBuilds.js fue contrastado para 7.3b;
+  src/data/patchNotes.js documenta cambios concretos de 7.3b.
+  NO confundir base editorial historica con meta dinamico de 7.3c.
+- En autoMeta.json, patchSubjects es null. La advertencia vigente dice:
+  "La lista de cambios de campeones, objetos y runas del nuevo parche
+   no se pudo clasificar con certeza. Consultar notas oficiales."
+  Esta incertidumbre es importante: NO inventar buffs, nerfs o numeros.
+- Los workflows main consultados el 24-10-2026 completaron con
+  SUCCESS (ejemplos: runs 40128871834 y 40128871840). Esas ejecuciones
+  no sustituyen pruebas nuevas despues de cada modificacion.
+- main YA contiene la expansion 2.3.0: expandedBuilds.js y
+  expandedIcons.js. NO reintroducirla ni duplicar esos 28 registros.
+- Repo verificado como PUBLIC. El propietario gestionara personalmente
+  la configuracion de privacidad GitHub/Cloudflare. No afirmar que
+  son privados hasta verificar el acceso.
+- La web publica se sirve desde main por GitHub Actions + Cloudflare.
+  NO desplegar cambios a produccion sin autorizacion para publicarlos.
+
+====================================================================
+2. OBJETIVO DEL PRODUCTO
+====================================================================
+
+El usuario elige:
+  * su campeon;
+  * posicion: baron, jungle, mid, dragon o support;
+  * hasta 4 aliados y 5 enemigos.
+
+La herramienta muestra:
+  * lectura de composicion enemiga (AP/AD/mixto, CC, curacion, etc.);
+  * consejos por rol y match-up cuando exista perfil contrastado;
+  * objetos, runas, hechizos, habilidades y fuente para campeon+rol+parche;
+  * iconos reconocibles con texto alternativo y fallback;
+  * actualizacion periodica del parche y las guias aceptadas;
+  * UX movil y comportamiento PWA online/offline controlado.
+
+NO mostrar una build editorial base como si fuera una build adaptada
+automaticamente a cada draft. NO inventar winrates, tops chinos, numeros
+de parche, priorizaciones de habilidades ni roles sin fuente.
+
+La portada es / (MotorWr); /multi.html es una ruta secundaria;
+la guia historica especializada de Camille esta en /camille.html.
+Conservar la navegacion y no duplicar logica innecesariamente.
+
+====================================================================
+3. ARCHIVOS QUE DEBES LEER ANTES DE MODIFICAR
+====================================================================
+
+package.json
+README.md
+index.html
+multi.html
+camille.html
+sw.js
+src/data/champions.js
+src/data/officialRoster.js
+src/data/buildReferences.js
+src/data/expandedBuilds.js
+src/data/iconCatalog.js
+src/data/expandedIcons.js
+src/data/tacticalProfiles.js
+src/data/patchNotes.js
+src/data/autoMeta.json
+src/core/multiChampion.js
+src/core/metaSync.js
+src/core/metaPolicy.js
+src/core/iconResolver.js
+scripts/sync-meta.mjs
+scripts/build.mjs
+scripts/check.mjs
+tests/multiChampion.test.mjs
+tests/metaSync.test.mjs
+tests/serviceWorker.test.mjs
+tests/iconCatalog.test.mjs
+tests/coverageExpansion.test.mjs
+.github/workflows/cloudflare-pages.yml
+.github/workflows/motorwr-meta-watch.yml
+.github/workflows/guide-source-audit.yml (confirmar nombre real)
+
+Inspecciona tambien git log, ramas, PR abiertas y archivos nuevos
+porque esta lista no pretende ser un inventario exhaustivo.
+
+====================================================================
+4. ARRANQUE TECNICO OBLIGATORIO
+====================================================================
+
+En un checkout local, sin perder cambios existentes:
+
+  git status --short
+  git branch -vv
+  git remote -v
+  git fetch --all --prune
+  git switch main
+  git pull --ff-only origin main
+  node --version
+  npm --version
+  npm ci
+  npm test
+  npm run build
+
+Node debe satisfacer package.json (>=22).
+Si existen cambios sin confirmar en la maquina, preservarlos.
+NO hacer reset --hard, force-push, rebase destructivo, borrar datos ni
+alterar secretos para acelerar el trabajo.
+
+Registrar una linea base: SHA, version, resultados de tests, parche oficial,
+parche de snapshot, contador de pares campeon/rol vigentes, warnings
+abiertos y diferencias antes/despues.
+
+====================================================================
+5. BLOQUE A: PARCHE, METASYNC Y EXACTITUD DE DATOS (PRIORIDAD ALTA)
+====================================================================
+
+A1. Consultar notas OFICIALES de Riot Wild Rift y verificar si el ultimo
+    parche sigue siendo 7.3c. Si hay otro, actualizar los criterios
+    con el parche verdadero.
+A2. Auditar por que autoMeta.patchSubjects esta null para 7.3c.
+    Revisar parser, estructura HTML real y fixtures. Solo clasificar
+    campeones/objetos/runas afectados cuando exista evidencia.
+    Si sigue incierto, mostrar "pendiente de revision" con enlace.
+A3. Revisar que las 40 guias del snapshot correspondan de verdad al
+    parche marcado, su campeon y SU rol. No promocionar una build de
+    un parche anterior como si fuera vigente.
+A4. Fortalecer fail-closed: fecha/parche/rol/fuente invalida o
+    estructura HTML ambigua => estado sin verificar, no build ficticia.
+A5. Distinguir en UI:
+    - parche oficial detectado;
+    - ultimo parche con notas estructuradas verificadas;
+    - parche propio de la guia consultada;
+    - antiguedad del roster y su fuente.
+A6. Mantener validaciones de dominio/URL, deduplicacion e idempotencia.
+    Reducir requests; respetar limitaciones de proveedor y rate limits.
+A7. Prioridad de habilidades: kit P/Q/W/E/R != secuencia de subida.
+    Si faltan pruebas de orden por nivel 1-15, NO mostrarlo como
+    una recomendacion verificada.
+A8. Agregar pruebas para parche nuevo con fuente anterior, parser
+    desconocido, patchSubjects null, duplicados, rol incorrecto,
+    HTML cambiado y sincronizacion repetida sin diffs.
+A9. No introducir scraping agresivo ni automatizacion para acceder a
+    contenido protegido, ni datos de partidas/clientes en vivo.
+
+CRITERIO: sin contradicciones silenciosas entre 7.3b y 7.3c.
+No convertir advertencias en datos falsos para hacer mas atractiva la UI.
+
+====================================================================
+6. BLOQUE B: COBERTURA DE GUIAS POR ROL, SIN DUPLICADOS
+====================================================================
+
+Existen 142 campeones seleccionables, pero SOLO 40 pares campeon/rol
+con referencias cargadas para 28 campeones al corte. El roster completo
+NO significa cobertura completa.
+
+Los 20 campeones del ultimo lote YA INTEGRADO son:
+Gwen, Viego, Lux, Lucian, Garen, Vi, Orianna, Ezreal, Nami, Sett, Yone,
+Miss Fortune, Seraphine, Leona, Master Yi, Morgana, Darius, Ashe,
+Riven y Diana.
+
+NO volver a añadir ese lote, salvo correcciones justificadas.
+
+Para NUEVOS lotes:
+B1. Identificar heroes y roles sin guia, priorizar todos los roles con
+    fuentes fiables y ampliar en lotes comprobables de 10-20 campeones.
+B2. Por cada par campeon/rol verificar con la pagina FUENTE:
+    nombre, rol, parche, 6 objetos, 5 runas, 2 hechizos, fecha y URL.
+B3. Distinguir hechizos de inicio y alternativas situacionales;
+    no mezclar 4 hechizos en una build de 2.
+B4. Verificar nombres reales de pasiva/P/Q/W/E/R e iconos exactos.
+    No inventar rutas de assets ni iconos por URL deducida.
+B5. La matriz HTML de habilidades puede no exponer el orden de niveles.
+    Si falta evidencia independiente, mantener "orden pendiente".
+B6. Roles multiples deben preservar kits, runas y objetos especificos
+    para cada posicion. Caso de control: Akali Central vs Akali Baron.
+B7. Admitir cada nueva fuente en MetaSync de forma controlada; si cambia
+    parche, volver a comprobar y marcar stale donde corresponda.
+B8. Llevar tres contadores separados:
+    campeones del roster, pares campeon/rol con fuente y pares VIGENTES
+    para el parche detectado. No afirmar 142 guias completas hasta
+    completarlas y validarlas realmente.
+B9. Mantener fuente editorial vs datos oficiales explicitamente
+    diferenciados. No atribuir builds de terceros a Riot.
+
+CRITERIO: cero referencias nuevas sin parche y rol verificables;
+cero duplicados y todos los cambios con tests.
+
+====================================================================
+7. BLOQUE C: UX, ICONOS, RESPONSIVE Y PWA
+====================================================================
+
+C1. Objetos: icono real, nombre y orden de compra.
+    Runas: iconos por nombre.
+    Hechizos: dos iconos y nombres.
+    Habilidades: P/Q/W/E/R con nombres y referencia.
+    Progresion por niveles solo cuando este contrastada.
+C2. Resolver fallback legible si falta icono o red. Mantener alt,
+    escapado HTML y URLs permitidas. No mostrar imagen rota.
+C3. Testear ancho 320, 360, 390, 412 px y escritorio. Sin
+    desplazamiento horizontal ni tarjetas truncadas.
+C4. Mantener la seleccion local del draft entre aperturas y
+    actualizaciones de la PWA.
+C5. El Service Worker debe preferir JS/metadata vigentes con red y
+    usar la ultima copia coherente offline. No prometer iconos offline
+    que el telefono nunca haya descargado.
+C6. Conservar /camille.html independiente y evitar bucles.
+C7. Revisar foco, teclado, contraste, estados vacios, enlaces,
+    error/loading y performance Android.
+C8. Evitar sustituir la UI actual por un rediseño total sin
+    aprobacion ni comparativa de capturas.
+
+====================================================================
+8. DISTRIBUCION CODEX / ANTIGRAVITY
+====================================================================
+
+REGLA: NO editar ambos simultaneamente el mismo archivo y la misma rama.
+Cada agente debe usar rama propia con PR, integrar secuencialmente y
+resolver conflictos antes de combinar.
+
+CODEX (DATOS / MOTOR / CI)
+- Auditar MetaSync 7.3c, parses reales, warnings y provenance.
+- Revisar matriz de referencias y nuevas guias por rol.
+- Agregar fixtures, pruebas, validacion de metadatos y seguridad.
+- Revisar cron, CI y builds.
+- Entregar resultados reproducibles y metricas exactas.
+
+ANTIGRAVITY (UI / UX / QA)
+- Auditar interfaz y consistencia index.html vs multi.html.
+- Mejorar presentacion de objetos, runas, habilidades y fuentes.
+- Hacer QA Android/PWA: pantalla movil, iconos, caching, rutas,
+  accesibilidad y fallbacks.
+- Guardar capturas, pruebas y reporte de comportamiento.
+- Evitar modificar parsers/datos compartidos sin coordinar con Codex.
+
+Si solo un agente esta disponible, cubrir ambos conjuntos en
+orden: parche y exactitud -> cobertura -> interfaz y QA.
+
+====================================================================
+9. PRUEBAS, PUBLICACION Y PRIVACIDAD
+====================================================================
+
+Ejecutar despues de cambios:
+  npm ci
+  npm test
+  npm run build
+  npm run meta:check   (requiere red y no debe escribir archivos)
+
+Tests que deben seguir funcionando:
+- roster sin duplicados;
+- identidad de roles y composicion;
+- build de Akali Central vs Baron sin confundir runas;
+- guias 40/28 sin regresiones;
+- no mezclar guias desactualizadas con parche nuevo;
+- iconos por URL exacta/fallback;
+- parser de nombres con apostrofo (ej. Darius);
+- guias multirol (ej. Gwen, Yone, Lux);
+- listas de hechizos situacionales;
+- cache SW online/offline;
+- rutas / y /camille.html;
+- UI movil sin overflow;
+- avisos claros si patchSubjects es null.
+
+GitHub Actions:
+- tests/deploy desde cloudflare-pages.yml;
+- MetaSync desde motorwr-meta-watch.yml;
+- auditoria de fuentes desde workflow correspondiente.
+
+MetaSync fue configurado en cron de dos ejecuciones diarias,
+08:17 y 20:17 UTC. Confirmar estado real de cron, permisos y
+resultados antes de asumir que todo esta operando correctamente.
+
+Trabajar en rama feature/fix y PR. NO fusionar a main ni ejecutar
+despliegue de produccion salvo indicacion explicita del propietario.
+No exponer token Cloudflare, GitHub, contrasenas ni secretos.
+No cambiar visibilidad del repositorio o accesos de Cloudflare:
+el propietario gestionara esa configuracion.
+
+MotorWr es PERSONAL. Las licencias de assets, politicas de Riot y
+condiciones de proveedores siguen aplicando aun cuando sea privado.
+
+====================================================================
+10. FORMATO DE ENTREGA POR CADA BLOQUE
+====================================================================
+
+Entregar:
+1. Estado inicial (SHA, rama, version, parche, cobertura real).
+2. Problemas reales descubiertos (con evidencia).
+3. Cambios implementados y archivos afectados.
+4. Resultados completos de tests/build/QA PASS o FAIL, sin inventarlos.
+5. Cobertura antes/despues por campeon Y rol, vigente vs stale.
+6. Limites de fuentes, iconos, habilidades y licencia.
+7. Commits, PR, enlace a CI, estado de publicacion y rollback.
+8. Siguiente bloque propuesto, evitando repetir trabajo integrado.
+
+EL PROPIETARIO QUIERE IMPLEMENTACION, NO SOLO PLANES.
+Procede a trabajar con codigo real, cambios pequeños, pruebas y PR.
+Si una fuente falla, informa el limite en lugar de fabricar resultados.
+Da prioridad a estabilidad, exactitud, trazabilidad y UX movil.
+
+====================================================================
+11. ARRANQUE INMEDIATO
+====================================================================
+
+1) Revisar GitHub main actualizado y ejecutar tests base.
+2) Auditar discrepancy snapshot 7.3c vs referencias/notas 7.3b.
+3) Investigar patchSubjects null y no generar valores inventados.
+4) Auditar los 40 pares existentes e iconos antes de ampliar.
+5) Preparar siguiente lote incremental de campeones no cubiertos.
+6) Mejorar UX mobile, iconos y estados de carga/error.
+7) Dejar PR documentada y CI verde, sin publicar main automaticamente.
+
+FIN DEL TXT MOTORWR.
