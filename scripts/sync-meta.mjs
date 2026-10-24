@@ -29,7 +29,10 @@ async function request(url,maxBytes=2_000_000){
 const official=await request(OFFICIAL_PATCH_INDEX);
 const latest=parseOfficialPatchIndex(official);
 if(comparePatch(latest.patch,old.patch)<0)throw Error('Official source went backwards; keep last known-good metadata.');
-let patchSubjects=old.patchSubjects||null;
+// An empty extraction means "unknown", not "no champion/item/rune changes".
+let patchSubjects=old.patchSubjects &&
+ Object.values(old.patchSubjects).some(section=>Array.isArray(section)&&section.length)
+ ?old.patchSubjects:null;
 if(comparePatch(latest.patch,old.patch)>0||!patchSubjects){
  const current=old.patch.split('.').map(x=>parseInt(x,10));
  const next=latest.patch.split('.').map(x=>parseInt(x,10));
@@ -39,7 +42,8 @@ if(comparePatch(latest.patch,old.patch)>0||!patchSubjects){
  // Never promote an unconfirmed slug/404 as a valid official article.
  const noteBody=await request(latest.url,3_000_000);
  if(!noteBody.toLowerCase().includes(latest.patch))throw Error('Official article does not contain the detected patch');
- patchSubjects=parseOfficialPatchSubjects(noteBody,OFFICIAL_ROSTER.map(x=>x.name));
+ const extracted=parseOfficialPatchSubjects(noteBody,OFFICIAL_ROSTER.map(x=>x.name));
+ patchSubjects=Object.values(extracted).some(section=>section.length)?extracted:null;
 }
 const patch=comparePatch(latest.patch,old.patch)>0?latest.patch:old.patch;
 const source=new Map(BUILD_REFERENCES.map(r=>[r.champion,r.source.url]));
@@ -99,7 +103,10 @@ const candidate={
  officialSource:OFFICIAL_PATCH_INDEX,
  guides:[...guideMap.values()].sort((a,b)=>(a.champion+'|'+a.role).localeCompare(b.champion+'|'+b.role)),
  patchSubjects,
- warning:errors.length?'Algunas fuentes editoriales necesitan revisión; se conservaron los últimos datos válidos.':null
+ warning:[
+  ...(errors.length?['Algunas fuentes editoriales necesitan revisión; se conservaron los últimos datos válidos.']:[]),
+  ...(patchSubjects===null?['La lista de cambios de campeones, objetos y runas del nuevo parche no se pudo clasificar con certeza. Consultar notas oficiales.']:[])
+ ].join(' ')||null
 };
 const before=JSON.stringify({...old,updatedAt:'x'});
 const after=JSON.stringify({...candidate,updatedAt:'x'});
