@@ -40,10 +40,29 @@ export function validateAutoMeta(raw){
 export function resolveBuildReference(champion,role,meta){
  const value=validateAutoMeta(meta);
  const fresh=value.guides.find(x=>x.champion===champion&&x.role===role&&x.patch===value.patch);
- if(fresh)return {
-  status:'referenced',reference:fresh,automated:true,
-  message:'Referencia editorial actualizada automáticamente y contrastada con su fuente. No se adapta por sí sola al draft.'
- };
+ if(fresh){
+  // Build/runes/spells are current, but an ability icon list may only exist in
+  // the older editorial snapshot. Surface that age instead of claiming review.
+  const historical=getBuildReference(champion,role,BUILD_SOURCE_PATCH);
+  const previous=historical.reference;
+  const reference={...fresh};
+  if(fresh.abilities){
+   reference.abilitiesVerifiedPatch=fresh.patch;
+  }else if(previous?.abilities){
+   reference.abilities={...previous.abilities};
+   reference.abilitiesVerifiedPatch=previous.patch;
+  }
+  if(!Array.isArray(reference.skillPriority)||!reference.skillPriority.length){
+   if(previous?.skillPriorityStatus==='source_reviewed' && previous.skillPriority?.length){
+    reference.priorSkillPriority=[...previous.skillPriority];
+    reference.priorSkillPriorityPatch=previous.patch;
+   }
+  }
+  return {
+   status:'referenced',reference,automated:true,
+   message:'Build y runas contrastadas para '+value.patch+'. Las habilidades indican separadamente su último parche revisado.'
+  };
+ }
  const previous=getBuildReference(champion,role,value.patch);
  if(previous.status==='referenced')return {...previous,automated:false};
  if(previous.status==='stale')return {
