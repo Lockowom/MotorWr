@@ -70,6 +70,28 @@ function readNamesAfterMarker(block, marker, quantity) {
  if(!validNames(entries,quantity)){const clue={paragraphs:entries.slice(0,9),text:stripTags(remaining).slice(0,270),alts:[...remaining.matchAll(/alt=[\"']([^\"']{2,100})[\"']/gi)].slice(0,8).map(m=>m[1])};throw Error('Malformed '+marker+' section: '+JSON.stringify(clue));}
  return entries;
 }
+
+// Read champion ability *identities* only; this is not a skill-leveling priority.
+// The source publishes P/Q/W/E/R names as text preceding their 15-level grids.
+export function parseEditorialAbilityKit(html,champion){
+ const group=splitByH2(html).find(section=>{
+  const normalized=section.title.toLowerCase();
+  return normalized.endsWith(' skill order') &&
+    normalized.startsWith(champion.toLowerCase()+"'");
+ });
+ if(!group)return null;
+ const passive=paragraphs(group.html).find(p=>/\(Passive\)/i.test(p))?.replace(/\s*\(Passive\)\s*/i,'').trim();
+ const after=group.html.split(/Quick Skill Order/i)[1]||'';
+ const skillArea=after.split(/Quick Skill Order/i)[0];
+ const skills=[...skillArea.matchAll(/\n\s*([^<>\n]{2,100}?)\s*\n\s*<ul\b/gi)]
+  .map(m=>stripTags(m[1]));
+ const values=[passive,...skills];
+ if(values.length!==5||values.some(v=>!v||v.length>85||/[<>]/.test(v))||
+   new Set(values.map(v=>v.toLowerCase())).size!==5)return null;
+ const slots=['P','Q','W','E','R'];
+ return Object.fromEntries(slots.map((slot,i)=>[slot,values[i]]));
+}
+
 export function parseEditorialGuide(html,champion,expectedRoles){
  if(typeof html!=='string'||html.length<1000||html.length>5_000_000)throw Error('Invalid editorial guide body');
  if(!Array.isArray(expectedRoles)||!expectedRoles.length)throw Error('Roles must be provided');
@@ -91,6 +113,7 @@ export function parseEditorialGuide(html,champion,expectedRoles){
   ?declaredRoles
   :itemGroups.length===1&&expectedRoles.length===1 ? expectedRoles : null;
  if(!roles)throw Error('Cannot reliably map editorial guide groups to roles');
+ const abilityKit=parseEditorialAbilityKit(html,champion);
  const parsed=[];
  for(let i=0;i<roles.length;i++){
   if(!expectedRoles.includes(roles[i]))continue;
@@ -106,7 +129,7 @@ export function parseEditorialGuide(html,champion,expectedRoles){
   };
   const spells=read(spellBlock,2),runes=read(runeBlock,5);
   if(!validNames(spells,2)||!validNames(runes,5))throw Error('Bad spell/rune field count; '+JSON.stringify({spells,runes}).slice(0,220));
-  parsed.push({role:roles[i],patch,finalItems:items,spells,runes});
+  parsed.push({role:roles[i],patch,finalItems:items,spells,runes,...(abilityKit?{abilities:abilityKit}:{})});
  }
  if(!parsed.length)throw Error('No supported role sections found for '+champion);
  return parsed;
