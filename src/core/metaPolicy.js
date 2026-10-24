@@ -17,6 +17,9 @@ export function validateAutoMeta(raw){
     new Set(a).size!==a.length)throw Error('Secciones de parche inválidas: '+key);
   }
  }
+ const validAbilities=kit=>kit&&typeof kit==='object'&&!Array.isArray(kit)&&
+  ['P','Q','W','E','R'].every(k=>typeof kit[k]==='string'&&kit[k].length>=2&&kit[k].length<=100&&
+   !/[<>]/.test(kit[k]))&&Object.keys(kit).length===5;
  const seen=new Set();
  for(const guide of raw.guides){
   const key=String(guide.champion)+'|'+guide.role;
@@ -28,6 +31,7 @@ export function validateAutoMeta(raw){
    !Array.isArray(guide.spells)||guide.spells.length!==2||
    ![...guide.finalItems,...guide.runes,...guide.spells].every(s=>typeof s==='string'&&s.length>=2&&s.length<=100)||
    !/^\d{4}-\d\d-\d\d$/.test(guide.checkedAt))throw Error('Guía automática inválida: '+key);
+  if(guide.abilities!==undefined&&!validAbilities(guide.abilities))throw Error('Kit de habilidades inválido: '+key);
   seen.add(key);
  }
  return raw;
