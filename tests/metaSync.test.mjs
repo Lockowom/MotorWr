@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {comparePatch,parseOfficialPatchIndex,parseOfficialPatchSubjects,parseEditorialGuide,stableGuideFingerprint} from '../src/core/metaSync.js';
+import {comparePatch,parseOfficialPatchIndex,parseOfficialPatchSubjects,parseEditorialGuide,parseEditorialAbilityKit,stableGuideFingerprint} from '../src/core/metaSync.js';
 import {resolveBuildReference,validateAutoMeta,patchDisplayStatus} from '../src/core/metaPolicy.js';
 import {BUILD_SOURCE_PATCH} from '../src/data/buildReferences.js';
 const initial=JSON.parse(fs.readFileSync(new URL('../src/data/autoMeta.json',import.meta.url)));
@@ -38,6 +38,12 @@ assert.equal(p[0].finalItems.length,6);
 assert.equal(p[1].spells[1],'Smite');
 assert.equal(p[0].runes.length,5);
 assert.equal(p[0].patch,'7.3b');
+const abilitiesFixture='<h1>Gwen Build Guide for Wild Rift</h1><h2>Gwen\'s Skill Order</h2>'+
+ '<p>Thousand Cuts (Passive)</p>Quick Skill Order\nSnip Snip!\n<ul><li></li></ul>\nHallowed Mist\n<ul></ul>\nSkip \'n Slash\n<ul></ul>\nNeedlework\n<ul></ul>Quick Skill Order';
+const abilityResult=parseEditorialAbilityKit(abilitiesFixture,'Gwen');
+assert.deepEqual(abilityResult,{P:'Thousand Cuts',Q:'Snip Snip!',W:'Hallowed Mist',E:"Skip 'n Slash",R:'Needlework'});
+assert.equal(parseEditorialAbilityKit('<h2>Other</h2>','Gwen'),null);
+
 
 const imgAlt=name=>'<img alt="'+name.replace(/'/g,'&#039;')+'" src="stub.png">';
 const sourceLike='<h1>Camille Build Guide for Wild Rift</h1><p>Patch 7.3b</p><p>Solo Build A</p>'+
@@ -68,6 +74,8 @@ const snapshot={champion:'Camille',role:'baron',patch:'7.3c',checkedAt:'2026-11-
 assert.equal(resolveBuildReference('Camille','baron',{...newMeta,guides:[snapshot]}).status,'referenced');
 assert.equal(resolveBuildReference('Camille','jungle',{...newMeta,guides:[snapshot]}).status,'stale');
 assert.throws(()=>validateAutoMeta({...newMeta,guides:[snapshot,snapshot]}));
+assert.equal(validateAutoMeta({...newMeta,guides:[{...snapshot,abilities:abilityResult}]}).guides[0].abilities.Q,'Snip Snip!');
+assert.throws(()=>validateAutoMeta({...newMeta,guides:[{...snapshot,abilities:{Q:'Snip Snip!'}}]}));
 assert.throws(()=>validateAutoMeta({...newMeta,guides:[{...snapshot,source:{...snapshot.source,url:'https://evil.test/guide'}}]}));
 assert.throws(()=>validateAutoMeta({...newMeta,patchUrl:'https://evil.test'}));
 console.log('PASS: live meta parsers, stale gates, source trust, role mapping and change fingerprints');
