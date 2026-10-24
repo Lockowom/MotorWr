@@ -1286,10 +1286,6 @@
       "skillPriorityStatus": "pending_review"
     }
   ],
-  "patchSubjects": {
-    "champions": [],
-    "items": [],
-    "runes": []
-  },
-  "warning": null
+  "patchSubjects": null,
+  "warning": "La lista de cambios de campeones, objetos y runas del nuevo parche no se pudo clasificar con certeza. Consultar notas oficiales."
 }
