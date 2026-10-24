@@ -2,9 +2,11 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {comparePatch,parseOfficialPatchIndex,parseOfficialPatchSubjects,parseEditorialGuide,stableGuideFingerprint} from '../src/core/metaSync.js';
 import {resolveBuildReference,validateAutoMeta,patchDisplayStatus} from '../src/core/metaPolicy.js';
+import {BUILD_SOURCE_PATCH} from '../src/data/buildReferences.js';
 const initial=JSON.parse(fs.readFileSync(new URL('../src/data/autoMeta.json',import.meta.url)));
 validateAutoMeta(initial);
-assert.equal(initial.patch,'7.3b');
+assert(/^\d+\.\d+[a-z]?$/.test(initial.patch),'El parche guardado debe ser válido, no estar fijado a un único release');
+assert(comparePatch(initial.patch,BUILD_SOURCE_PATCH)>=0,'El meta vigente no puede retroceder frente al catálogo editorial');
 assert(comparePatch('7.4','7.3b')>0);
 assert(comparePatch('7.10','7.9')>0);
 assert(comparePatch('7.3b','7.3a')>0);
@@ -54,10 +56,12 @@ assert.throws(()=>parseEditorialGuide(sample.replace('<p>Runes</p>','<p>No rune 
 const fp=stableGuideFingerprint(p[0]);
 assert.equal(fp,stableGuideFingerprint({...p[0],checkedAt:'2088-01-01'}));
 assert.notEqual(fp,stableGuideFingerprint({...p[0],runes:['Aery',...p[0].runes.slice(1)]}));
-const oldRef=resolveBuildReference('Camille','baron',initial);
+// Fixed local fixture: the real snapshot may advance automatically from 7.3b to 7.3c, 7.4, etc.
+const referenceMeta={...initial,patch:BUILD_SOURCE_PATCH,patchUrl:'https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3b/',guides:[]};
+const oldRef=resolveBuildReference('Camille','baron',referenceMeta);
 assert.equal(oldRef.status,'referenced');
 assert.equal(oldRef.automated,false);
-const newMeta={...initial,patch:'7.3c',patchUrl:'https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3c/',guides:[]};
+const newMeta={...referenceMeta,patch:'7.3c',patchUrl:'https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3c/',guides:[]};
 assert.equal(resolveBuildReference('Camille','baron',newMeta).status,'stale');
 assert.equal(patchDisplayStatus(newMeta,'7.3b'),'awaiting_review');
 const snapshot={champion:'Camille',role:'baron',patch:'7.3c',checkedAt:'2026-11-01',source:{publisher:'WildRiftFire',type:'third_party_editorial',url:'https://www.wildriftfire.com/guide/camille'},finalItems:p[0].finalItems,runes:p[0].runes,spells:p[0].spells,skillPriority:[],skillPriorityStatus:'pending_review'};
