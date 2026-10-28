@@ -1,15 +1,15 @@
 {
   "schema": 1,
-  "patch": "7.3c",
-  "patchUrl": "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3c/",
-  "updatedAt": "2026-10-24",
+  "patch": "7.3d",
+  "patchUrl": "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3d/",
+  "updatedAt": "2026-10-28",
   "officialSource": "https://wildrift.leagueoflegends.com/en-us/news/tags/patch-notes/",
   "guides": [
     {
       "champion": "Ahri",
       "role": "mid",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -40,8 +40,8 @@
     {
       "champion": "Akali",
       "role": "baron",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -72,8 +72,8 @@
     {
       "champion": "Akali",
       "role": "mid",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -104,8 +104,8 @@
     {
       "champion": "Ashe",
       "role": "dragon",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -136,8 +136,8 @@
     {
       "champion": "Brand",
       "role": "mid",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -168,8 +168,8 @@
     {
       "champion": "Brand",
       "role": "support",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -200,8 +200,8 @@
     {
       "champion": "Camille",
       "role": "baron",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -232,8 +232,8 @@
     {
       "champion": "Camille",
       "role": "jungle",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -264,8 +264,8 @@
     {
       "champion": "Darius",
       "role": "baron",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -296,8 +296,8 @@
     {
       "champion": "Darius",
       "role": "jungle",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -328,8 +328,8 @@
     {
       "champion": "Diana",
       "role": "jungle",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -360,8 +360,8 @@
     {
       "champion": "Diana",
       "role": "mid",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -392,8 +392,8 @@
     {
       "champion": "Ezreal",
       "role": "dragon",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -424,8 +424,8 @@
     {
       "champion": "Garen",
       "role": "baron",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -456,8 +456,8 @@
     {
       "champion": "Gwen",
       "role": "baron",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -488,8 +488,8 @@
     {
       "champion": "Gwen",
       "role": "jungle",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -520,8 +520,8 @@
     {
       "champion": "Jinx",
       "role": "dragon",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -552,8 +552,8 @@
     {
       "champion": "Lee Sin",
       "role": "jungle",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -584,8 +584,8 @@
     {
       "champion": "Leona",
       "role": "support",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -616,8 +616,8 @@
     {
       "champion": "Lucian",
       "role": "dragon",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -648,8 +648,8 @@
     {
       "champion": "Lux",
       "role": "mid",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -680,8 +680,8 @@
     {
       "champion": "Lux",
       "role": "support",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -712,8 +712,8 @@
     {
       "champion": "Master Yi",
       "role": "jungle",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -744,8 +744,8 @@
     {
       "champion": "Miss Fortune",
       "role": "dragon",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -776,8 +776,8 @@
     {
       "champion": "Morgana",
       "role": "mid",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -808,8 +808,8 @@
     {
       "champion": "Morgana",
       "role": "support",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -840,8 +840,8 @@
     {
       "champion": "Nami",
       "role": "support",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -872,8 +872,8 @@
     {
       "champion": "Orianna",
       "role": "mid",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -904,8 +904,8 @@
     {
       "champion": "Riven",
       "role": "baron",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -936,8 +936,8 @@
     {
       "champion": "Riven",
       "role": "jungle",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -968,8 +968,8 @@
     {
       "champion": "Seraphine",
       "role": "support",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -1000,8 +1000,8 @@
     {
       "champion": "Sett",
       "role": "baron",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -1032,8 +1032,8 @@
     {
       "champion": "Thresh",
       "role": "support",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -1064,8 +1064,8 @@
     {
       "champion": "Vi",
       "role": "jungle",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -1096,8 +1096,8 @@
     {
       "champion": "Viego",
       "role": "jungle",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -1128,8 +1128,8 @@
     {
       "champion": "Yasuo",
       "role": "baron",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -1160,8 +1160,8 @@
     {
       "champion": "Yasuo",
       "role": "mid",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -1192,8 +1192,8 @@
     {
       "champion": "Yone",
       "role": "baron",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -1224,8 +1224,8 @@
     {
       "champion": "Yone",
       "role": "jungle",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
@@ -1256,8 +1256,8 @@
     {
       "champion": "Yone",
       "role": "mid",
-      "patch": "7.3c",
-      "checkedAt": "2026-10-24",
+      "patch": "7.3d",
+      "checkedAt": "2026-10-28",
       "source": {
         "publisher": "WildRiftFire",
         "type": "third_party_editorial",
