@@ -2,7 +2,7 @@
   "schema": 1,
   "patch": "7.3f",
   "patchUrl": "https://wildrift.leagueoflegends.com/en-us/news/game-updates/wild-rift-patch-notes-7-3f/",
-  "updatedAt": "2026-11-11",
+  "updatedAt": "2026-11-12",
   "officialSource": "https://wildrift.leagueoflegends.com/en-us/news/tags/patch-notes/",
   "guides": [
     {
@@ -1302,5 +1302,5 @@
     ],
     "runes": []
   },
-  "warning": null
+  "warning": "Algunas fuentes editoriales necesitan revisión; se conservaron los últimos datos válidos."
 }
